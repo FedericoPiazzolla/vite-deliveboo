@@ -19,7 +19,7 @@ export default {
       <span class="ms_logo-text d-md-inline-block text-center">Deliveboo</span>
 
       <!-- nav menu per login e carrello -->
-      <ul class="list-unstyled d-flex justify-content-between align-items-center h-100 m-0">
+      <ul class="list-unstyled d-flex justify-content-end align-items-center h-100 m-0">
         <li>
           <a href="">Log-In</a>
         </li>
@@ -53,7 +53,18 @@ export default {
     }
 
     ul {
-      width: 15%;;
+      width: 20%;
+      li {
+        padding-left: 1rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    /* Regole CSS specifiche per schermi con larghezza massima di 575px (dispositivi mobili) */
+    .ms_logo-image, ul {
+      width: 50% !important;
+      justify-content: end !important;
     }
   }
 </style>

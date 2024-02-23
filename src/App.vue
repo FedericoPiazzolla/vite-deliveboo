@@ -1,11 +1,13 @@
 <script >
-import AppHeader from './components/AppHeader.vue'
+import AppHeader from './components/AppHeader.vue';
+import AppJumbotron from './components/AppJumbotron.vue';
 export default {
   data() {
     
   },
   components: {
     AppHeader,
+    AppJumbotron,
   }
 }
 </script>
@@ -13,9 +15,9 @@ export default {
 <template>
 
   <AppHeader/>
-
+  
   <main>
-
+    <appJumbotron />
   </main>
   
 </template>
@@ -23,7 +25,4 @@ export default {
 <style lang="scss">
 @use "./scss/partials/variables" as *;
 
-main {
-  background-color: $bg-color;
-}
 </style>
