@@ -20,5 +20,10 @@ export default {
   
 </template>
 
-<style >
+<style lang="scss">
+@use "./scss/partials/variables" as *;
+
+main {
+  background-color: $bg-color;
+}
 </style>
