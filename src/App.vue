@@ -1,8 +1,23 @@
 <script >
+import AppHeader from './components/AppHeader.vue'
+export default {
+  data() {
+    
+  },
+  components: {
+    AppHeader,
+  }
+}
 </script>
 
 <template>
-  <h1>Ciao</h1>
+
+  <AppHeader/>
+
+  <main>
+
+  </main>
+  
 </template>
 
 <style >
