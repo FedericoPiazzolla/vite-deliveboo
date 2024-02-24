@@ -22,8 +22,11 @@ export default {
         <img class="h-100" :src="getImageUrl('deliveboo_logo.png')" alt="logoristo">
 
       </div>
+      <!-- /immagine del logo che porta alla home -->
 
+      <!-- Central text logo -->
       <span class="ms_logo-text d-md-inline-block text-center">Deliveboo</span>
+      <!-- /Central text logo -->
 
       <!-- nav menu per login e carrello -->
       <ul class="list-unstyled d-flex justify-content-end align-items-center h-100 m-0">
@@ -34,6 +37,7 @@ export default {
           <a href="">Carrello</a>
         </li>
       </ul>
+      <!-- /nav menu per login e carrello -->
 
     </div>
 

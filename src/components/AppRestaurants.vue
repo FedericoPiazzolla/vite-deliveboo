@@ -25,11 +25,19 @@ export default {
 
     <div class="container">
       <div class="row g-3 ms_row">
+
+        <!-- Restaurant col -->
         <div v-for="(card, index) in cards" :key="index" class="col-md-4 col-sm-12">
+
+          <!-- Restaurant card -->
           <div class="cards">
             {{ card }}
           </div>
+          <!-- /Restaurant Card -->
+
         </div>
+        <!-- /Restaurant col -->
+
       </div>
     </div>
 

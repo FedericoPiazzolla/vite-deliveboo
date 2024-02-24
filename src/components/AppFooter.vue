@@ -16,6 +16,7 @@ export default {
 
       <div class="row text-center pt-5">
 
+        <!-- Uniamo le forze col -->
         <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Uniamo le forze</h5>
           <ul class="d-flex flex-column gap-3 list-unstyled">
@@ -25,7 +26,9 @@ export default {
             <li><a href="#">Deliveboo Business</a></li>
           </ul>
         </div>
+        <!-- /uniamo le forze col -->
 
+        <!-- Link col -->
         <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Link di Interesse</h5>
           <ul class="d-flex flex-column gap-3 list-unstyled">
@@ -37,7 +40,9 @@ export default {
             <li><a href="#">Sicurezza</a></li>
           </ul>
         </div>
+        <!-- /link col -->
         
+        <!-- Models col -->
         <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Modulistica</h5>
           <ul class="d-flex flex-column gap-3 list-unstyled">
@@ -47,7 +52,9 @@ export default {
             <li><a href="#">Conformità</a></li>
           </ul>
         </div>
+        <!-- /Models col -->
 
+        <!-- Follow us col -->
         <div class="col-6 col-md-4 col-lg-3 offset-md-4 offset-lg-0 mb-5">
           <h5 class="mb-3 text-md-center">Seguici</h5>
           <ul class="d-flex gap-3 fs-4 justify-content-center list-unstyled">
@@ -57,10 +64,13 @@ export default {
             <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
           </ul>
         </div>
+        <!-- /Follow Us Col -->
 
       </div>
 
+      <!-- References -->
       <p class="ms_our-group text-center m-0 py-4 fs-5">By Group 7 &hearts;</p>
+      <!-- /References -->
 
     </div>
   </footer>
