@@ -59,7 +59,7 @@ export default {
           <h5 class="mb-3 text-md-center">Seguici</h5>
           <ul class="d-flex gap-3 fs-4 justify-content-center list-unstyled">
             <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-            <li><a href="#"><i class="fa-brands fa-square-instagram"></i></a></li>
+            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
             <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
             <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
           </ul>
