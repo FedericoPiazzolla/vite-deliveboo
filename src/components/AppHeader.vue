@@ -1,6 +1,13 @@
 <script>
 export default {
-
+  data() {
+    return {}
+  },
+  methods: {
+    getImageUrl(imgName) {
+      return new URL(`../assets/img/${imgName}`, import.meta.url).href;
+    },
+  }
 }
 </script>
 
@@ -12,7 +19,7 @@ export default {
       <!-- immagine del logo che porta alla home -->
       <div class="ms_logo-image ">
 
-        <img class="h-100" src="/deliveboo_logo.png" alt="logoristo">
+        <img class="h-100" :src="getImageUrl('deliveboo_logo.png')" alt="logoristo">
 
       </div>
 
