@@ -51,6 +51,7 @@ export default {
 
   .ms_row {
     flex-wrap: wrap;
+    flex-direction: column;
     .ms_col {
       width: 100% !important;     
     }    
