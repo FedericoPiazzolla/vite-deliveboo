@@ -27,7 +27,7 @@ export default {
       <div class="row g-3 ms_row">
 
         <!-- Restaurant col -->
-        <div v-for="(card, index) in cards" :key="index" class="col-md-4 col-sm-12">
+        <div v-for="(card, index) in cards" :key="index" class="ms_col col-md-4 col-sm-12">
 
           <!-- Restaurant card -->
           <div class="cards">
@@ -73,8 +73,12 @@ export default {
     .ms_row {
       flex-direction: column;
 
-      .cards {
-        width: 100%;
+      .ms_col:nth-child(odd) {
+        display: flex;
+        justify-content: end;
+      }
+      .cards{
+        width: 80%;
         height: 150px;
       }      
     }
