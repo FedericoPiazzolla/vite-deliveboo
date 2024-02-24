@@ -10,13 +10,13 @@ export default {
 
 <template>
   <footer>
-    <div class="container">
+    <div class="container pt-5">
 
       <h3 class="ms_logo-text text-center">Deliveboo</h3>
 
-      <div class="row text-center">
+      <div class="row text-center pt-5">
 
-        <div class="col-6 col-md-4 col-lg-3">
+        <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Uniamo le forze</h5>
           <ul class="d-flex flex-column gap-3 list-unstyled">
             <li><a href="#">Lavora con noi</a></li>
@@ -26,7 +26,7 @@ export default {
           </ul>
         </div>
 
-        <div class="col-6 col-md-4 col-lg-3">
+        <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Link di Interesse</h5>
           <ul class="d-flex flex-column gap-3 list-unstyled">
             <li><a href="#">Chi siamo</a></li>
@@ -38,7 +38,7 @@ export default {
           </ul>
         </div>
         
-        <div class="col-6 col-md-4 col-lg-3">
+        <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Modulistica</h5>
           <ul class="d-flex flex-column gap-3 list-unstyled">
             <li><a href="#">Termini e condizioni</a></li>
@@ -48,7 +48,7 @@ export default {
           </ul>
         </div>
 
-        <div class="col-6 col-md-4 col-lg-3 offset-md-4">
+        <div class="col-6 col-md-4 col-lg-3 offset-md-4 offset-lg-0 mb-5">
           <h5 class="mb-3 text-md-center">Seguici</h5>
           <ul class="d-flex gap-3 fs-4 justify-content-center list-unstyled">
             <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
@@ -60,7 +60,7 @@ export default {
 
       </div>
 
-      <p class="ms_our-group text-center m-0">By Group 7</p>
+      <p class="ms_our-group text-center m-0 py-4 fs-5">By Group 7 &hearts;</p>
 
     </div>
   </footer>
@@ -71,7 +71,7 @@ export default {
 
 footer{
   background-color: $primary;
-  color: #F2F0E4;
+  color: $bg-btn;
 
   .ms_logo-text{
     font-family: "Lobster", sans-serif;
@@ -82,16 +82,17 @@ footer{
   h5 {
     color: $main-text;
     font-weight: bolder;
+    font-size: 1.5rem;
   }
 
   ul {
 
     li {
       a {
-        color: rgb(162, 161, 161);
+        color: $bg-color;
         text-decoration: none;
         &:hover {
-          color: #F2F0E4;
+          color: $bg-btn;
         }
       }
     }
@@ -99,7 +100,7 @@ footer{
   
 
   .ms_our-group {
-    color: rgb(162, 161, 161);
+    color: $bg-color;
     font-size: 14px;
   }
 }
