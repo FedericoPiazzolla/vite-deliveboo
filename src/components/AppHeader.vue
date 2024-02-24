@@ -60,8 +60,8 @@ export default {
     }
   }
 
-  @media screen and (max-width: 575px) {
-    /* Regole CSS specifiche per schermi con larghezza massima di 575px (dispositivi mobili) */
+  @media screen and (max-width: 500px) {
+    /* Regole CSS specifiche per schermi con larghezza massima di 500px (dispositivi mobili) */
     .ms_logo-image, ul {
       width: 50% !important;
       justify-content: end !important;
