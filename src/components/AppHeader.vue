@@ -19,8 +19,10 @@ export default {
       <!-- immagine del logo che porta alla home -->
       <div class="ms_logo-image ">
 
-        <img class="h-100" :src="getImageUrl('deliveboo_logo.png')" alt="logoristo">
-
+        <router-link to="/">
+          <img class="h-100" :src="getImageUrl('deliveboo_logo.png')" alt="logoristo">
+        </router-link>
+        
       </div>
       <!-- /immagine del logo che porta alla home -->
 
