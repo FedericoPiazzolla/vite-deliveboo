@@ -54,7 +54,7 @@ export default {
   .cards {
     width: 100%;
     height: 400px;
-    background-color: aqua;
+    background-color: $bg-btn;
   }
 }
   

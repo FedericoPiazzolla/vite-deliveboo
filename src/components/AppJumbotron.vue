@@ -53,7 +53,7 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background-image: url("/jumbotron.jpeg");
+    background-image: url("../assets/img/jumbotron.jpeg");
     background-position: center;
     background-size: cover;
     filter: brightness(0.5);
