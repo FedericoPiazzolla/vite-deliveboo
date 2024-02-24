@@ -64,6 +64,10 @@ export default {
     background-color: $bg-btn;
     color: $main-text;
     width: 60%;
+
+    &:hover{
+      background-color: lighten($color: $bg-btn, $amount: 20%);
+    }
   }
   
 }
