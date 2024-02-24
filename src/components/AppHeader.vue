@@ -7,7 +7,7 @@ export default {
 <template>
   <header>
 
-    <div class="container h-100 d-flex justify-content-between align-items-center p-3">
+    <div class="h-100 d-flex justify-content-between align-items-center p-3">
 
       <!-- immagine del logo che porta alla home -->
       <div class="ms_logo-image ">
