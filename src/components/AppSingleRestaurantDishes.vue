@@ -1,7 +1,8 @@
 <script>
-import AppBestSellersCarousel from "./AppBestSellersCarousel.vue";
+import AppBestSellers from "./AppBestSellers.vue";
+import AppDishesList from "./AppDishesList.vue";
 export default {
-  components: { AppBestSellersCarousel },
+  components: { AppBestSellers, AppDishesList },
   data() {
     return {};
   },
@@ -15,7 +16,8 @@ export default {
       <span class="ms-2 fs-5 fw-bold">Best Sellers</span>
     </div>
   </div>
-  <AppBestSellersCarousel />
+  <AppBestSellers />
+  <AppDishesList />
 </template>
 
 <style scoped lang="scss">
