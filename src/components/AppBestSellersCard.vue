@@ -13,11 +13,11 @@ export default {
     <img :src="`${carousel[indexToShow].image}`" alt="" class="rounded-4" />
 
     <div
-      class="portfolio-title d-flex-column justify-content-between align-items-center py-4 px-3">
-      <h5 class="mb-4">
-        <b>{{ carousel[indexToShow].name }}</b>
+      class="bestSellers-title d-none d-sm-flex flex-sm-column pt-sm-4 px-sm-3">
+      <h5 class="fw-sm-bold text-center">
+        {{ carousel[indexToShow].name }}
       </h5>
-      <p class="m-0 d-none d-lg-block">
+      <p class="fs-6 mt-4 m-0 d-none d-lg-block">
         {{ carousel[indexToShow].description }}
       </p>
     </div>
@@ -27,11 +27,19 @@ export default {
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
 .ms_card {
-  min-width: calc(100vw / 3.75);
+  min-width: calc(100vw / 4.75);
+  background-color: $bg-btn;
+  color: $main-text;
+  height: fit-content;
+
+  @media (min-width: 576px) {
+    height: auto;
+  }
+
   img {
     width: 100%;
     aspect-ratio: 1;
-    max-height: 50%;
+    max-height: 40%;
   }
 
   &:hover {
@@ -43,6 +51,12 @@ export default {
 
     p {
       color: $bg-btn;
+    }
+  }
+  .bestSellers-title {
+    overflow: scroll;
+    @media (min-width: 576px) {
+      overflow: unset;
     }
   }
 }

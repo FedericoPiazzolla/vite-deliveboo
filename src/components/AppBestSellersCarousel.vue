@@ -21,7 +21,7 @@ export default {
         {
           name: "Polpette di melanzane",
           image:
-            "https://www.cucchiaio.it/content/cucchiaio/it/ricette/2009/12/ricetta-pasta-norma/_jcr_content/header-par/image_single.img.jpg/1562754500727.jpg",
+            "https://cdn.cook.stbm.it/thumbnails/ricette/42/42477/hd750x421.jpg",
           description: "Pasta con sugo di melanzane e ricotta salata",
         },
         {
@@ -68,9 +68,9 @@ export default {
 </script>
 
 <template>
-  <section class="p-4" id="BestSellers">
+  <section class="" id="BestSellers">
     <div
-      class="ms_container best-sellers-top d-flex justify-content-between align-items-center pb-4">
+      class="ms_container best-sellers-top d-flex justify-content-between align-items-center px-4">
       <div class="carousel-arrow">
         <button @click="showPrev" class="btn-carousel rounded-5">&larr;</button>
         <button @click="showNext" class="btn-carousel ms-4 rounded-5">
@@ -79,7 +79,8 @@ export default {
       </div>
     </div>
 
-    <div class="carousel d-flex py-4 justify-content-center">
+    <div
+      class="carousel d-flex py-4 justify-content-center align-items-stretch">
       <AppBestSellersCard
         :indexToShow="
           this.currentIndex == 0
