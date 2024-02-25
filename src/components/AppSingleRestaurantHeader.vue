@@ -27,36 +27,38 @@ export default {
     this.randomIndex = Math.floor(Math.random() * this.costPossibility.length);
     this.costNumber = this.costPossibility[this.randomIndex];
   },
-
-  name: "SingleRestaurant",
 };
 </script>
 
 <template>
-  <div class="container p-4">
-    <div class="restaurant-header">
-      <div class="main-info d-flex align-items-center">
-        <div class="restaurant-logo">
-          <img src="../assets/img/deliveboo_logo.png" alt="" />
-        </div>
-        <div class="name ms-3">
-          <h3 class="text-center m-0">Single Restaurant</h3>
-          <h6>Restaurant Type</h6>
-        </div>
+  <div class="restaurant-header">
+    <div class="bg-image w-100">
+      <img
+        src="https://www.catellanismith.com/_next/image/?url=https%3A%2F%2Fcatellani.kinsta.cloud%2Fapp%2Fuploads%2F2019%2F05%2Fimg-amb-solo-crudo-3.jpg&w=3840&q=75"
+        alt="" />
+    </div>
+    <div
+      class="main-info py-4 d-flex justify-content-center align-items-center">
+      <div class="restaurant-logo">
+        <img src="../assets/img/deliveboo_logo.png" alt="" />
       </div>
-      <div class="info d-flex justify-content-center text-center mt-4">
-        <div class="rating">
-          <i class="fa-solid fa-star"></i>
-          <span>{{ ratingNumber }}</span>
-        </div>
-        <div class="timing mx-5">
-          <i class="fa-solid fa-clock"></i>
-          <span>{{ timingNumber }} m</span>
-        </div>
-        <div class="cost">
-          <i class="fa-solid fa-sack-dollar"></i>
-          <span>{{ costNumber }}€</span>
-        </div>
+      <div class="name ms-3">
+        <h3 class="text-center m-0">Solo Crudo</h3>
+        <h6>Italiano</h6>
+      </div>
+    </div>
+    <div class="row-cols-6 info d-flex justify-content-center text-center mt-4">
+      <div class="col rating">
+        <i class="fa-solid fa-star"></i>
+        <span>{{ ratingNumber }}</span>
+      </div>
+      <div class="col timing">
+        <i class="fa-solid fa-clock"></i>
+        <span>{{ timingNumber }} m</span>
+      </div>
+      <div class="col cost">
+        <i class="fa-solid fa-sack-dollar"></i>
+        <span>{{ costNumber }}€</span>
       </div>
     </div>
   </div>
@@ -64,6 +66,12 @@ export default {
 
 <style scoped lang="scss">
 .restaurant-header {
+  .bg-image {
+    img {
+      width: 100vw;
+      height: 300px;
+    }
+  }
   .main-info {
     .restaurant-logo {
       img {

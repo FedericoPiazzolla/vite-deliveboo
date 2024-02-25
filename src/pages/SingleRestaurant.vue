@@ -1,8 +1,9 @@
 <script>
-import SingleRestaurantHeader from "../components/SingleRestaurantHeader.vue";
+import AppSingleRestaurantHeader from "../components/AppSingleRestaurantHeader.vue";
+import AppSingleRestaurantDishes from "../components/AppSingleRestaurantDishes.vue";
 
 export default {
-  components: { SingleRestaurantHeader },
+  components: { AppSingleRestaurantHeader, AppSingleRestaurantDishes },
   data() {
     return {};
   },
@@ -11,28 +12,10 @@ export default {
 </script>
 
 <template>
-  <SingleRestaurantHeader />
+  <div class="">
+    <AppSingleRestaurantHeader />
+    <AppSingleRestaurantDishes />
+  </div>
 </template>
 
-<style scoped lang="scss">
-.restaurant-header {
-  .main-info {
-    .restaurant-logo {
-      img {
-        width: 150px;
-      }
-    }
-  }
-
-  .info {
-    div {
-      display: flex;
-      flex-direction: column;
-
-      i {
-        margin-bottom: 10px;
-      }
-    }
-  }
-}
-</style>
+<style scoped lang="scss"></style>
