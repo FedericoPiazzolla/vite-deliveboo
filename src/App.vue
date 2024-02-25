@@ -1,27 +1,24 @@
-<script >
-import AppFooter from './components/AppFooter.vue';
-import AppHeader from './components/AppHeader.vue';
+<script>
+import AppFooter from "./components/AppFooter.vue";
+import AppHeader from "./components/AppHeader.vue";
 export default {
   data() {
-    return {}
+    return {};
   },
-  components: { AppHeader,AppFooter }
-}
+  components: { AppHeader, AppFooter },
+};
 </script>
 
 <template>
+  <AppHeader />
 
-  <AppHeader/>
-  
   <main>
-    <RouterView />
+    <router-view></router-view>
   </main>
 
   <AppFooter />
-  
 </template>
 
 <style lang="scss">
 @use "./scss/partials/variables" as *;
-
 </style>
