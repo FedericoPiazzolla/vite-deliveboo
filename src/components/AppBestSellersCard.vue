@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-  <div class="col ms_card mx-3 shadow rounded-4">
+  <div class="col ms_card me-4 shadow rounded-4">
     <img :src="`${singleDish.image}`" alt="" class="rounded-4" />
 
     <div

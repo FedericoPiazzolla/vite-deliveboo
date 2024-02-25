@@ -50,7 +50,11 @@ export default {
 </script>
 
 <template>
-  <section>
+  <section class="p-4">
+    <div class="title d-flex align-items-center">
+      <i class="fa-solid fa-star"></i>
+      <span class="ms-2 fs-5 fw-bold">Best Sellers</span>
+    </div>
     <div class="best-sellers row-cols-4 d-flex py-4 align-items-stretch">
       <AppBestSellersCard
         v-for="(dish, index) in bestSellers"
@@ -62,6 +66,11 @@ export default {
 
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
+
+.title {
+  color: $primary;
+}
+
 .best-sellers {
   overflow-x: scroll;
 }

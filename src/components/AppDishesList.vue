@@ -104,7 +104,11 @@ export default {
 </script>
 
 <template>
-  <section id="dishesList">
+  <section>
+    <div class="px-4 title d-flex align-items-center">
+      <i class="fa-solid fa-utensils"></i>
+      <span class="ms-2 fs-5 fw-bold">Tutti i piatti</span>
+    </div>
     <div class="d-flex p-4 justify-content-center align-items-stretch">
       <div class="row d-flex flex-column">
         <div
@@ -122,6 +126,10 @@ export default {
 
 <style scoped lang="scss">
 @use "../scss/partials/variables" as *;
+
+.title {
+  color: $primary;
+}
 .col {
   color: $main-text;
   background-color: $bg-btn;
