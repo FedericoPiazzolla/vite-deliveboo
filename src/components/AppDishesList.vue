@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import { store } from "../data/store"
+import { store, saveCart } from "../data/store"
 
 export default {
   components: {},
@@ -18,18 +18,20 @@ export default {
     AddToCart(item) {
       const dish = this.restaurantDishes[item];
       const price = this.restaurantDishes[item].price;
-      dish.quantity = 1;
-
-      // console.log("piatto", dish);
-
-      store.cart.push(dish);
+      
       localStorage.setItem('restaurant', store.restaurants);
 
       // Se il prodotto esiste in store.cart incremento la quantità
-      if (store.cart.contains(dish)) {
-        // store.cart.dish.quantity++;
+      if (store.cart.includes(dish)) {
+        const indexDish = store.cart.indexOf(dish);
+        console.log('Ogetto indice', store.cart[indexDish]);
+        store.cart[indexDish].quantity++;
+      } else {
+        dish.quantity = 1;
+        store.cart.push(dish);
       }
 
+      saveCart(store.cart);
       console.log(store.cart);
     }
   }

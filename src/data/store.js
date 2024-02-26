@@ -4,7 +4,7 @@ export const store = reactive({
   apiUrl: "http://127.0.0.1:8000/",
 
   
-  cart: [],
+  cart: loadCart(),
 
   restaurats: [],
   restaurat_id: 0,
@@ -19,7 +19,7 @@ store.saveCart = saveCart;
 
 
 // Salvo il carrello in store
-function saveCart(cart) {
+export function saveCart(cart) {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
