@@ -11,18 +11,27 @@ export default {
     };
   },
   props: {
-    restaurantDishes: Object,
+    restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
   },
   created() {},
   methods: {
-    // getQuantity(dish_id) {
-      
-    // },
+    AddToCart(item) {
+      const dish = this.restaurantDishes[item];
+      const price = this.restaurantDishes[item].price;
+      dish.quantity = 1;
 
-    // AddToCart() {
-    //   const product = store.cart.find(dish => )
-    //   console.log('ciao');
-    // }
+      // console.log("piatto", dish);
+
+      store.cart.push(dish);
+      localStorage.setItem('restaurant', store.restaurants);
+
+      // Se il prodotto esiste in store.cart incremento la quantità
+      if (store.cart.contains(dish)) {
+        // store.cart.dish.quantity++;
+      }
+
+      console.log(store.cart);
+    }
   }
 };
 </script>
@@ -42,7 +51,7 @@ export default {
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <p class="dish-name m-0 me-3">{{ dish.name }}</p>
           <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
-          <button @click="AddToCart()">Add</button>
+          <button @click="AddToCart(index)">Add</button>
         </div>
       </div>
     </div>
