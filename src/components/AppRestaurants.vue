@@ -15,7 +15,7 @@ export default {
   created() {
     axios.get(`http://127.0.0.1:8000/api/restaurants`).then((resp) => {
       this.store.restaurantLoading = false;
-      console.log(resp.data.results);
+      console.log(resp);
       this.store.restaurantsToShow = resp.data.results;
     });
   },
@@ -32,7 +32,7 @@ export default {
       v-if="store.restaurantLoading == false"
       class="ms_title-restaurants"
       id="homeTitle">
-      I ristoranti intorno a te!
+      Ristoranti intorno a te!
     </h2>
     <div class="container">
       <div class="row g-3 ms_row">

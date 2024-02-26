@@ -26,7 +26,9 @@ export default {
       <!-- /immagine del logo che porta alla home -->
 
       <!-- Central text logo -->
-      <span class="ms_logo-text d-md-inline-block text-center">Deliveboo</span>
+      <span class="ms_logo-text d-md-inline-block text-center bg-image"
+        >Deliveboo</span
+      >
       <!-- /Central text logo -->
 
       <!-- nav menu per login e carrello -->
@@ -50,7 +52,7 @@ export default {
 @use "../scss/partials/variables" as *;
 header {
   height: 120px;
-  background-color: $primary;
+  background-color: $main-text;
   position: fixed;
   z-index: 999;
   width: 100%;
@@ -67,7 +69,13 @@ header {
     font-weight: bold;
     color: $main-text;
   }
+  .bg-image {
+    background-image: url(../assets/img/jumbotron.jpeg);
+    background-size: contain;
 
+    background-clip: text;
+    color: transparent;
+  }
   ul {
     width: 20%;
     li {
@@ -75,7 +83,7 @@ header {
 
       a {
         text-decoration: none;
-        color: inherit;
+        color: $bg-btn;
       }
     }
   }
