@@ -39,6 +39,7 @@ export default {
     width: 100%;
     aspect-ratio: 1;
     max-height: 40%;
+    object-fit: cover;
   }
 
   &:hover {

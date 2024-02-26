@@ -48,6 +48,7 @@ export default {
     width: 20%;
     aspect-ratio: 1;
     border-radius: 2rem;
+    object-fit: cover;
 
     @media (min-width: 576px) {
       width: 7%;
