@@ -10,7 +10,6 @@ export default {
   },
   created() {
     axios.get(`http://127.0.0.1:8000/api/types`).then((resp) => {
-      console.log(resp.data.results);
       this.types = resp.data.results;
     });
   },
@@ -42,7 +41,6 @@ export default {
           if (this.store.typesResearch.length == 0) {
             axios.get(`http://127.0.0.1:8000/api/restaurants`).then((resp) => {
               this.store.restaurantLoading = false;
-              console.log(resp.data.results);
               this.store.restaurantsToShow = resp.data.results;
               document.getElementById("homeTitle").textContent =
                 "I ristoranti intorno a te!";

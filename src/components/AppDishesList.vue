@@ -1,6 +1,6 @@
 <script>
 import axios from "axios";
-import { store } from "../data/store"
+import { store, saveCart, loadCart } from "../data/store"
 
 export default {
   components: {},
@@ -11,18 +11,28 @@ export default {
     };
   },
   props: {
-    restaurantDishes: Object,
+    restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
   },
   created() {},
   methods: {
-    // getQuantity(dish_id) {
+    AddToCart(item) {
+      const dish = this.restaurantDishes[item];
+      const price = this.restaurantDishes[item].price;
       
-    // },
+      localStorage.setItem('restaurant', store.restaurants);
 
-    // AddToCart() {
-    //   const product = store.cart.find(dish => )
-    //   console.log('ciao');
-    // }
+        // Se il prodotto esiste in store.cart incremento la quantità
+        if (store.updatedCart.includes(dish)) {
+          const indexDish = store.updatedCart.indexOf(dish);
+          store.updatedCart[indexDish].quantity++;
+        } else {
+          dish.quantity = 1;
+          store.updatedCart.push(dish);
+        }
+
+      saveCart(store.updatedCart);
+      console.log(store.updatedCart);
+    }
   }
 };
 </script>
@@ -42,7 +52,7 @@ export default {
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <p class="dish-name m-0 me-3">{{ dish.name }}</p>
           <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
-          <button @click="AddToCart()">Add</button>
+          <button @click="AddToCart(index)">Add</button>
         </div>
       </div>
     </div>
