@@ -30,7 +30,6 @@ export default {
 <template>
   <section class="ms_restaurants">
     <h2 class="ms_title-restaurants">" I ristoranti intorno a te! "</h2>
-
     <div class="container">
       <div class="row g-3 ms_row">
         <AppRestaurantCard
@@ -55,17 +54,6 @@ export default {
     font-weight: bolder;
     font-size: 2rem;
   }
-
-  .cards {
-    width: 100%;
-    height: 200px;
-    border-radius: 2rem;
-
-    h4 {
-      text-decoration: none;
-      color: $bg-btn;
-    }
-  }
 }
 
 @media screen and (max-width: 500px) {
@@ -73,16 +61,6 @@ export default {
 
   .ms_row {
     flex-direction: column;
-
-    .ms_col:nth-child(odd) {
-      display: flex;
-      justify-content: end;
-    }
-
-    .cards {
-      width: 80%;
-      height: 150px;
-    }
   }
 }
 </style>
