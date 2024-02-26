@@ -1,35 +1,41 @@
 <script>
+import axios from "axios";
+import AppRestaurantCard from "./AppRestaurantCard.vue";
 export default {
   data() {
     return {
-      cards: ["ciao", "queste", "sono", "6", "card", "uguali"],
+      restaurants: [],
     };
   },
-  methods: {},
+  components: {
+    AppRestaurantCard,
+  },
+
+  created() {
+    axios.get(`http://127.0.0.1:8000/api/restaurants`).then((resp) => {
+      console.log(resp.data.results);
+      this.restaurants = resp.data.results;
+    });
+  },
+  methods: {
+    // searchRestaurant() {
+    //   // 1. svuotare array restaurants[]
+    //   // 2. chiamata axios
+    //   // 3. pushare nell'array restaurants la nuova resp
+    // },
+  },
 };
 </script>
 
 <template>
   <section class="ms_restaurants">
     <h2 class="ms_title-restaurants">" I ristoranti intorno a te! "</h2>
-
     <div class="container">
       <div class="row g-3 ms_row">
-        <!-- Restaurant col -->
-        <div
-          v-for="(card, index) in cards"
+        <AppRestaurantCard
+          v-for="(restaurant, index) in restaurants"
           :key="index"
-          class="ms_col col-md-4 col-sm-12">
-          <!-- Restaurant card -->
-          <router-link :to="{ name: 'singleRestaurant' }">
-            <div class="cards">
-              {{ card }}
-            </div>
-          </router-link>
-
-          <!-- /Restaurant Card -->
-        </div>
-        <!-- /Restaurant col -->
+          :singleRestaurant="restaurant" />
       </div>
     </div>
   </section>
@@ -48,12 +54,6 @@ export default {
     font-weight: bolder;
     font-size: 2rem;
   }
-
-  .cards {
-    width: 100%;
-    height: 400px;
-    background-color: $bg-btn;
-  }
 }
 
 @media screen and (max-width: 500px) {
@@ -61,15 +61,6 @@ export default {
 
   .ms_row {
     flex-direction: column;
-
-    .ms_col:nth-child(odd) {
-      display: flex;
-      justify-content: end;
-    }
-    .cards {
-      width: 80%;
-      height: 150px;
-    }
   }
 }
 </style>
