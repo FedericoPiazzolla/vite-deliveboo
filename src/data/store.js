@@ -7,6 +7,10 @@ export const store = reactive({
 
   restaurats: [],
   restaurat_id: 0,
+
+  typesResearch: [],
+  restaurantsToShow: [],
+  restaurantLoading: true,
 });
 
 // Salvo il carrello
