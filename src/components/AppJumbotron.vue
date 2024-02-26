@@ -1,8 +1,10 @@
 <script>
 import axios from "axios";
+import { store } from "../store";
 export default {
   data() {
     return {
+      store,
       types: [],
     };
   },
@@ -11,6 +13,44 @@ export default {
       console.log(resp.data.results);
       this.types = resp.data.results;
     });
+  },
+  methods: {
+    getTypeId(id) {
+      // Ricavo gli id delle categorie selezionate dall'utente
+      let typesResearch = this.store.typesResearch;
+
+      if (!typesResearch.includes(id)) {
+        typesResearch.push(id);
+      } else {
+        typesResearch.splice(typesResearch.indexOf(id), 1);
+      }
+      // chiamata Axios che restituirà i ristoranti che hanno le tipologie richieste dall'utente
+      let typeParams = this.store.typesResearch.join(",");
+      axios
+        .get(`http://127.0.0.1:8000/api/restaurants`, {
+          params: {
+            type_id: typeParams,
+          },
+        })
+        .then((resp) => {
+          if (this.store.typesResearch.length == 0) {
+            axios.get(`http://127.0.0.1:8000/api/restaurants`).then((resp) => {
+              this.store.restaurantLoading = false;
+              console.log(resp.data.results);
+              this.store.restaurantsToShow = resp.data.results;
+              document.getElementById("homeTitle").textContent =
+                "I ristoranti intorno a te!";
+            });
+          } else {
+            this.store.restaurantsToShow = [];
+            if (resp.data.results) {
+              this.store.restaurantsToShow = resp.data.results;
+              document.getElementById("homeTitle").textContent =
+                "Risultati ricerca";
+            }
+          }
+        });
+    },
   },
 };
 </script>
@@ -27,7 +67,13 @@ export default {
           class="col-sm-2 col-md-3 col-lg-3 mb-lg-2"
           v-for="(type, index) in types"
           :key="index">
-          <btn class="btn ms_btn" href="">{{ type.name }}</btn>
+          <btn
+            class="btn ms_btn"
+            href=""
+            :id="type.id"
+            @click="getTypeId(type.id)"
+            >{{ type.name }}</btn
+          >
         </div>
       </div>
     </div>
