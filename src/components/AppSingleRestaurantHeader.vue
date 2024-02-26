@@ -32,11 +32,7 @@ export default {
 
 <template>
   <div class="restaurant-header">
-    <div class="bg-image w-100">
-      <img
-        src="https://www.catellanismith.com/_next/image/?url=https%3A%2F%2Fcatellani.kinsta.cloud%2Fapp%2Fuploads%2F2019%2F05%2Fimg-amb-solo-crudo-3.jpg&w=3840&q=75"
-        alt="" />
-    </div>
+    <div class="bg-image w-100"></div>
     <div
       class="main-info py-4 d-flex justify-content-center align-items-center">
       <div class="restaurant-logo">
@@ -67,10 +63,11 @@ export default {
 <style scoped lang="scss">
 .restaurant-header {
   .bg-image {
-    img {
-      width: 100vw;
-      height: 300px;
-    }
+    background-image: url("https://www.catellanismith.com/_next/image/?url=https%3A%2F%2Fcatellani.kinsta.cloud%2Fapp%2Fuploads%2F2019%2F05%2Fimg-amb-solo-crudo-3.jpg&w=3840&q=75");
+    height: 300px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   .main-info {
     .restaurant-logo {
