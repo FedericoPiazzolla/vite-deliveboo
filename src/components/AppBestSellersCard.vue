@@ -53,11 +53,5 @@ export default {
       color: $bg-btn;
     }
   }
-  .bestSellers-title {
-    overflow: scroll;
-    @media (min-width: 576px) {
-      overflow: scroll;
-    }
-  }
 }
 </style>
