@@ -49,6 +49,9 @@ export default {
 header {
   height: 120px;
   background-color: $primary;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
 
   .ms_logo-image {
     height: 90%;
