@@ -21,4 +21,8 @@ export default {
 
 <style lang="scss">
 @use "./scss/partials/variables" as *;
+
+main {
+  padding-top: 120px;
+}
 </style>
