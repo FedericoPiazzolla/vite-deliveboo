@@ -1,14 +1,29 @@
 <script>
 import axios from "axios";
+import { store } from "../data/store"
+
 export default {
   components: {},
   data() {
-    return {};
+    return {
+      store,
+      product: [],
+    };
   },
   props: {
-    restaurantDishes: Array,
+    restaurantDishes: Object,
   },
   created() {},
+  methods: {
+    // getQuantity(dish_id) {
+      
+    // },
+
+    // AddToCart() {
+    //   const product = store.cart.find(dish => )
+    //   console.log('ciao');
+    // }
+  }
 };
 </script>
 
@@ -27,6 +42,7 @@ export default {
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <p class="dish-name m-0 me-3">{{ dish.name }}</p>
           <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
+          <button @click="AddToCart()">Add</button>
         </div>
       </div>
     </div>

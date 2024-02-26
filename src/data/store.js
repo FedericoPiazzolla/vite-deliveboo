@@ -3,6 +3,14 @@ import { reactive } from 'vue';
 export const store = reactive({
   apiUrl: "http://127.0.0.1:8000/",
 
+  cart: loadCart(),
+
+  restaurats: [],
+  restaurat_id: 0,
+
+  typesResearch: [],
+  restaurantsToShow: [],
+  restaurantLoading: true,
 });
 
 // Salvo il carrello
@@ -20,9 +28,3 @@ function loadCart() {
   return JSON.parse(localStorage.getItem('cart')) || [];
 }
 
-
-// Aggiungo al carrello
-
-
-
-// Rimuovo dal carrello
