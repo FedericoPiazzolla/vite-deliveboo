@@ -36,7 +36,9 @@ export default {
           <a href="">Log-In</a>
         </li>
         <li>
-          <a href="">Carrello</a>
+          <a href="/cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+          </a>
         </li>
       </ul>
       <!-- /nav menu per login e carrello -->
@@ -69,7 +71,12 @@ header {
   ul {
     width: 20%;
     li {
-      padding-left: 1rem;
+      padding: 0 1rem;
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
     }
   }
 }
