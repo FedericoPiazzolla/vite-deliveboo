@@ -16,6 +16,7 @@ export default {
   },
   methods: {
     getTypeId(id) {
+      // Ricavo gli id delle categorie selezionate dall'utente
       let typesResearch = this.store.typesResearch;
 
       if (!typesResearch.includes(id)) {
@@ -23,7 +24,32 @@ export default {
       } else {
         typesResearch.splice(typesResearch.indexOf(id), 1);
       }
-      console.log(typesResearch);
+      // chiamata Axios che restituirà i ristoranti che hanno le tipologie richieste dall'utente
+      let typeParams = this.store.typesResearch.join(",");
+      axios
+        .get(`http://127.0.0.1:8000/api/restaurants`, {
+          params: {
+            type_id: typeParams,
+          },
+        })
+        .then((resp) => {
+          if (this.store.typesResearch.length == 0) {
+            axios.get(`http://127.0.0.1:8000/api/restaurants`).then((resp) => {
+              this.store.restaurantLoading = false;
+              console.log(resp.data.results);
+              this.store.restaurantsToShow = resp.data.results;
+              document.getElementById("homeTitle").textContent =
+                "I ristoranti intorno a te!";
+            });
+          } else {
+            this.store.restaurantsToShow = [];
+            if (resp.data.results) {
+              this.store.restaurantsToShow = resp.data.results;
+              document.getElementById("homeTitle").textContent =
+                "Risultati ricerca";
+            }
+          }
+        });
     },
   },
 };

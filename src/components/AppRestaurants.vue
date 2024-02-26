@@ -1,10 +1,11 @@
 <script>
 import axios from "axios";
+import { store } from "../store";
 import AppRestaurantCard from "./AppRestaurantCard.vue";
 export default {
   data() {
     return {
-      restaurants: [],
+      store,
     };
   },
   components: {
@@ -13,29 +14,40 @@ export default {
 
   created() {
     axios.get(`http://127.0.0.1:8000/api/restaurants`).then((resp) => {
+      this.store.restaurantLoading = false;
       console.log(resp.data.results);
-      this.restaurants = resp.data.results;
+      this.store.restaurantsToShow = resp.data.results;
     });
-  },
-  methods: {
-    // searchRestaurant() {
-    //   // 1. svuotare array restaurants[]
-    //   // 2. chiamata axios
-    //   // 3. pushare nell'array restaurants la nuova resp
-    // },
   },
 };
 </script>
 
 <template>
   <section class="ms_restaurants">
-    <h2 class="ms_title-restaurants">" I ristoranti intorno a te! "</h2>
+    <h2 class="ms_title-restaurants" v-if="store.restaurantLoading">
+      Caricamento risultati...
+    </h2>
+
+    <h2
+      v-if="store.restaurantLoading == false"
+      class="ms_title-restaurants"
+      id="homeTitle">
+      I ristoranti intorno a te!
+    </h2>
     <div class="container">
       <div class="row g-3 ms_row">
         <AppRestaurantCard
-          v-for="(restaurant, index) in restaurants"
+          v-for="(restaurant, index) in store.restaurantsToShow"
           :key="index"
           :singleRestaurant="restaurant" />
+
+        <h6
+          v-if="
+            this.store.restaurantsToShow.length === 0 &&
+            this.store.typesResearch.length > 0
+          ">
+          La tua ricerca non ha prodotto risultati!
+        </h6>
       </div>
     </div>
   </section>
