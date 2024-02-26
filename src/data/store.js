@@ -4,8 +4,8 @@ export const store = reactive({
   apiUrl: "http://127.0.0.1:8000/",
 
   updatedCart: loadCart(),
-  restaurats: [],
-  restaurat_id: 0,
+  restaurants: [],
+  restaurant_id: '',
 
   typesResearch: [],
   restaurantsToShow: [],
