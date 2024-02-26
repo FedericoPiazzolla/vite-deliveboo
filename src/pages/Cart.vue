@@ -1,5 +1,5 @@
 <script>
-import { store } from '../data/store';
+import { saveCart, store } from '../data/store';
 
 export default {
   name: 'Cart',
@@ -7,45 +7,21 @@ export default {
   data() {
     return {
       store,
-      cartItems: {
-        product1: {
-          name: 'Pizza Margherita',
-          price: 7,
-          ingredients: 'Pomodoro, mozzarella, basilico',
-          quantity: 1
-        },
-        product2: {
-          name: 'Pasta Carbonara',
-          price: 10,
-          ingredients: 'Uova, pancetta, pecorino, pepe',
-          quantity: 1
-        },
-        product3: {
-          name: 'Insalata Caesar',
-          price: 8,
-          ingredients: 'Lattuga, crostini, parmigiano, salsa caesar',
-          quantity: 1
-        },
-        product4: {
-          name: 'Hamburger Classico',
-          price: 12,
-          ingredients: 'Manzo, formaggio, lattuga, pomodoro',
-          quantity: 1
-        }
-      }
     }
   },
   methods: {
     // Aggiungo una quantità del prodotto
     addQuantity(dishKey) {
-      this.cartItems[dishKey].quantity++;
+      this.store.updatedCart[dishKey].quantity++;
+      saveCart(store.updatedCart);
     },
 
     removeQuantity(dishKey) {
-      if (this.cartItems[dishKey].quantity > 1) {
-        this.cartItems[dishKey].quantity--;
+      if (store.updatedCart[dishKey].quantity > 1) {
+        store.updatedCart[dishKey].quantity--;
+        saveCart(store.updatedCart);
       } else {
-        // this.$delete(this.cartItems, dishKey);
+
       }
     },
 
@@ -53,11 +29,11 @@ export default {
     calcTotal() {
       let total = 0;
 
-      for (const index in this.cartItems) {
-        total += this.cartItems[index].price * this.cartItems[index].quantity;
+      for (const index in store.updatedCart) {
+        total += store.updatedCart[index].price * store.updatedCart[index].quantity;
       }
 
-      return total
+      return total.toFixed(2)
     }
   }
 }
@@ -73,7 +49,7 @@ export default {
         <h4 class="mb-3">Nome ristorante da cui acquisto</h4>
 
         <ol class="list-group list-group-numbered">
-          <li v-for="(product, index) in cartItems" :key="index" class="ps-4 rounded-5 mb-3 flex-column flex-md-row list-group-item d-flex justify-content-between align-items-start">
+          <li v-for="(product, index) in store.updatedCart" :key="index" class="ps-4 rounded-5 mb-3 flex-column flex-md-row list-group-item d-flex justify-content-between align-items-start">
             <div class="ms-md-2 me-auto">
               <p class="fw-bold mb-1">
                 {{ product.name }}

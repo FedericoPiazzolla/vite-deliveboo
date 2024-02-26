@@ -3,9 +3,7 @@ import { reactive } from 'vue';
 export const store = reactive({
   apiUrl: "http://127.0.0.1:8000/",
 
-  
-  cart: loadCart(),
-
+  updatedCart: loadCart(),
   restaurats: [],
   restaurat_id: 0,
 
@@ -17,15 +15,14 @@ export const store = reactive({
 // Salvo il carrello
 store.saveCart = saveCart;
 
-
 // Salvo il carrello in store
 export function saveCart(cart) {
-  localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('updatedCart', JSON.stringify(cart));
 }
 
 
 // Carico il carrello in store
-function loadCart() {
-  return JSON.parse(localStorage.getItem('cart')) || [];
+export function loadCart() {
+  return JSON.parse(localStorage.getItem('updatedCart')) || [];
 }
 
