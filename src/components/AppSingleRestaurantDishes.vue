@@ -2,13 +2,14 @@
 import AppBestSellers from "./AppBestSellers.vue";
 import AppDishesList from "./AppDishesList.vue";
 import axios from "axios";
+import { store } from "../data/store";
 export default {
   components: { AppBestSellers, AppDishesList },
   data() {
     return {
       dishes: [],
       bestSellers: [],
-      restaurant_id: 2,
+      store,
     };
   },
   methods: {
@@ -17,12 +18,26 @@ export default {
       let shuffledDishes = this.dishes.sort(() => 0.5 - Math.random());
       this.bestSellers = shuffledDishes.slice(0, 5);
     },
+
+    // Salvo l'id ristorante nel local store
+    saveRestaurantId(restaurant_id) {
+      localStorage.setItem("restaurant_id", JSON.stringify(restaurant_id));
+    },
+
+    // Carico il restaurant_id dal local store
+    loadRestaurantId() {
+      return JSON.parse(localStorage.getItem("restaurant_id")) || [];
+    },
   },
   created() {
+    if (this.store.restaurant_id !== "") {
+      this.saveRestaurantId(store.restaurant_id);
+    }
+    const restaurantToShow = this.loadRestaurantId();
+    console.log(restaurantToShow);
+
     axios
-      .get(
-        `http://127.0.0.1:8000/api/dishes?restaurant_id=${this.restaurant_id}`
-      )
+      .get(`http://127.0.0.1:8000/api/dishes?restaurant_id=${restaurantToShow}`)
       .then((resp) => {
         this.dishes = resp.data.results.data;
         this.getRandomBestSeller();

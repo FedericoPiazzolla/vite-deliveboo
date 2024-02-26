@@ -18,12 +18,18 @@ export default {
     getTypeId(id) {
       // Ricavo gli id delle categorie selezionate dall'utente
       let typesResearch = this.store.typesResearch;
+      let typeButton = document.getElementById(id);
 
       if (!typesResearch.includes(id)) {
         typesResearch.push(id);
+        typeButton.classList.add("selected");
       } else {
         typesResearch.splice(typesResearch.indexOf(id), 1);
+        typeButton.classList.remove("selected");
       }
+
+      // Aggiungo classe per evidenziare i type selezionati
+
       // chiamata Axios che restituirà i ristoranti che hanno le tipologie richieste dall'utente
       let typeParams = this.store.typesResearch.join(",");
       axios
@@ -100,14 +106,23 @@ export default {
     z-index: -1;
   }
 
+  .selected {
+    background-color: blue;
+  }
   .ms_btn {
-    background-color: $bg-btn;
-    color: $main-text;
+    background-color: $main-text;
+    color: $bg-btn;
     width: 60%;
 
     &:hover {
       background-color: lighten($color: $bg-btn, $amount: 20%);
+      color: $main-text;
     }
+  }
+
+  .selected {
+    background-color: lighten($color: $bg-btn, $amount: 20%);
+    color: $main-text;
   }
 }
 

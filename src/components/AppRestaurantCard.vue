@@ -1,13 +1,21 @@
 <script>
 import axios from "axios";
+import { store } from "../data/store";
 export default {
   data() {
     return {
       restaurants: [],
+      store,
     };
   },
   props: {
     singleRestaurant: Object,
+  },
+  methods: {
+    getRestaurantId(id) {
+      this.store.restaurant_id = id;
+      console.log(this.store.restaurant_id);
+    },
   },
 };
 </script>
@@ -17,10 +25,13 @@ export default {
     <router-link :to="{ name: 'singleRestaurant' }">
       <div
         class="cards"
+        @click="getRestaurantId(singleRestaurant.id)"
         :style="`background-image: url(${singleRestaurant.restaurant_image})`">
-        <h5>
-          {{ singleRestaurant.restaurant_name }}
-        </h5>
+        <div class="title">
+          <h5 class="p-2 text-center">
+            {{ singleRestaurant.restaurant_name }}
+          </h5>
+        </div>
       </div>
     </router-link>
   </div>
@@ -45,9 +56,14 @@ export default {
     height: 200px;
     border-radius: 2rem;
 
-    h4 {
-      text-decoration: none;
-      color: $bg-btn;
+    .title {
+      background-color: $bg-btn;
+      border-top-left-radius: 2rem;
+      border-top-right-radius: 2rem;
+      h5 {
+        text-decoration: none;
+        color: $main-text;
+      }
     }
   }
 }

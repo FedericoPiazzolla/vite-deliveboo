@@ -1,4 +1,5 @@
 <script>
+import axios from "axios";
 export default {
   components: {},
   data() {
@@ -10,8 +11,10 @@ export default {
       costPossibility: [0, 1.99, 2.99, 3.99],
       randomIndex: "",
       costNumber: "",
+      restaurant: {},
     };
   },
+  props: {},
   mounted() {
     // Generare una valutazione da 1 a 5
     this.temporaryRatingNumber = Math.random() * (5 - 1) + 1;
@@ -27,6 +30,28 @@ export default {
     this.randomIndex = Math.floor(Math.random() * this.costPossibility.length);
     this.costNumber = this.costPossibility[this.randomIndex];
   },
+  methods: {
+    // Salvo l'id ristorante nel local store
+    saveRestaurantId(restaurant_id) {
+      localStorage.setItem("restaurant_id", JSON.stringify(restaurant_id));
+    },
+    // Carico il restaurant_id dal local store
+    loadRestaurantId() {
+      return JSON.parse(localStorage.getItem("restaurant_id")) || [];
+    },
+  },
+  created() {
+    const restaurantToShow = this.loadRestaurantId();
+    console.log(restaurantToShow);
+    axios
+      .get(
+        `http://127.0.0.1:8000/api/restaurants?restaurant_id=${restaurantToShow}`
+      )
+      .then((resp) => {
+        console.log(resp);
+        this.restaurant = resp.data.results;
+      });
+  },
 };
 </script>
 
@@ -39,8 +64,8 @@ export default {
         <img src="../assets/img/deliveboo_logo.png" alt="" />
       </div>
       <div class="name ms-3">
-        <h3 class="text-center m-0">Solo Crudo</h3>
-        <h6>Italiano</h6>
+        <h3 class="text-center m-0">{{ this.restaurant.restaurant_name }}</h3>
+        <h6>{{ this.restaurant.restaurant_address }}</h6>
       </div>
     </div>
     <div class="row-cols-6 info d-flex justify-content-center text-center mt-4">
