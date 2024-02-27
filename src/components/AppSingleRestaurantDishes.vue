@@ -19,11 +19,6 @@ export default {
       this.bestSellers = shuffledDishes.slice(0, 5);
     },
 
-    // Salvo l'id ristorante nel local store
-    saveRestaurantId(restaurant_id) {
-      localStorage.setItem("restaurant_id", JSON.stringify(restaurant_id));
-    },
-
     // Carico il restaurant_id dal local store
     loadRestaurantId() {
       return JSON.parse(localStorage.getItem("restaurant_id")) || [];

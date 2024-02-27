@@ -30,18 +30,10 @@ export default {
     this.randomIndex = Math.floor(Math.random() * this.costPossibility.length);
     this.costNumber = this.costPossibility[this.randomIndex];
   },
-  methods: {
-    // Salvo l'id ristorante nel local store
-    saveRestaurantId(restaurant_id) {
-      localStorage.setItem("restaurant_id", JSON.stringify(restaurant_id));
-    },
-    // Carico il restaurant_id dal local store
-    loadRestaurantId() {
-      return JSON.parse(localStorage.getItem("restaurant_id")) || [];
-    },
-  },
+  methods: {},
+
   created() {
-    const restaurantToShow = this.loadRestaurantId();
+    const restaurantToShow = localStorage.getItem("restaurant_id");
     console.log(restaurantToShow);
     axios
       .get(
@@ -57,11 +49,12 @@ export default {
 
 <template>
   <div class="restaurant-header">
-    <div class="bg-image w-100"></div>
     <div
-      class="main-info py-4 d-flex justify-content-center align-items-center">
+      :style="`background-image: url(${this.restaurant.restaurant_image})`"
+      class="bg-image w-100"></div>
+    <div class="main-info p-4 d-flex justify-content-center align-items-center">
       <div class="restaurant-logo">
-        <img src="../assets/img/deliveboo_logo.png" alt="" />
+        <img :src="`${this.restaurant.restaurant_logo}`" alt="" />
       </div>
       <div class="name ms-3">
         <h3 class="text-center m-0">{{ this.restaurant.restaurant_name }}</h3>
@@ -88,7 +81,6 @@ export default {
 <style scoped lang="scss">
 .restaurant-header {
   .bg-image {
-    background-image: url("https://www.catellanismith.com/_next/image/?url=https%3A%2F%2Fcatellani.kinsta.cloud%2Fapp%2Fuploads%2F2019%2F05%2Fimg-amb-solo-crudo-3.jpg&w=3840&q=75");
     height: 300px;
     background-position: center;
     background-size: cover;

@@ -27,8 +27,6 @@ export default {
         typeButton.classList.remove("selected");
       }
 
-      // Aggiungo classe per evidenziare i type selezionati
-
       // chiamata Axios che restituirà i ristoranti che hanno le tipologie richieste dall'utente
       let typeParams = this.store.typesResearch.join(",");
       axios
@@ -55,31 +53,68 @@ export default {
           }
         });
     },
+    openMenu() {
+      let menu = document.querySelector(".tipology");
+      let title = document.getElementById("titleMenu");
+      menu.classList.toggle("active");
+      title.classList.toggle("d-none");
+    },
+
+    getImageUrl(imgName) {
+      return new URL(`../assets/img/types-icon/${imgName}`, import.meta.url)
+        .href;
+    },
+
+    showTypeText(indexText) {
+      let typeText = document.getElementById(`typeText-${indexText}`);
+      typeText.classList.add("d-block");
+    },
+
+    hideTypeText(indexText) {
+      let typeText = document.getElementById(`typeText-${indexText}`);
+      typeText.classList.remove("d-block");
+    },
   },
 };
 </script>
 
 <template>
   <div class="ms_jumbotron h-100 d-flex align-items-end justify-content-center">
-    <div class="container h-100">
+    <div class="container my-auto">
       <!-- imaggine di sfondo -->
       <div class="ms_background-overlay"></div>
 
-      <!-- bottoni per scegliere le types -->
-      <div class="row p-2 g-2 g-sm-2 text-md-center text-sm-start h-100">
-        <div
-          class="col-sm-2 col-md-3 col-lg-3 mb-lg-2"
-          v-for="(type, index) in types"
-          :key="index">
-          <btn
-            class="btn ms_btn"
-            href=""
-            :id="type.id"
-            @click="getTypeId(type.id)"
-            >{{ type.name }}</btn
-          >
+      <!-- MENÙ PROVA -->
+      <ul class="tipology">
+        <div class="menuToggle d-flex flex-column" @click="openMenu">
+          <i class="fa-solid fa-plus"></i>
+          <p id="titleMenu" class="fs-6">Tipologie</p>
         </div>
-      </div>
+
+        <li
+          v-for="(type, index) in types"
+          @click="getTypeId(type.id)"
+          :key="type.id"
+          :style="`--i:${type.id}`">
+          <a
+            class="text-decoration-none d-flex justify-content-center"
+            href="#"
+            @mouseleave="hideTypeText(type.id)">
+            <img
+              :id="type.id"
+              :style="`transform: rotate(calc(-360deg / 12 * ${type.id}))`"
+              @mouseover="showTypeText(type.id)"
+              :src="getImageUrl(type.icon)"
+              alt="" />
+            <p
+              :id="`typeText-${type.id}`"
+              class="fs-6 ms-3 mb-0 text-center"
+              :style="`transform: rotate(calc(-360deg / 12 * ${type.id}))`">
+              {{ type.name }}
+            </p>
+          </a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -103,10 +138,6 @@ export default {
     filter: brightness(0.5);
     z-index: -1;
   }
-
-  .selected {
-    background-color: blue;
-  }
   .ms_btn {
     background-color: $main-text;
     color: $bg-btn;
@@ -119,17 +150,93 @@ export default {
   }
 
   .selected {
-    background-color: lighten($color: $bg-btn, $amount: 20%);
+    // background-color: lighten($color: $bg-btn, $amount: 20%);
+    border: 3px solid $bg-btn;
+
     color: $main-text;
+    p {
+      color: $bg-btn;
+      display: block;
+    }
+  }
+}
+
+// MENÙ PROVA
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .tipology {
+    position: relative;
+    width: 90px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    li {
+      position: absolute;
+      left: 0;
+      bottom: 100px;
+      list-style: none;
+      transform-origin: 60px;
+      transition: 0.5s;
+      transition-delay: calc(0.1s * var(--I));
+
+      a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        border-radius: 50%;
+        color: white;
+        transform: rotate(0deg) translateX(150px);
+
+        img {
+          display: none;
+          mix-blend-mode: multiply;
+          width: 55px;
+          aspect-ratio: 1;
+        }
+
+        p {
+          display: none;
+        }
+      }
+    }
+
+    .menuToggle {
+      position: absolute;
+      bottom: 100px;
+      width: 60px;
+      height: 60px;
+      color: $bg-btn;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      // z-index: 1000;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 2rem;
+      transition: transform 1.5s;
+    }
+  }
+  .tipology.active li {
+    transform: rotate(calc(360deg / 12 * var(--i)));
+  }
+
+  .tipology.active img {
+    display: block;
+  }
+  .tipology.active .menuToggle {
+    transform: rotate(315deg);
   }
 }
 
 @media screen and (max-width: 500px) {
   /* Regole CSS specifiche per schermi con larghezza massima di 500px (dispositivi mobili) */
-  .ms_btn {
-    width: 30% !important;
-  }
-
   .ms_jumbotron {
     align-items: center !important;
   }
