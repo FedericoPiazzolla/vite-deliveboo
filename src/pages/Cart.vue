@@ -20,8 +20,9 @@ export default {
       if (store.updatedCart[dishKey].quantity > 1) {
         store.updatedCart[dishKey].quantity--;
         saveCart(store.updatedCart);
-      } else {
-
+      } else if (store.updatedCart[dishKey].quantity === 1){
+        store.updatedCart.splice(dishKey, 1);
+        saveCart(store.updatedCart);
       }
     },
     removeDish() {
@@ -46,11 +47,11 @@ export default {
 <template>
   <section class="ms_cart-section">
     <!-- carrello con lista ordinata dei prodotti, totale da pagare e bottoni -->
-    <section id="cart-container">
+    <section id="cart-container" v-if="store.updatedCart.length > 0">
       
-      <h2 class="mb-4 text-uppercase text-center">Carrello <i class="fa-solid fa-cart-shopping"></i></h2>
+        <h2 class="mb-4 text-uppercase text-center">Carrello <i class="fa-solid fa-cart-shopping"></i></h2>
       
-        <h4 class="mb-3">Nome ristorante da cui acquisto</h4>
+        <h4 class="mb-3">{{ store.updatedCart[0].restaurant.restaurant_name }}</h4>
 
         <ol class="list-group list-group-numbered">
           <li v-for="(product, index) in store.updatedCart" :key="index" class="ps-4 rounded-5 mb-3 flex-column flex-md-row list-group-item d-flex justify-content-between align-items-start">
@@ -76,6 +77,10 @@ export default {
           <p class="text-decoration-underline mb-3 text-warning px-5 fw-bolder fs-3">Totale: &euro; {{ calcTotal() }}</p>
           <button @click="removeDish()">Elimna piatti</button>
         </div>
+    </section>
+
+    <section v-else class="text-center">
+      <h2>Il tuo carello è vuoto</h2>
     </section>
   </section>
 </template>

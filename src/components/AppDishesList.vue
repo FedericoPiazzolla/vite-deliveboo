@@ -14,29 +14,45 @@ export default {
       restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
     },
     methods: {
-      AddToCart(item) {
+      addQuantity(item) {
         const dish = this.restaurantDishes[item];
 
-        let cart = loadCart();
-
-        console.log("Carrello importato", cart)
-
         localStorage.setItem('restaurant', JSON.stringify(store.restaurant));
-      
-        const existentDish = cart.find((dishToFind) => dishToFind.id === dish.id);
+
+        const existentDish = store.updatedCart.find((dishToFind) => dishToFind.id === dish.id);
         if (existentDish) {
           existentDish.quantity++;
         } else {
-          if (cart.length > 0 && cart[0].restaurant_id !== dish.restaurant_id) {
-            alert('Non puoi ordinare da più ristoranti')
+          if (store.updatedCart.length > 0 && store.updatedCart[0].restaurant_id !== dish.restaurant_id) {
+            alert('Non puoi ordinare da più ristoranti');
+            return;
           }
           dish.quantity = 1;
-          cart.push(dish);
+          store.updatedCart.push(dish);
         }
-        
-        saveCart(cart);
-      }
-    }
+        saveCart(store.updatedCart);
+      },
+
+      removeQuantity(item) {
+        const dish = this.restaurantDishes[item];
+
+        const existentDishIndex = store.updatedCart.findIndex((dishToFind) => dishToFind.id === dish.id);
+
+        if (existentDishIndex !== -1) {
+            if (store.updatedCart[existentDishIndex] && store.updatedCart[existentDishIndex].quantity > 1) {
+                store.updatedCart[existentDishIndex].quantity--;
+            } else {
+                store.updatedCart.splice(existentDishIndex, 1);
+            }
+
+          saveCart(store.updatedCart);
+        }
+      },
+      getCartQuantity(dishId) {
+        const cartItem = store.updatedCart.find((item) => item.id === dishId);
+        return cartItem ? cartItem.quantity : 0;
+      },
+    },
   };
 </script>
 
@@ -52,7 +68,15 @@ export default {
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <p class="dish-name m-0 me-3">{{ dish.name }}</p>
           <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
-          <button @click="AddToCart(index)">Add</button>
+          <div class="d-inline-block mt-2 mb-2 mb-md-0">
+              <button class="px-2 py-1" @click="removeQuantity(index)">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <span class="px-2 fw-bold">{{ getCartQuantity(dish.id) }}</span>
+              <button class="px-2 py-1" @click="addQuantity(index)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
         </div>
       </div>
     </div>
