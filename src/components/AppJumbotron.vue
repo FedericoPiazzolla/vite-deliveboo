@@ -216,7 +216,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      // z-index: 1000;
       border-radius: 50%;
       cursor: pointer;
       font-size: 2rem;
