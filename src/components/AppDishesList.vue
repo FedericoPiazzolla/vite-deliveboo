@@ -3,41 +3,37 @@ import axios from "axios";
 import { store, saveCart, loadCart } from "../data/store"
 
 export default {
-  components: {},
-  data() {
-    return {
-      store,
-      product: [],
-    };
-  },
-  props: {
-    restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
-  },
-  created() {
-    console.log("Carrello importato created", loadCart());
-  },
-  methods: {
-    AddToCart(item) {
-      const dish = this.restaurantDishes[item];
-      const price = this.restaurantDishes[item].price;
+    components: {},
+    data() {
+      return {
+        store,
+        product: [],
+      };
+    },
+    props: {
+      restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
+    },
+    methods: {
+      AddToCart(item) {
+        const dish = this.restaurantDishes[item];
 
-      let cart = loadCart();
+        let cart = loadCart();
 
-      console.log("Carrello importato", cart)
+        console.log("Carrello importato", cart)
 
-      localStorage.setItem('restaurant', store.restaurants);
-
+        localStorage.setItem('restaurant', JSON.stringify(store.restaurant));
       
         const existentDish = cart.find((dishToFind) => dishToFind.id === dish.id);
-        console.log("Piatto già esistente trovato:", existentDish);
         if (existentDish) {
-          console.log("C'è già!");
-          existentDish.quantity++
+          existentDish.quantity++;
         } else {
+          if (cart.length > 0 && cart[0].restaurant_id !== dish.restaurant_id) {
+            alert('Non puoi ordinare da più ristoranti')
+          }
           dish.quantity = 1;
           cart.push(dish);
         }
-        console.log("Carello importato aggiornato", cart);
+        
         saveCart(cart);
       }
     }
