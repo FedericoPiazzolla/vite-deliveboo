@@ -15,7 +15,7 @@ export default {
   created() {
     axios.get(`http://127.0.0.1:8000/api/restaurants`).then((resp) => {
       this.store.restaurantLoading = false;
-      this.store.restaurantsToShow = resp.data.results.data;
+      this.store.restaurantsToShow = resp.data.results;
       console.log(this.store.restaurantsToShow);
     });
 
