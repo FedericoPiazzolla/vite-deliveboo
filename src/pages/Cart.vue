@@ -24,6 +24,10 @@ export default {
 
       }
     },
+    removeDish() {
+      localStorage.clear();
+      store.updatedCart = [];
+    },
 
     // calcolo il totale
     calcTotal() {
@@ -70,6 +74,7 @@ export default {
 
         <div class="d-flex justify-content-end">
           <p class="text-decoration-underline mb-3 text-warning px-5 fw-bolder fs-3">Totale: &euro; {{ calcTotal() }}</p>
+          <button @click="removeDish()">Elimna piatti</button>
         </div>
     </section>
   </section>

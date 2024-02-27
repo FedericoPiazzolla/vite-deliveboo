@@ -13,28 +13,35 @@ export default {
   props: {
     restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
   },
-  created() {},
+  created() {
+    console.log("Carrello importato created", loadCart());
+  },
   methods: {
     AddToCart(item) {
       const dish = this.restaurantDishes[item];
       const price = this.restaurantDishes[item].price;
-      
+
+      let cart = loadCart();
+
+      console.log("Carrello importato", cart)
+
       localStorage.setItem('restaurant', store.restaurants);
 
-        // Se il prodotto esiste in store.cart incremento la quantità
-        if (store.updatedCart.includes(dish)) {
-          const indexDish = store.updatedCart.indexOf(dish);
-          store.updatedCart[indexDish].quantity++;
+      
+        const existentDish = cart.find((dishToFind) => dishToFind.id === dish.id);
+        console.log("Piatto già esistente trovato:", existentDish);
+        if (existentDish) {
+          console.log("C'è già!");
+          existentDish.quantity++
         } else {
           dish.quantity = 1;
-          store.updatedCart.push(dish);
+          cart.push(dish);
         }
-
-      saveCart(store.updatedCart);
-      console.log(store.updatedCart);
+        console.log("Carello importato aggiornato", cart);
+        saveCart(cart);
+      }
     }
-  }
-};
+  };
 </script>
 
 <template>
@@ -45,10 +52,7 @@ export default {
     </div>
     <div class="d-flex px-5 pt-4 justify-content-center align-items-stretch">
       <div class="row d-flex flex-column">
-        <div
-          class="col d-flex align-items-center ps-0 mb-3"
-          v-for="(dish, index) in restaurantDishes"
-          :key="index">
+        <div class="col d-flex align-items-center ps-0 mb-3" v-for="(dish, index) in restaurantDishes" :key="index">
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <p class="dish-name m-0 me-3">{{ dish.name }}</p>
           <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
@@ -65,6 +69,7 @@ export default {
 .title {
   color: $primary;
 }
+
 .col {
   color: $main-text;
   background-color: $bg-btn;
@@ -79,15 +84,19 @@ export default {
     @media (min-width: 576px) {
       width: 7%;
     }
+
     @media (min-width: 1800px) {
       width: 5%;
     }
   }
+
   .dish-name {
     width: 50%;
+
     @media (min-width: 576px) {
       width: 50%;
     }
+
     @media (min-width: 992px) {
       width: 30%;
     }
