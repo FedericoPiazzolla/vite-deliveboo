@@ -12,9 +12,8 @@ export default {
     singleRestaurant: Object,
   },
   methods: {
-    getRestaurantId(id) {
-      this.store.restaurant_id = id;
-      console.log(this.store.restaurant_id);
+    getRestaurantId(restaurant_id) {
+      localStorage.setItem("restaurant_id", JSON.stringify(restaurant_id));
     },
   },
 };
@@ -22,7 +21,9 @@ export default {
 
 <template>
   <div class="ms_col col-md-4 col-sm-12">
-    <router-link :to="{ name: 'singleRestaurant' }">
+    <router-link
+      class="text-decoration-none"
+      :to="{ name: 'singleRestaurant' }">
       <div
         class="cards"
         @click="getRestaurantId(singleRestaurant.id)"

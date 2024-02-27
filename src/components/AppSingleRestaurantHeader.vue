@@ -30,18 +30,10 @@ export default {
     this.randomIndex = Math.floor(Math.random() * this.costPossibility.length);
     this.costNumber = this.costPossibility[this.randomIndex];
   },
-  methods: {
-    // Salvo l'id ristorante nel local store
-    saveRestaurantId(restaurant_id) {
-      localStorage.setItem("restaurant_id", JSON.stringify(restaurant_id));
-    },
-    // Carico il restaurant_id dal local store
-    loadRestaurantId() {
-      return JSON.parse(localStorage.getItem("restaurant_id")) || [];
-    },
-  },
+  methods: {},
+
   created() {
-    const restaurantToShow = this.loadRestaurantId();
+    const restaurantToShow = localStorage.getItem("restaurant_id");
     console.log(restaurantToShow);
     axios
       .get(
