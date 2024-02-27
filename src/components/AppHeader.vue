@@ -15,7 +15,7 @@ export default {
   <header>
     <div class="h-100 d-flex justify-content-between align-items-center p-3">
       <!-- immagine del logo che porta alla home -->
-      <div class="ms_logo-image w-25">
+      <div class="ms_logo-image">
         <router-link to="/">
           <img
             class="h-100"
@@ -33,12 +33,12 @@ export default {
 
       <!-- nav menu per login e carrello -->
       <ul
-        class="list-unstyled d-flex justify-content-end align-items-center h-100 m-0 w-25">
+        class="list-unstyled d-flex justify-content-end align-items-center h-100 m-0">
         <li>
-          <a href="">Log-In</a>
+          <a class="" href="">Log-In</a>
         </li>
         <li>
-          <a href="/cart">
+          <a class="" href="/cart">
             <i class="fa-solid fa-cart-shopping"></i>
           </a>
         </li>
@@ -84,6 +84,11 @@ header {
       a {
         text-decoration: none;
         color: $bg-btn;
+        display: inline-block;
+        background-color: $bg-btn;
+        color: $main-text;
+        padding: .4rem .5rem;
+        border-radius: 2rem;
       }
     }
   }
