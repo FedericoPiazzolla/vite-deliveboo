@@ -40,9 +40,9 @@ export default {
 
         if (existentDishIndex !== -1) {
             if (store.updatedCart[existentDishIndex] && store.updatedCart[existentDishIndex].quantity > 1) {
-                store.updatedCart[existentDishIndex].quantity--;
+              store.updatedCart[existentDishIndex].quantity--;
             } else {
-                store.updatedCart.splice(existentDishIndex, 1);
+              store.updatedCart.splice(existentDishIndex, 1);
             }
 
           saveCart(store.updatedCart);
@@ -65,18 +65,25 @@ export default {
     <div class="d-flex px-5 pt-4 justify-content-center align-items-stretch">
       <div class="row d-flex flex-column">
         <div class="col d-flex align-items-center ps-0 mb-3" v-for="(dish, index) in restaurantDishes" :key="index">
+          <!-- card image -->
           <img class="me-2" :src="`${dish.image}`" alt="" />
+          <!-- /card image -->
+
+          <!-- card content -->
           <p class="dish-name m-0 me-3">{{ dish.name }}</p>
           <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
-          <div class="d-inline-block mt-2 mb-2 mb-md-0">
-              <button class="px-2 py-1" @click="removeQuantity(index)">
+          <!-- /card content -->
+
+          <div class="ms_quantity d-inline-block mt-2 mb-2 mb-md-0">
+              <button class="ms_card-btn px-2 py-1" @click="removeQuantity(index)">
                 <i class="fa-solid fa-minus"></i>
               </button>
-              <span class="px-2 fw-bold">{{ getCartQuantity(dish.id) }}</span>
-              <button class="px-2 py-1" @click="addQuantity(index)">
+              <span class="ms_quantity-show px-2 fw-bold">{{ getCartQuantity(dish.id) }}</span>
+              <button class="ms_card-btn px-2 py-1" @click="addQuantity(index)">
                 <i class="fa-solid fa-plus"></i>
               </button>
-            </div>
+          </div>
+          <!-- /quantità card -->
         </div>
       </div>
     </div>
@@ -124,6 +131,22 @@ export default {
 
   p {
     width: 40%;
+  }
+
+  .ms_quantity {
+    background-color: $bg-color;
+    border-radius: 2rem;
+
+    .ms_card-btn {
+      background-color: $main-text;
+      color: $bg-btn;
+      border: 0;
+      border-radius: 50%;
+
+      &:active {
+        background-color: red;
+      }
+    }
   }
 }
 </style>

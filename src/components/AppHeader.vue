@@ -92,7 +92,7 @@ header {
     color: transparent;
   }
   ul {
-    width: 20%;
+    width: 25%;
     li {
       padding: 0 1rem;
 
