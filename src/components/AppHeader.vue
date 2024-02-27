@@ -1,12 +1,21 @@
 <script>
+import { store } from "../data/store"
+
 export default {
   data() {
-    return {};
+    return {
+      store,
+    };
   },
   methods: {
     getImageUrl(imgName) {
       return new URL(`../assets/img/${imgName}`, import.meta.url).href;
     },
+  },
+  computed: {
+    totalQuantity() {
+      return store.updatedCart.reduce((total, itemCart) => total + itemCart.quantity, 0)
+    }
   },
 };
 </script>
@@ -38,8 +47,14 @@ export default {
           <a class="" href="">Log-In</a>
         </li>
         <li>
-          <a class="" href="/cart">
+          <a class="cart-badge" href="/cart">
             <i class="fa-solid fa-cart-shopping"></i>
+              <div class="position-relative">
+                  <div class="cart"></div>
+                <div v-if="totalQuantity > 0" class="cart-quantity">
+                  <span>{{ totalQuantity }}</span>
+                </div>
+              </div>
           </a>
         </li>
       </ul>
@@ -77,7 +92,7 @@ header {
     color: transparent;
   }
   ul {
-    width: 20%;
+    width: 25%;
     li {
       padding: 0 1rem;
 
@@ -89,6 +104,22 @@ header {
         color: $main-text;
         padding: .4rem .5rem;
         border-radius: 2rem;
+      }
+
+      .cart-badge {
+        position: relative;
+        display: inline-block;
+      }
+
+      .cart-quantity {
+        position: absolute;
+        top: -42px;
+        right: -15px;
+        background-color: red; /* Colore del badge */
+        color: white; /* Colore del testo del badge */
+        border-radius: 50%;
+        padding: 0.2em 0.5em;
+        font-size: 12px;
       }
     }
   }

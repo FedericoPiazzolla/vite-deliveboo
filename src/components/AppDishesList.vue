@@ -3,44 +3,56 @@ import axios from "axios";
 import { store, saveCart, loadCart } from "../data/store"
 
 export default {
-  components: {},
-  data() {
-    return {
-      store,
-      product: [],
-    };
-  },
-  props: {
-    restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
-  },
-  created() {
-    console.log("Carrello importato created", loadCart());
-  },
-  methods: {
-    AddToCart(item) {
-      const dish = this.restaurantDishes[item];
-      const price = this.restaurantDishes[item].price;
+    components: {},
+    data() {
+      return {
+        store,
+        product: [],
+      };
+    },
+    props: {
+      restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
+    },
+    methods: {
+      addQuantity(item) {
+        const dish = this.restaurantDishes[item];
 
-      let cart = loadCart();
+        localStorage.setItem('restaurant', JSON.stringify(store.restaurant));
 
-      console.log("Carrello importato", cart)
-
-      localStorage.setItem('restaurant', store.restaurants);
-
-      
-        const existentDish = cart.find((dishToFind) => dishToFind.id === dish.id);
-        console.log("Piatto già esistente trovato:", existentDish);
+        const existentDish = store.updatedCart.find((dishToFind) => dishToFind.id === dish.id);
         if (existentDish) {
-          console.log("C'è già!");
-          existentDish.quantity++
+          existentDish.quantity++;
         } else {
+          if (store.updatedCart.length > 0 && store.updatedCart[0].restaurant_id !== dish.restaurant_id) {
+            alert('Non puoi ordinare da più ristoranti');
+            return;
+          }
           dish.quantity = 1;
-          cart.push(dish);
+          store.updatedCart.push(dish);
         }
-        console.log("Carello importato aggiornato", cart);
-        saveCart(cart);
-      }
-    }
+        saveCart(store.updatedCart);
+      },
+
+      removeQuantity(item) {
+        const dish = this.restaurantDishes[item];
+
+        const existentDishIndex = store.updatedCart.findIndex((dishToFind) => dishToFind.id === dish.id);
+
+        if (existentDishIndex !== -1) {
+            if (store.updatedCart[existentDishIndex] && store.updatedCart[existentDishIndex].quantity > 1) {
+              store.updatedCart[existentDishIndex].quantity--;
+            } else {
+              store.updatedCart.splice(existentDishIndex, 1);
+            }
+
+          saveCart(store.updatedCart);
+        }
+      },
+      getCartQuantity(dishId) {
+        const cartItem = store.updatedCart.find((item) => item.id === dishId);
+        return cartItem ? cartItem.quantity : 0;
+      },
+    },
   };
 </script>
 
@@ -53,10 +65,25 @@ export default {
     <div class="d-flex px-5 pt-4 justify-content-center align-items-stretch">
       <div class="row d-flex flex-column">
         <div class="col d-flex align-items-center ps-0 mb-3" v-for="(dish, index) in restaurantDishes" :key="index">
+          <!-- card image -->
           <img class="me-2" :src="`${dish.image}`" alt="" />
+          <!-- /card image -->
+
+          <!-- card content -->
           <p class="dish-name m-0 me-3">{{ dish.name }}</p>
           <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
-          <button @click="AddToCart(index)">Add</button>
+          <!-- /card content -->
+
+          <div class="ms_quantity d-inline-block mt-2 mb-2 mb-md-0">
+              <button class="ms_card-btn px-2 py-1" @click="removeQuantity(index)">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <span class="ms_quantity-show px-2 fw-bold">{{ getCartQuantity(dish.id) }}</span>
+              <button class="ms_card-btn px-2 py-1" @click="addQuantity(index)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+          </div>
+          <!-- /quantità card -->
         </div>
       </div>
     </div>
@@ -104,6 +131,22 @@ export default {
 
   p {
     width: 40%;
+  }
+
+  .ms_quantity {
+    background-color: $bg-color;
+    border-radius: 2rem;
+
+    .ms_card-btn {
+      background-color: $main-text;
+      color: $bg-btn;
+      border: 0;
+      border-radius: 50%;
+
+      &:active {
+        background-color: red;
+      }
+    }
   }
 }
 </style>
