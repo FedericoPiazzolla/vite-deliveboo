@@ -40,8 +40,10 @@ export default {
 </script>
 
 <template>
-  <div class="dishes">
+  <div class="col-12">
     <AppBestSellers :bestSellers="bestSellers" />
+  </div>
+  <div class="w-75">
     <AppDishesList :restaurantDishes="dishes" />
   </div>
 </template>
