@@ -7,11 +7,11 @@ export default {
   data() {},
   name: "Home",
   mounted() {
-    document.addEventListener("DOMContentLoaded", function () {
-      setTimeout(function () {
-        document.getElementById("splash-screen").style.display = "none";
-      }, 5000); // Modifica questo valore per controllare la durata dello splash screen
-    });
+    //   document.addEventListener("DOMContentLoaded", function () {
+    //     setTimeout(function () {
+    //       document.getElementById("splash-screen").style.display = "none";
+    //     }, 5000); // Modifica questo valore per controllare la durata dello splash screen
+    //   });
   },
 };
 </script>

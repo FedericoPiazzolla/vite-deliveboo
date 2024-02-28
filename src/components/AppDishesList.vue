@@ -106,9 +106,9 @@ export default {
 
           <!-- card content -->
           <div
-            class="dish_details w-75 d-flex justify-content-between align-items-center">
-            <h6 class="dish-name fw-bold m-0 me-3">{{ dish.name }}</h6>
-            <!-- <p class="dish_description text-start d-none d-lg-block fs-6 m-0">
+            class="dish_details w-75 details_dish d-flex justify-content-between align-items-center">
+            <h6 class="dish-name fw-bold m-0">{{ dish.name }}</h6>
+            <!-- <p class="dish_description text-start d-none fs-6 m-0">
               {{ dish.description }}
             </p> -->
             <p class="dish_price d-none d-sm-block">€{{ dish.price }}</p>
@@ -117,7 +117,7 @@ export default {
 
           <div class="w-25 mb-md-0 pe-0 p-sm-4">
             <div
-            class="ms_quantity d-flex align-items-center justify-content-between">
+              class="ms_quantity d-flex align-items-center justify-content-between">
               <button
                 class="ms_card-btn px-2 py-1"
                 @click="removeQuantity(index)">

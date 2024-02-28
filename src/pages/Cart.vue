@@ -1,13 +1,13 @@
 <script>
-import { saveCart, store } from '../data/store';
+import { saveCart, store } from "../data/store";
 
 export default {
-  name: 'Cart',
+  name: "Cart",
 
   data() {
     return {
       store,
-    }
+    };
   },
   methods: {
     // Aggiungo una quantità del prodotto
@@ -20,7 +20,7 @@ export default {
       if (store.updatedCart[dishKey].quantity > 1) {
         store.updatedCart[dishKey].quantity--;
         saveCart(store.updatedCart);
-      } else if (store.updatedCart[dishKey].quantity === 1){
+      } else if (store.updatedCart[dishKey].quantity === 1) {
         store.updatedCart.splice(dishKey, 1);
         saveCart(store.updatedCart);
       }
@@ -30,115 +30,194 @@ export default {
       store.updatedCart = [];
     },
 
+    emptyCart() {
+      localStorage.clear();
+      store.updatedCart.length = 0;
+    },
+
     // calcolo il totale
     calcTotal() {
       let total = 0;
 
       for (const index in store.updatedCart) {
-        total += store.updatedCart[index].price * store.updatedCart[index].quantity;
+        total +=
+          store.updatedCart[index].price * store.updatedCart[index].quantity;
       }
 
-      return total.toFixed(2)
-    }
-  }
-}
+      return total.toFixed(2);
+    },
+
+    goBack(event) {
+      event.preventDefault();
+      this.$router.go(-1);
+    },
+  },
+};
 </script>
 
 <template>
-  <section class="ms_cart-section">
+  <div class="container">
+    <router-link
+      class="btn back_btn text-decoration-none mt-5"
+      to=""
+      @click.native="goBack"
+      >Torna al ristorante</router-link
+    >
+
     <!-- carrello con lista ordinata dei prodotti, totale da pagare e bottoni -->
-    <section id="cart-container" class="p-3 py-5" v-if="store.updatedCart.length > 0">
-      
-        <h2 class="pb-5 text-center m-0">Il tuo ordine <i class="fa-solid fa-cart-shopping"></i></h2>
-      
-        <h4 class="ms_restaurant-title mb-3 d-inline">{{ store.updatedCart[0].restaurant.restaurant_name }}</h4>
+    <div class="pt-5 cart_title text-center">
+      <h3 class="m-0">
+        Il tuo carrello<i class="fa-solid fa-cart-shopping"></i>
+      </h3>
+    </div>
 
-        <ol class="list-group mt-4">
-          <li v-for="(product, index) in store.updatedCart" :key="index" class="ps-4 rounded-5 mb-3 flex-row list-group-item d-flex justify-content-between align-items-center">
+    <!-- Sezione prodotti nel carrello -->
+    <section id="cart-container" class="" v-if="store.updatedCart.length > 0">
+      <div class="text-center">
+        <h6 class="ms_restaurant-title mb-3 d-inline">
+          {{ store.updatedCart[0].restaurant.restaurant_name }}
+        </h6>
+      </div>
 
-            <div class="ms-md-2 me-auto">
-              <p class=" ms_dish-name fw-bold mb-1">{{ product.name }}</p>
-              <span class="ms_price d-inline-block">&euro; {{ product.price }}</span>
-            </div>
+      <ol class="list-group mt-4">
+        <li
+          v-for="(product, index) in store.updatedCart"
+          :key="index"
+          class="ps-4 rounded-5 mb-3 flex-row list-group-item d-flex justify-content-between align-items-center">
+          <div class="ms-md-2 me-auto">
+            <p class="ms_dish-name fw-bold mb-1">{{ product.name }}</p>
+            <span class="ms_price d-inline-block"
+              >&euro; {{ product.price }}</span
+            >
+          </div>
 
-            <div class="ms_quantity-show d-inline-block mt-2 mb-2 mb-md-0">
-              <button class="px-2 py-1" @click="removeQuantity(index)">
-                <i class="fa-solid fa-minus"></i>
-              </button>
-              <span class="px-2 fw-bold">{{ product.quantity }}</span>
-              <button class="px-2 py-1" @click="addQuantity(index)">
-                <i class="fa-solid fa-plus"></i>
-              </button>
-            </div>
-          </li>
-        </ol>
-
-        <div class="ms_total-price d-flex justify-content-between justify-content-md-end">
-          <p>Totale: &euro; {{ calcTotal() }}</p>
-          <button class="btn btn-success">Conferma ordine</button>
-        </div>
+          <div class="ms_quantity-show d-inline-block mt-2 mb-2 mb-md-0">
+            <button class="px-2 py-1" @click="removeQuantity(index)">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="px-2 fw-bold">{{ product.quantity }}</span>
+            <button class="px-2 py-1" @click="addQuantity(index)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </li>
+      </ol>
     </section>
 
-    <section v-else class="text-center">
-      <h2>Il tuo carello è vuoto</h2>
+    <section v-else class="text-center my-4">
+      <h6>Non hai ancora selezionato alcun piatto</h6>
     </section>
-  </section>
+
+    <div
+      class="total_order ps-4 rounded-5 mb-3 flex-row list-group-item d-flex justify-content-between align-items-center">
+      <p class="ms_dish-name fw-bold m-0">Totale</p>
+      <span class="ms_price d-inline-block">&euro; {{ calcTotal() }}</span>
+    </div>
+
+    <div class="buttons_order d-flex justify-content-between mb-5">
+      <button class="order_button btn">Checkout</button>
+      <button class="empty_cart_btn btn" @click="emptyCart">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+  </div>
 </template>
 
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
 
-.ms_cart-section {
-  min-height: 1000px;
+.back_btn {
+  background-color: $primary;
+  &:hover {
+    background-color: $primary;
+  }
+}
 
-  .ms_restaurant-title {
+.custom-link,
+.custom-link:hover,
+.custom-link:focus {
+  color: inherit; /* Or any specific color */
+  text-decoration: none; /* Removes underline or other decorations */
+  background-color: transparent; /* Resets background changes */
+  /* Add other properties as needed to undo hover effects */
+}
+
+// .go_back_btn {
+//   background-color: $main-text;
+//   color: $main-text;
+//   :hover {
+//     background-color: $bg-btn;
+//     color: $main-text;
+//   }
+
+//   router-link {
+//     text-decoration: none;
+//     color: red;
+//   }
+// }
+
+.buttons_order {
+  .order_button {
     background-color: $bg-btn;
-    border-radius: 2rem;
-    padding: .5rem 1rem;
-    margin-left: 1rem;
+    color: $main_text;
   }
 
-  .ms_price {
-    background-color: $bg-color;
-    padding: .2rem .5rem;
-    border-radius: 2rem;
-    font-weight: bolder;
+  .empty_cart_btn {
+    background-color: $primary;
+    color: $bg-color;
   }
+}
 
-  ol {
-    li {
-      background-color: $bg-btn;
+h6 {
+  color: $primary;
+}
+.ms_price {
+  background-color: $bg-color;
+  padding: 0.2rem 0.5rem;
+  border-radius: 2rem;
+  font-weight: bolder;
+}
 
-      .ms_quantity-show {
-        background-color: $bg-color;
-        border-radius: 2rem;
+ol {
+  li {
+    background-color: $bg-btn;
 
-        button {
-          background-color: $main-text;
-          color: $bg-btn;
-          border: 0;
-          border-radius: 50%;
+    .ms_quantity-show {
+      background-color: $bg-color;
+      border-radius: 2rem;
 
-          &:active {
-            background-color: red;
-          }
+      button {
+        background-color: $main-text;
+        color: $bg-btn;
+        border: 0;
+        border-radius: 50%;
+
+        &:active {
+          background-color: red;
         }
       }
     }
   }
+}
 
-  .ms_total-price {
-    text-align: center;
-    padding-top: 1rem;
-    p {
-      margin: 0;
-      background-color: $primary;
-      font-size: 1.7rem;
-      color: $bg-color;
-      padding: .5rem .7rem;
-      border-radius: 2rem;
-    }
+.total_order {
+  background-color: $main-text;
+  color: $bg-btn;
+  border: 2px solid $bg-btn;
+  .ms_price {
+    color: $main-text;
   }
+}
 
+.ms_total-price {
+  padding-top: 1rem;
+  p {
+    margin: 0;
+    background-color: $primary;
+    font-size: 1.7rem;
+    color: $bg-color;
+    padding: 0.5rem 0.7rem;
+    border-radius: 2rem;
+  }
 }
 </style>
