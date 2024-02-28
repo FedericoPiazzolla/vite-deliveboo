@@ -8,6 +8,8 @@ export default {
             store,
             token: '',
             instance: null,
+            paymentNonce: null,
+            amount: 10
         }
     },
     methods: {
@@ -19,11 +21,27 @@ export default {
                 container: '#dropin-container'
             }, function (createErr, instance) {
                 button.addEventListener('click', function () {
-                    instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
-                        // Submit payload.nonce to your server
+                    instance.requestPaymentMethod((requestPaymentMethodErr, payload) => {
+                        this.paymentNonce = payload.nonce;
+
+                        console.log("Paymentnonce", this.paymentNonce);
+                        axios
+                        .post("http://127.0.0.1:8000/api/order", {
+                            total: 10,
+                            payment_method_nonce: payload.nonce// Invia il nonce di pagamento al server
+                        })
+                        .then((resp) => console.log(resp))
                     });
+                    console.log("Pagamento avvenuto!");
                 });
             });
+        },
+        sendPaymentPayload() {
+            axios.post(`${this.store.apiUrl}api/orders`, {
+                total: 10,
+                payment_method_nonce: this.paymentNonce // Invia il nonce di pagamento al server
+            })
+                .then((resp) => console.log(resp))
         }
     },
     created() {
@@ -45,7 +63,7 @@ export default {
     <div id="dropin-wrapper">
         <div id="checkout-message"></div>
         <div id="dropin-container"></div>
-        <button id="submit-button">Submit payment</button>
+        <button id="submit-button">Paga</button>
     </div>
 </template>
 
