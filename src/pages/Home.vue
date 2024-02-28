@@ -41,9 +41,9 @@ export default {
   align-items: center;
   font-size: 24px;
   color: #000000;
-  z-index: 1000; /* Assicurati che copra gli altri elementi */
+  z-index: 1000;
   animation: fadeOut 3s ease-out forwards;
-  animation-delay: 4s; /* Regola questo tempo per controllare dopo quanto tempo inizia a sparire */
+  animation-delay: 4s;
 
   span {
     font-size: 5rem;

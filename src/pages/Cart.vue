@@ -133,29 +133,6 @@ export default {
   }
 }
 
-.custom-link,
-.custom-link:hover,
-.custom-link:focus {
-  color: inherit; /* Or any specific color */
-  text-decoration: none; /* Removes underline or other decorations */
-  background-color: transparent; /* Resets background changes */
-  /* Add other properties as needed to undo hover effects */
-}
-
-// .go_back_btn {
-//   background-color: $main-text;
-//   color: $main-text;
-//   :hover {
-//     background-color: $bg-btn;
-//     color: $main-text;
-//   }
-
-//   router-link {
-//     text-decoration: none;
-//     color: red;
-//   }
-// }
-
 .buttons_order {
   .order_button {
     background-color: $bg-btn;
