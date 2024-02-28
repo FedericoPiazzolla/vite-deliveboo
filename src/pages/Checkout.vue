@@ -42,11 +42,21 @@ export default {
 </script>
 
 <template>
-    <div id="dropin-wrapper">
-        <div id="checkout-message"></div>
-        <div id="dropin-container"></div>
-        <button id="submit-button">Submit payment</button>
-    </div>
+    <section class="ms_checkout-section">
+       <div id="dropin-wrapper">
+            <div id="checkout-message"></div>
+            <div id="dropin-container"></div>
+            <button id="submit-button">Submit payment</button>
+        </div> 
+    </section>
+    
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+    .ms_checkout-section {
+        min-height: 480px;
+        padding: 3rem;
+    }
+
+</style>
