@@ -24,5 +24,6 @@ export default {
 
 main {
   padding-top: 120px;
+  width: 100vw;
 }
 </style>

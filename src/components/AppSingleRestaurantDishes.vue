@@ -29,8 +29,6 @@ export default {
       this.saveRestaurantId(store.restaurant_id);
     }
     const restaurantToShow = this.loadRestaurantId();
-    console.log(restaurantToShow);
-
     axios
       .get(`http://127.0.0.1:8000/api/dishes?restaurant_id=${restaurantToShow}`)
       .then((resp) => {
