@@ -82,7 +82,8 @@ export default {
 
     <AppSingleRestaurantDishes />
 
-    <div class="cart_container w-25 d-flex justify-content-center mx-auto p-0">
+    <div
+      class="d-none d-md-inline cart_container w-25 d-flex justify-content-center mx-auto p-0">
       <div class="w-100" id="ms_cart">
         <AppCart />
       </div>

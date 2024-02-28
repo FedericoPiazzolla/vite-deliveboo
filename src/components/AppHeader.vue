@@ -45,9 +45,9 @@ export default {
 
       <!-- nav menu per login e carrello -->
       <ul
-        class="list-unstyled d-flex justify-content-end align-items-center h-100 m-0">
+        class="right_header list-unstyled d-flex justify-content-end align-items-center h-100 m-0">
         <li>
-          <a class="" href="">Log-In</a>
+          <a class="" href=""><i class="fa-solid fa-user"></i></a>
         </li>
         <li>
           <a class="cart-badge" href="/cart">
@@ -123,6 +123,19 @@ header {
         border-radius: 50%;
         padding: 0.2em 0.5em;
         font-size: 12px;
+      }
+    }
+  }
+
+  .right_header {
+    li {
+      a {
+        width: 50px;
+        aspect-ratio: 1;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
   }
