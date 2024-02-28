@@ -115,7 +115,7 @@ export default {
           </div>
           <!-- /card content -->
 
-          <div class="w-25 mb-md-0 pe-0 p-sm-4">
+          <div class="mb-md-0 pe-2 p-sm-4">
             <div
               class="ms_quantity d-flex align-items-center justify-content-between">
               <button
