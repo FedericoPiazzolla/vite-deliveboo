@@ -75,7 +75,7 @@ export default {
     <div class="d-flex px-5 pt-4 justify-content-center align-items-stretch">
       <div class="row d-flex flex-column">
         <div
-          class="col d-flex justify-content-between align-items-center ps-0 mb-3"
+          class="col d-flex justify-content-between align-items-center ps-0 pe-0 mb-3"
           v-for="(dish, index) in restaurantDishes"
           :key="index">
           <!-- card image -->
@@ -84,28 +84,30 @@ export default {
 
           <!-- card content -->
           <div
-            class="dish_details w-100 px-3 details_dish d-flex justify-content-between align-items-center">
-            <h6 class="dish-name fw-bold m-0 me-3">{{ dish.name }}</h6>
-            <p class="dish_description text-start d-none d-lg-block fs-6 m-0">
+            class="dish_details w-75 details_dish d-flex justify-content-between align-items-center">
+            <h6 class="dish-name fw-bold m-0">{{ dish.name }}</h6>
+            <!-- <p class="dish_description text-start d-none fs-6 m-0">
               {{ dish.description }}
-            </p>
-            <p class="dish_price">€{{ dish.price }}</p>
+            </p> -->
+            <p class="dish_price d-none d-sm-block">€{{ dish.price }}</p>
           </div>
           <!-- /card content -->
 
-          <div
-            class="ms_quantity d-flex align-items-center justify-content-between mb-2 mb-md-0">
-            <button
-              class="ms_card-btn px-2 py-1"
-              @click="removeQuantity(index)">
-              <i class="fa-solid fa-minus"></i>
-            </button>
-            <span class="ms_quantity-show px-2 fw-bold">{{
-              getCartQuantity(dish.id)
-            }}</span>
-            <button class="ms_card-btn px-2 py-1" @click="addQuantity(index)">
-              <i class="fa-solid fa-plus"></i>
-            </button>
+          <div class="w-25 mb-md-0 pe-0 p-sm-4">
+            <div
+              class="ms_quantity d-flex align-items-center justify-content-between">
+              <button
+                class="ms_card-btn px-2 py-1"
+                @click="removeQuantity(index)">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <span class="ms_quantity-show px-2 fw-bold">{{
+                getCartQuantity(dish.id)
+              }}</span>
+              <button class="ms_card-btn px-2 py-1" @click="addQuantity(index)">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
           </div>
           <!-- /quantità card -->
         </div>
@@ -143,7 +145,7 @@ export default {
 
   .dish_details {
     .dish-name {
-      width: 50%;
+      width: 30%;
       color: $primary;
 
       @media (min-width: 576px) {
@@ -163,7 +165,7 @@ export default {
 
     .dish-price {
       @media (min-width: 992px) {
-        width: 10%;
+        width: 20%;
       }
     }
 
@@ -175,7 +177,7 @@ export default {
   .ms_quantity {
     background-color: $bg-color;
     border-radius: 2rem;
-    width: 10%;
+    width: 30;
 
     .ms_card-btn {
       background-color: $main-text;

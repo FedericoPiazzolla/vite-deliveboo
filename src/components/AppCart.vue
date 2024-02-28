@@ -31,8 +31,8 @@ export default {
     },
 
     emptyCart() {
-      console.log(this.store.updatedCart);
-      this.store.updatedCart.length = 0;
+      localStorage.clear();
+      store.updatedCart.length = 0;
     },
 
     // calcolo il totale
@@ -104,7 +104,7 @@ export default {
   <div class="buttons_order d-flex justify-content-between">
     <button class="order_button btn">Checkout</button>
     <button class="empty_cart_btn btn" @click="emptyCart">
-      Svuota Carrello
+      <i class="fa-solid fa-trash"></i>
     </button>
   </div>
 </template>
