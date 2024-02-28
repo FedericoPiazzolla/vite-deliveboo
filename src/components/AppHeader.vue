@@ -125,8 +125,8 @@ header {
   }
 }
 
-@media screen and (max-width: 500px) {
-  /* Regole CSS specifiche per schermi con larghezza massima di 500px (dispositivi mobili) */
+@media screen and (max-width: 578px) {
+  /* Regole CSS specifiche per schermi con larghezza massima di 578px (dispositivi mobili) */
   .ms_logo-image,
   ul {
     width: 50% !important;

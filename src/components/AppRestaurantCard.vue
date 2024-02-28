@@ -24,15 +24,21 @@ export default {
     <router-link
       class="text-decoration-none"
       :to="{ name: 'singleRestaurant' }">
+
       <div
-        class="cards"
-        @click="getRestaurantId(singleRestaurant.id)"
-        :style="`background-image: url(${singleRestaurant.restaurant_image})`">
-        <div class="title">
-          <h5 class="p-2 text-center">
+        class="ms_cards"
+        @click="getRestaurantId(singleRestaurant.id)">
+
+        <div class="ms_title">
+          <h5 class="p-2 text-center m-0">
             {{ singleRestaurant.restaurant_name }}
           </h5>
         </div>
+
+        <div class="ms_img-container">
+          <img class="ms_card-img" :src="singleRestaurant.restaurant_image" alt="">
+        </div>
+
       </div>
     </router-link>
   </div>
@@ -41,23 +47,26 @@ export default {
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
 
-.ms_restaurants {
-  padding: 4rem 0;
+.ms_col {
 
-  .ms_title-restaurants {
-    text-align: center;
-    padding-bottom: 2.4rem;
-    color: $main-text;
-    font-weight: bolder;
-    font-size: 2rem;
-  }
-
-  .cards {
+  .ms_cards {
     width: 100%;
     height: 200px;
-    border-radius: 2rem;
 
-    .title {
+    .ms_img-container {
+      width: 100%;
+      height: 60%;
+      overflow: hidden;
+      border-bottom-left-radius: 2rem;
+      border-bottom-right-radius: 2rem;
+    }
+
+    .ms_card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+    }
+    .ms_title {
       background-color: $bg-btn;
       border-top-left-radius: 2rem;
       border-top-right-radius: 2rem;
@@ -65,24 +74,6 @@ export default {
         text-decoration: none;
         color: $main-text;
       }
-    }
-  }
-}
-
-@media screen and (max-width: 500px) {
-  /* Regole CSS specifiche per schermi con larghezza massima di 500px (dispositivi mobili) */
-
-  .ms_row {
-    flex-direction: column;
-
-    .ms_col:nth-child(odd) {
-      display: flex;
-      justify-content: end;
-    }
-
-    .cards {
-      width: 80%;
-      height: 150px;
     }
   }
 }
