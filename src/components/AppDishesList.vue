@@ -238,7 +238,6 @@ export default {
   .ms_quantity {
     background-color: $bg-color;
     border-radius: 2rem;
-    width: 30%;
 
     .ms_card-btn {
       background-color: $main-text;
