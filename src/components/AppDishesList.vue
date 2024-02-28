@@ -1,59 +1,69 @@
 <script>
 import axios from "axios";
-import { store, saveCart, loadCart } from "../data/store"
+import { store, saveCart, loadCart } from "../data/store";
 
 export default {
-    components: {},
-    data() {
-      return {
-        store,
-        product: [],
-      };
-    },
-    props: {
-      restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
-    },
-    methods: {
-      addQuantity(item) {
-        const dish = this.restaurantDishes[item];
+  components: {},
+  data() {
+    return {
+      store,
+      product: [],
+    };
+  },
+  props: {
+    restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
+  },
+  methods: {
+    addQuantity(item) {
+      const dish = this.restaurantDishes[item];
 
-        localStorage.setItem('restaurant', JSON.stringify(store.restaurant));
+      localStorage.setItem("restaurant", JSON.stringify(store.restaurant));
 
-        const existentDish = store.updatedCart.find((dishToFind) => dishToFind.id === dish.id);
-        if (existentDish) {
-          existentDish.quantity++;
+      const existentDish = store.updatedCart.find(
+        (dishToFind) => dishToFind.id === dish.id
+      );
+      if (existentDish) {
+        existentDish.quantity++;
+      } else {
+        if (
+          store.updatedCart.length > 0 &&
+          store.updatedCart[0].restaurant_id !== dish.restaurant_id
+        ) {
+          alert("Non puoi ordinare da più ristoranti");
+          return;
+        }
+        dish.quantity = 1;
+        store.updatedCart.push(dish);
+      }
+      saveCart(store.updatedCart);
+    },
+
+    removeQuantity(item) {
+      const dish = this.restaurantDishes[item];
+
+      const existentDishIndex = store.updatedCart.findIndex(
+        (dishToFind) => dishToFind.id === dish.id
+      );
+
+      if (existentDishIndex !== -1) {
+        if (
+          store.updatedCart[existentDishIndex] &&
+          store.updatedCart[existentDishIndex].quantity > 1
+        ) {
+          store.updatedCart[existentDishIndex].quantity--;
         } else {
-          if (store.updatedCart.length > 0 && store.updatedCart[0].restaurant_id !== dish.restaurant_id) {
-            alert('Non puoi ordinare da più ristoranti');
-            return;
-          }
-          dish.quantity = 1;
-          store.updatedCart.push(dish);
+          store.updatedCart.splice(existentDishIndex, 1);
         }
+
         saveCart(store.updatedCart);
-      },
-
-      removeQuantity(item) {
-        const dish = this.restaurantDishes[item];
-
-        const existentDishIndex = store.updatedCart.findIndex((dishToFind) => dishToFind.id === dish.id);
-
-        if (existentDishIndex !== -1) {
-            if (store.updatedCart[existentDishIndex] && store.updatedCart[existentDishIndex].quantity > 1) {
-              store.updatedCart[existentDishIndex].quantity--;
-            } else {
-              store.updatedCart.splice(existentDishIndex, 1);
-            }
-
-          saveCart(store.updatedCart);
-        }
-      },
-      getCartQuantity(dishId) {
-        const cartItem = store.updatedCart.find((item) => item.id === dishId);
-        return cartItem ? cartItem.quantity : 0;
-      },
+      }
     },
-  };
+    getCartQuantity(dishId) {
+      const cartItem = store.updatedCart.find((item) => item.id === dishId);
+      return cartItem ? cartItem.quantity : 0;
+    },
+  },
+};
 </script>
 
 <template>
@@ -64,24 +74,38 @@ export default {
     </div>
     <div class="d-flex px-5 pt-4 justify-content-center align-items-stretch">
       <div class="row d-flex flex-column">
-        <div class="col d-flex align-items-center ps-0 mb-3" v-for="(dish, index) in restaurantDishes" :key="index">
+        <div
+          class="col d-flex justify-content-between align-items-center ps-0 mb-3"
+          v-for="(dish, index) in restaurantDishes"
+          :key="index">
           <!-- card image -->
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <!-- /card image -->
 
           <!-- card content -->
-          <p class="dish-name m-0 me-3">{{ dish.name }}</p>
-          <p class="d-none d-lg-block fs-6 m-0">{{ dish.description }}</p>
+          <div
+            class="dish_details w-100 px-3 details_dish d-flex justify-content-between align-items-center">
+            <h6 class="dish-name fw-bold m-0 me-3">{{ dish.name }}</h6>
+            <p class="dish_description text-start d-none d-lg-block fs-6 m-0">
+              {{ dish.description }}
+            </p>
+            <p class="dish_price">€{{ dish.price }}</p>
+          </div>
           <!-- /card content -->
 
-          <div class="ms_quantity d-inline-block mt-2 mb-2 mb-md-0">
-              <button class="ms_card-btn px-2 py-1" @click="removeQuantity(index)">
-                <i class="fa-solid fa-minus"></i>
-              </button>
-              <span class="ms_quantity-show px-2 fw-bold">{{ getCartQuantity(dish.id) }}</span>
-              <button class="ms_card-btn px-2 py-1" @click="addQuantity(index)">
-                <i class="fa-solid fa-plus"></i>
-              </button>
+          <div
+            class="ms_quantity d-flex align-items-center justify-content-between mb-2 mb-md-0">
+            <button
+              class="ms_card-btn px-2 py-1"
+              @click="removeQuantity(index)">
+              <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="ms_quantity-show px-2 fw-bold">{{
+              getCartQuantity(dish.id)
+            }}</span>
+            <button class="ms_card-btn px-2 py-1" @click="addQuantity(index)">
+              <i class="fa-solid fa-plus"></i>
+            </button>
           </div>
           <!-- /quantità card -->
         </div>
@@ -117,25 +141,41 @@ export default {
     }
   }
 
-  .dish-name {
-    width: 50%;
-
-    @media (min-width: 576px) {
+  .dish_details {
+    .dish-name {
       width: 50%;
+      color: $primary;
+
+      @media (min-width: 576px) {
+        width: 50%;
+      }
+
+      @media (min-width: 992px) {
+        width: 20%;
+      }
     }
 
-    @media (min-width: 992px) {
-      width: 30%;
+    .dish-description {
+      @media (min-width: 992px) {
+        width: 70%;
+      }
     }
-  }
 
-  p {
-    width: 40%;
+    .dish-price {
+      @media (min-width: 992px) {
+        width: 10%;
+      }
+    }
+
+    p {
+      margin: 0;
+    }
   }
 
   .ms_quantity {
     background-color: $bg-color;
     border-radius: 2rem;
+    width: 10%;
 
     .ms_card-btn {
       background-color: $main-text;

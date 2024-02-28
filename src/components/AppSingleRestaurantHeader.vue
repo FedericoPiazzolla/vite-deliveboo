@@ -11,10 +11,9 @@ export default {
       costPossibility: [0, 1.99, 2.99, 3.99],
       randomIndex: "",
       costNumber: "",
-      restaurant: {},
     };
   },
-  props: {},
+  props: { singleRestaurant: Object },
   mounted() {
     // Generare una valutazione da 1 a 5
     this.temporaryRatingNumber = Math.random() * (5 - 1) + 1;
@@ -31,34 +30,20 @@ export default {
     this.costNumber = this.costPossibility[this.randomIndex];
   },
   methods: {},
-
-  created() {
-    const restaurantToShow = localStorage.getItem("restaurant_id");
-    console.log(restaurantToShow);
-    axios
-      .get(
-        `http://127.0.0.1:8000/api/restaurants?restaurant_id=${restaurantToShow}`
-      )
-      .then((resp) => {
-        console.log(resp);
-        this.restaurant = resp.data.results;
-      });
-  },
 };
 </script>
 
 <template>
   <div class="restaurant-header">
-    <div
-      :style="`background-image: url(${this.restaurant.restaurant_image})`"
-      class="bg-image w-100"></div>
     <div class="main-info p-4 d-flex justify-content-center align-items-center">
       <div class="restaurant-logo">
-        <img :src="`${this.restaurant.restaurant_logo}`" alt="" />
+        <img :src="singleRestaurant.restaurant_logo" alt="" />
       </div>
       <div class="name ms-3">
-        <h3 class="text-center m-0">{{ this.restaurant.restaurant_name }}</h3>
-        <h6>{{ this.restaurant.restaurant_address }}</h6>
+        <h3 class="text-center m-0">
+          {{ this.singleRestaurant.restaurant_name }}
+        </h3>
+        <h6>{{ singleRestaurant.restaurant_address }}</h6>
       </div>
     </div>
     <div class="row-cols-6 info d-flex justify-content-center text-center mt-4">

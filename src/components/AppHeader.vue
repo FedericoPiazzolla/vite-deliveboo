@@ -1,5 +1,5 @@
 <script>
-import { store } from "../data/store"
+import { store } from "../data/store";
 
 export default {
   data() {
@@ -14,8 +14,11 @@ export default {
   },
   computed: {
     totalQuantity() {
-      return store.updatedCart.reduce((total, itemCart) => total + itemCart.quantity, 0)
-    }
+      return store.updatedCart.reduce(
+        (total, itemCart) => total + itemCart.quantity,
+        0
+      );
+    },
   },
 };
 </script>
@@ -24,7 +27,7 @@ export default {
   <header>
     <div class="h-100 d-flex justify-content-between align-items-center p-3">
       <!-- immagine del logo che porta alla home -->
-      <div class="ms_logo-image">
+      <div class="w-25 ms_logo-image">
         <router-link to="/">
           <img
             class="h-100"
@@ -49,12 +52,12 @@ export default {
         <li>
           <a class="cart-badge" href="/cart">
             <i class="fa-solid fa-cart-shopping"></i>
-              <div class="position-relative">
-                  <div class="cart"></div>
-                <div v-if="totalQuantity > 0" class="cart-quantity">
-                  <span>{{ totalQuantity }}</span>
-                </div>
+            <div class="position-relative">
+              <div class="cart"></div>
+              <div v-if="totalQuantity > 0" class="cart-quantity">
+                <span>{{ totalQuantity }}</span>
               </div>
+            </div>
           </a>
         </li>
       </ul>
@@ -102,7 +105,7 @@ header {
         display: inline-block;
         background-color: $bg-btn;
         color: $main-text;
-        padding: .4rem .5rem;
+        padding: 0.4rem 0.5rem;
         border-radius: 2rem;
       }
 
@@ -115,7 +118,7 @@ header {
         position: absolute;
         top: -42px;
         right: -15px;
-        background-color: red; /* Colore del badge */
+        background-color: $primary; /* Colore del badge */
         color: white; /* Colore del testo del badge */
         border-radius: 50%;
         padding: 0.2em 0.5em;

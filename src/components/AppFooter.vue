@@ -1,21 +1,17 @@
 <script>
 export default {
   data() {
-    return {
-
-    }
-  }
-}
+    return {};
+  },
+};
 </script>
 
 <template>
-  <footer>
+  <footer id="ms_footer">
     <div class="container pt-5">
-
       <h3 class="ms_logo-text text-center">Deliveboo</h3>
 
       <div class="row text-center pt-5">
-
         <!-- Uniamo le forze col -->
         <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Uniamo le forze</h5>
@@ -41,7 +37,7 @@ export default {
           </ul>
         </div>
         <!-- /link col -->
-        
+
         <!-- Models col -->
         <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Modulistica</h5>
@@ -58,20 +54,26 @@ export default {
         <div class="col-6 col-md-4 col-lg-3 offset-md-4 offset-lg-0 mb-5">
           <h5 class="mb-3 text-md-center">Seguici</h5>
           <ul class="d-flex gap-3 fs-4 justify-content-center list-unstyled">
-            <li><a href="#"><i class="fa-brands fa-square-facebook"></i></a></li>
-            <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
-            <li><a href="#"><i class="fa-brands fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fa-brands fa-youtube"></i></a></li>
+            <li>
+              <a href="#"><i class="fa-brands fa-square-facebook"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li>
+              <a href="#"><i class="fa-brands fa-youtube"></i></a>
+            </li>
           </ul>
         </div>
         <!-- /Follow Us Col -->
-
       </div>
 
       <!-- References -->
       <p class="ms_our-group text-center m-0 py-4 fs-5">By Group 7 &hearts;</p>
       <!-- /References -->
-
     </div>
   </footer>
 </template>
@@ -79,11 +81,11 @@ export default {
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
 
-footer{
+footer {
   background-color: $primary;
   color: $bg-btn;
 
-  .ms_logo-text{
+  .ms_logo-text {
     font-family: "Lobster", sans-serif;
     color: $main-text;
     font-size: 3rem;
@@ -96,7 +98,6 @@ footer{
   }
 
   ul {
-
     li {
       a {
         color: $bg-color;
@@ -107,7 +108,6 @@ footer{
       }
     }
   }
-  
 
   .ms_our-group {
     color: $bg-color;
@@ -116,13 +116,11 @@ footer{
 }
 
 @media screen and (max-width: 576px) {
-footer{
-
-  .ms_logo-text{
-    font-size: 2.4rem;
-    margin-bottom: 2rem;
+  footer {
+    .ms_logo-text {
+      font-size: 2.4rem;
+      margin-bottom: 2rem;
+    }
   }
-}
-
 }
 </style>

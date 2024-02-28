@@ -29,8 +29,6 @@ export default {
       this.saveRestaurantId(store.restaurant_id);
     }
     const restaurantToShow = this.loadRestaurantId();
-    console.log(restaurantToShow);
-
     axios
       .get(`http://127.0.0.1:8000/api/dishes?restaurant_id=${restaurantToShow}`)
       .then((resp) => {
@@ -42,8 +40,10 @@ export default {
 </script>
 
 <template>
-  <div class="dishes">
+  <div class="col-12">
     <AppBestSellers :bestSellers="bestSellers" />
+  </div>
+  <div class="w-75">
     <AppDishesList :restaurantDishes="dishes" />
   </div>
 </template>
