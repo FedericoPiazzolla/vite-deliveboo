@@ -176,10 +176,10 @@ export default {
 
     li {
       position: absolute;
-      left: 0;
+      left: 30px;
       bottom: 100px;
       list-style: none;
-      transform-origin: 60px;
+      transform-origin: 30px;
       transition: 0.5s;
       transition-delay: calc(0.1s * var(--I));
 
@@ -216,7 +216,7 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
-      // z-index: 1000;
+      z-index: 1;
       border-radius: 50%;
       cursor: pointer;
       font-size: 2rem;
