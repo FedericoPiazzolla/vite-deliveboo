@@ -54,6 +54,7 @@ export default {
                   .then((resp) => console.log(resp))
                   .finally(
                     localStorage.clear("updatedCart"),
+                    store.updatedCart = [],
                     console.log("Log del carrello una volta svuotato", loadCart)
                   );
               }
@@ -115,6 +116,9 @@ export default {
   created() {
     this.importCart();
   },
+  mounted() {
+    console.log(store.updatedCart);
+  }
 };
 </script>
 
