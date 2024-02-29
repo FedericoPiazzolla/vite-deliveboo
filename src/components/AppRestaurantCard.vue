@@ -20,15 +20,11 @@ export default {
 </script>
 
 <template>
-  <div class="ms_col col-md-4 col-sm-12">
+  <div class="ms_col col-md-6 col-sm-12">
     <router-link
       class="text-decoration-none"
       :to="{ name: 'singleRestaurant' }">
-
-      <div
-        class="ms_cards"
-        @click="getRestaurantId(singleRestaurant.id)">
-
+      <div class="ms_cards" @click="getRestaurantId(singleRestaurant.id)">
         <div class="ms_title">
           <h5 class="p-2 text-center m-0">
             {{ singleRestaurant.restaurant_name }}
@@ -36,9 +32,11 @@ export default {
         </div>
 
         <div class="ms_img-container">
-          <img class="ms_card-img" :src="singleRestaurant.restaurant_image" alt="">
+          <img
+            class="ms_card-img"
+            :src="singleRestaurant.restaurant_image"
+            alt="" />
         </div>
-
       </div>
     </router-link>
   </div>
@@ -48,7 +46,6 @@ export default {
 @use "../scss/partials/variables" as *;
 
 .ms_col {
-
   .ms_cards {
     width: 100%;
     height: 200px;
@@ -64,7 +61,7 @@ export default {
     .ms_card-img {
       width: 100%;
       height: 100%;
-      object-fit: cover; 
+      object-fit: cover;
     }
     .ms_title {
       background-color: $bg-btn;

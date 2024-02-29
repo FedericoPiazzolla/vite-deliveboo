@@ -17,10 +17,10 @@ export default {
 </script>
 
 <template>
-  <div class="d-flex flex-column" id="animation">
+  <!-- <div class="d-flex flex-column" id="animation">
     <span>Deliveboo</span>
     <img src="../assets/img/hero-rider.png" />
-  </div>
+  </div> -->
   <AppJumbotron />
   <AppRestaurants />
   <AppWorkWithus />
