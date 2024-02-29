@@ -1,6 +1,14 @@
 <script>
 import axios from "axios";
 import { store, loadCart } from "../data/store";
+import {
+  checkName,
+  checkSurname,
+  checkAddress,
+  checkEmail,
+  checkPhoneNumber,
+  formControl,
+} from "../checkoutValidation";
 
 export default {
   data() {
@@ -27,6 +35,12 @@ export default {
     };
   },
   methods: {
+    checkName,
+    checkSurname,
+    checkAddress,
+    checkEmail,
+    checkPhoneNumber,
+    formControl,
     brainTreeInit() {
       let dataToSend = this.dataToSend;
       const button = document.querySelector("#submit-button");
@@ -54,7 +68,7 @@ export default {
                   .then((resp) => console.log(resp))
                   .finally(
                     localStorage.clear("updatedCart"),
-                    store.updatedCart = [],
+                    (store.updatedCart = []),
                     console.log("Log del carrello una volta svuotato", loadCart)
                   );
               }
@@ -67,6 +81,8 @@ export default {
     },
 
     generatePaymentForm() {
+      formControl(this.event);
+      document.getElementById("formError").textContent = "";
       axios
         .get(`${this.store.apiUrl}api/braintree/token`)
         .then((resp) => {
@@ -116,15 +132,13 @@ export default {
   created() {
     this.importCart();
   },
-  mounted() {
-    console.log(store.updatedCart);
-  }
 };
 </script>
 
 <template>
   <div class="container py-5">
     <div id="checkout-form" class="w-75 mx-auto">
+      <!-- NOME -->
       <div class="mb-3">
         <label for="interested_user_name" class="form-label">Nome</label>
         <input
@@ -132,8 +146,15 @@ export default {
           required
           v-model="dataToSend.interested_user_name"
           id="interested_user_name"
-          type="text" />
+          type="text"
+          @input="checkName" />
+        <!-- {{-- Gestione errore name --}} -->
+        <span>
+          <strong id="nameError" class="errorFormMsg ms-1"></strong><br />
+        </span>
       </div>
+
+      <!-- COGNOME -->
       <div class="mb-3">
         <label for="interested_user_surname" class="form-label">Cognome</label>
         <input
@@ -141,8 +162,15 @@ export default {
           required
           v-model="dataToSend.interested_user_surname"
           id="interested_user_surname"
-          type="text" />
+          type="text"
+          @input="checkSurname" />
+        <!-- {{-- Gestione errore cognome --}} -->
+        <span>
+          <strong id="surnameError" class="errorFormMsg ms-1"></strong><br />
+        </span>
       </div>
+
+      <!-- INDIRIZZO -->
       <div class="mb-3">
         <label for="interested_user_address" class="form-label"
           >Indirizzo</label
@@ -152,16 +180,30 @@ export default {
           required
           v-model="dataToSend.interested_user_address"
           id="interested_user_address"
-          type="text" />
+          type="text"
+          @input="checkAddress" />
+        <!-- {{-- Gestione errore indirizzo --}} -->
+        <span>
+          <strong id="addressError" class="errorFormMsg ms-1"></strong><br />
+        </span>
       </div>
+
+      <!-- EMAIL -->
       <div class="mb-3">
         <label for="interested_user_email" class="form-label">Email</label>
         <input
           class="w-100 form-control"
           v-model="dataToSend.interested_user_email"
           id="interested_user_email"
-          type="email" />
+          type="email"
+          @input="checkEmail" />
+        <!-- {{-- Gestione errore email --}} -->
+        <span>
+          <strong id="emailError" class="errorFormMsg ms-1"></strong><br />
+        </span>
       </div>
+
+      <!-- NUMERO DI TELEFONO -->
       <div class="mb-3">
         <label for="interested_user_phone" class="form-label">Telefono</label>
         <input
@@ -169,19 +211,35 @@ export default {
           required
           v-model="dataToSend.interested_user_phone"
           id="interested_user_phone"
-          type="text" />
+          type="text"
+          @input="checkPhoneNumber" />
+        <!-- {{-- Gestione errore numero --}} -->
+        <span>
+          <strong id="numberError" class="errorFormMsg ms-1"></strong><br />
+        </span>
       </div>
     </div>
+
+    <!-- BUTTON PER ANDARE AL PAGAMENTO -->
     <div class="mb-3 text-center">
-      <button class="btn" @click="generatePaymentForm">Vai al pagamento</button>
+      <button class="btn" id="userDataBtn" @click="generatePaymentForm">
+        Vai al pagamento
+      </button>
     </div>
+
+    <!-- ERROR FORM CONTROL  -->
+    <div class="text-center">
+      <h1><strong id="formError" class="errorFormMsg ms-1"></strong><br /></h1>
+    </div>
+
+    <!-- FORM PAGAMENTO BRAINTREE-->
     <section class="ms_checkout-section">
       <div id="dropin-wrapper">
         <div id="checkout-message"></div>
         <div id="dropin-container"></div>
 
         <button v-show="paymentLoaded" class="btn" id="submit-button">
-          Submit payment
+          Completa pagamento
         </button>
       </div>
     </section>
@@ -191,6 +249,16 @@ export default {
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
 .container {
+  .mb-3 {
+    strong {
+      color: red;
+    }
+  }
+
+  #formError {
+    color: red;
+  }
+
   button {
     background-color: $bg-btn;
     color: $main-text;
