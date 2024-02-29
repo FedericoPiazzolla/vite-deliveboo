@@ -1,5 +1,6 @@
 <script>
 import { store } from "../data/store";
+import AppCartModal from "./AppCartModal.vue";
 
 export default {
   data() {
@@ -7,9 +8,18 @@ export default {
       store,
     };
   },
+  components: {
+    AppCartModal,
+  },
   methods: {
     getImageUrl(imgName) {
       return new URL(`../assets/img/${imgName}`, import.meta.url).href;
+    },
+
+    showModalCart() {
+      let cartModal = document.getElementById("myModal");
+
+      cartModal.classList.toggle("d-none");
     },
   },
   computed: {
@@ -49,8 +59,8 @@ export default {
         <li>
           <a class="" href=""><i class="fa-solid fa-user"></i></a>
         </li>
-        <li>
-          <a class="cart-badge" href="/cart">
+        <li class="">
+          <a class="cart-badge" id="myInput" href="#" @click="showModalCart">
             <i class="fa-solid fa-cart-shopping"></i>
             <div class="position-relative">
               <div class="cart"></div>
@@ -59,6 +69,7 @@ export default {
               </div>
             </div>
           </a>
+          <AppCartModal />
         </li>
       </ul>
       <!-- /nav menu per login e carrello -->
