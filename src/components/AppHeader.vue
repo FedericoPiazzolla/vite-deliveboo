@@ -1,6 +1,6 @@
 <script>
 import { store } from "../data/store";
-import AppCartModal from "./AppCartModal.vue";
+import AppCart from "./AppCart.vue";
 
 export default {
   data() {
@@ -9,7 +9,7 @@ export default {
     };
   },
   components: {
-    AppCartModal,
+    AppCart,
   },
   methods: {
     getImageUrl(imgName) {
@@ -69,7 +69,9 @@ export default {
               </div>
             </div>
           </a>
-          <AppCartModal />
+          <div class="ms_modal d-none" id="myModal">
+            <AppCart />
+          </div>
         </li>
       </ul>
       <!-- /nav menu per login e carrello -->
@@ -136,6 +138,16 @@ header {
         font-size: 12px;
       }
     }
+  }
+
+  .ms_modal {
+    height: calc(100vh - 120px);
+    width: 100vw;
+    background-color: $bg-color;
+    padding: 1rem;
+    position: absolute;
+    top: 120px;
+    left: 1px;
   }
 
   .right_header {

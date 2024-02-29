@@ -46,6 +46,12 @@ export default {
 
       return total.toFixed(2);
     },
+
+    hideCartModal() {
+      let cartModal = document.getElementById("myModal");
+
+      cartModal.classList.add("d-none");
+    },
   },
 };
 </script>
@@ -101,12 +107,17 @@ export default {
     <span class="ms_price d-inline-block">&euro; {{ calcTotal() }}</span>
   </div>
 
-  <div class="buttons_order d-flex justify-content-between">
-    <button class="order_button btn">Checkout</button>
-    <button class="empty_cart_btn btn" @click="emptyCart">
-      <i class="fa-solid fa-trash"></i>
-    </button>
-  </div>
+  <router-link
+    to="/checkout"
+    class="text-decoration-none"
+    @click="hideCartModal">
+    <div class="buttons_order d-flex justify-content-between">
+      <button class="order_button btn">Checkout</button>
+      <button class="empty_cart_btn btn" @click="emptyCart">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+    </div>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>
