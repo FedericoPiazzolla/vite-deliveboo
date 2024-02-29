@@ -129,10 +129,10 @@ header {
 
       .cart-quantity {
         position: absolute;
-        top: -42px;
-        right: -15px;
-        background-color: $primary; /* Colore del badge */
-        color: white; /* Colore del testo del badge */
+        top: -35px;
+        right: -20px;
+        background-color: $primary; 
+        color: white; 
         border-radius: 50%;
         padding: 0.2em 0.5em;
         font-size: 12px;
