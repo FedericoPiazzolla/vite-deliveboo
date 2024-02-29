@@ -9,11 +9,20 @@ export default {
             token: '',
             instance: null,
             paymentNonce: null,
-            amount: 10
+            dataToSend: {
+                interested_user_name: 'Mario',
+                interested_user_surname: 'Petri',
+                interested_user_address: 'Via del citofono, 19, 21021 Milano',
+                interested_user_email: 'mario.petri@gmail.com',
+                interested_user_phone: '+393574681755',
+                total: 10,
+                payment_method_nonce: null
+            }
         }
     },
     methods: {
         brainTreeInit() {
+            let dataToSend = this.dataToSend;
             const button = document.querySelector('#submit-button');
 
             braintree.dropin.create({
@@ -24,17 +33,30 @@ export default {
                     instance.requestPaymentMethod((requestPaymentMethodErr, payload) => {
                         this.paymentNonce = payload.nonce;
 
+                        dataToSend.payment_method_nonce = this.paymentNonce;
+
                         console.log("Paymentnonce", this.paymentNonce);
+
+                        console.log("Oggetto dei dati da passare", dataToSend);
+
                         axios
-                        .post("http://127.0.0.1:8000/api/order", {
-                            total: 10,
-                            payment_method_nonce: payload.nonce// Invia il nonce di pagamento al server
-                        })
+                        .post("http://127.0.0.1:8000/api/order", dataToSend)
                         .then((resp) => console.log(resp))
                     });
                     console.log("Pagamento avvenuto!");
                 });
             });
+        },
+        generatePaymentForm() {
+            axios
+            .get(`${this.store.apiUrl}api/braintree/token`)
+            .then((resp) => {
+                this.token = resp.data.clientToken;
+                console.log("Token ottenuto dalla chiamata a Braintree", this.token);
+            })
+            .finally(
+                this.brainTreeInit
+            )
         },
         sendPaymentPayload() {
             axios.post(`${this.store.apiUrl}api/orders`, {
@@ -45,21 +67,22 @@ export default {
         }
     },
     created() {
-        axios
-            .get(`${this.store.apiUrl}api/braintree/token`)
-            .then((resp) => {
-                this.token = resp.data.clientToken;
-                console.log("Token ottenuto dalla chiamata a Braintree", this.token);
-            })
-            .finally(
-                this.brainTreeInit
-            )
+        // axios
+        //     .get(`${this.store.apiUrl}api/braintree/token`)
+        //     .then((resp) => {
+        //         this.token = resp.data.clientToken;
+        //         console.log("Token ottenuto dalla chiamata a Braintree", this.token);
+        //     })
+        //     .finally(
+        //         this.brainTreeInit
+        //     )
     }
 }
 
 </script>
 
 <template>
+    <button @click="generatePaymentForm">Genera form</button>
     <section class="ms_checkout-section">
        <div id="dropin-wrapper">
             <div id="checkout-message"></div>
