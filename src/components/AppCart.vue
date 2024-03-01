@@ -31,14 +31,10 @@ export default {
         saveCart(store.updatedCart);
       }
     },
-    removeDishes() {
-      localStorage.clear();
-      store.updatedCart = [];
-    },
 
     emptyCart() {
-      localStorage.clear();
-      store.updatedCart.length = 0;
+      localStorage.clear('updatedCart');
+      store.updatedCart = [];
     },
 
     // calcolo il totale
@@ -117,17 +113,19 @@ export default {
     <span class="ms_price d-inline-block">&euro; {{ calcTotal() }}</span>
   </div>
 
-  <router-link
-    to="/checkout"
-    class="text-decoration-none"
-    @click="hideCartModal">
     <div class="buttons_order d-flex justify-content-between">
-      <button class="order_button btn">Checkout</button>
+
+      <router-link
+      to="/checkout"
+      >
+        <button class="order_button btn">Checkout</button>
+      </router-link>
+
       <button class="empty_cart_btn btn" @click="emptyCart">
         <i class="fa-solid fa-trash"></i>
       </button>
     </div>
-  </router-link>
+
 </template>
 
 <style lang="scss" scoped>
