@@ -34,7 +34,7 @@ export default {
 </script>
 
 <template>
-  <header>
+  <header id="ms_header">
     <div class="h-100 d-flex justify-content-between align-items-center p-3">
       <!-- immagine del logo che porta alla home -->
       <div class="w-25 ms_logo-image">
@@ -131,8 +131,8 @@ header {
         position: absolute;
         top: -35px;
         right: -20px;
-        background-color: $primary; 
-        color: white; 
+        background-color: $primary;
+        color: white;
         border-radius: 50%;
         padding: 0.2em 0.5em;
         font-size: 12px;

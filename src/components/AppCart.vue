@@ -10,6 +10,12 @@ export default {
     };
   },
   methods: {
+    addScrollbarToCart() {
+      let cartContainer = document.getElementById("cart-container");
+      let cartContainerHeight = cartContainer.getBoundingClientRect();
+
+      console.log(cartContainerHeight);
+    },
     // Aggiungo una quantità del prodotto
     addQuantity(dishKey) {
       this.store.updatedCart[dishKey].quantity++;
@@ -58,14 +64,18 @@ export default {
 
 <template>
   <!-- carrello con lista ordinata dei prodotti, totale da pagare e bottoni -->
-  <div class="pt-5 cart_title text-center">
+  <div class="pt-4 cart_title text-center">
     <h3 class="m-0">
       Il tuo carrello<i class="fa-solid fa-cart-shopping"></i>
     </h3>
   </div>
 
   <!-- Sezione prodotti nel carrello -->
-  <section id="cart-container" class="" v-if="store.updatedCart.length > 0">
+  <section
+    id="cart-container"
+    class="cart_element"
+    v-if="store.updatedCart.length > 0"
+    @click="addScrollbarToCart">
     <div class="text-center">
       <h6 class="ms_restaurant-title mb-3 d-inline">
         {{ store.updatedCart[0].restaurant.restaurant_name }}
@@ -143,6 +153,28 @@ h6 {
   padding: 0.2rem 0.5rem;
   border-radius: 2rem;
   font-weight: bolder;
+}
+
+.cart_element {
+  max-height: 750px;
+  overflow-y: scroll;
+
+  /* width */
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px $bg-btn;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: $main-text;
+    border-radius: 10px;
+  }
 }
 
 ol {

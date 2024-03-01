@@ -40,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <div class="col-12 p-0">
+  <div class="col-12 ms-2 pe-0" id="best_sellers">
     <AppBestSellers :bestSellers="bestSellers" />
   </div>
   <div class="col-12 col-md-9">
