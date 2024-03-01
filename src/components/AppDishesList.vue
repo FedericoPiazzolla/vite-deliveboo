@@ -15,13 +15,13 @@ export default {
     restaurantDishes: Array, //chiamata per singolo ristorante per prendere i suoi piatti
   },
   methods: {
-    addQuantity(item) {
-      const dish = this.restaurantDishes[item];
+    addQuantity(dishId) {
+      const dish = this.restaurantDishes.find((d) => d.id === dishId);
 
       localStorage.setItem("restaurant", JSON.stringify(store.restaurant));
 
       const existentDish = store.updatedCart.find(
-        (dishToFind) => dishToFind.id === dish.id
+        (dishToFind) => dishToFind.id === dishId
       );
       if (existentDish) {
         existentDish.quantity++;
@@ -39,11 +39,10 @@ export default {
       saveCart(store.updatedCart);
     },
 
-    removeQuantity(item) {
-      const dish = this.restaurantDishes[item];
+    removeQuantity(dishId) {
 
       const existentDishIndex = store.updatedCart.findIndex(
-        (dishToFind) => dishToFind.id === dish.id
+        (dishToFind) => dishToFind.id === dishId
       );
 
       if (existentDishIndex !== -1) {
@@ -74,6 +73,12 @@ export default {
       this.showConfirmationModal = false;
     },  
   },
+  computed: {
+    sortedRestaurantDishes() {
+      // Ordina i piatti per ID
+      return this.restaurantDishes.slice().sort((a, b) => a.id - b.id);
+    },
+  },
 };
 </script>
 
@@ -98,8 +103,8 @@ export default {
       <div class="row d-flex flex-column">
         <div
           class="col d-flex justify-content-between align-items-center ps-0 mb-3 pe-0"
-          v-for="(dish, index) in restaurantDishes"
-          :key="index">
+          v-for="(dish, index) in sortedRestaurantDishes"
+          :key="dish.id">
           <!-- card image -->
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <!-- /card image -->
@@ -120,13 +125,13 @@ export default {
               class="ms_quantity d-flex align-items-center justify-content-between">
               <button
                 class="ms_card-btn px-2 py-1"
-                @click="removeQuantity(index)">
+                @click="removeQuantity(dish.id)">
                 <i class="fa-solid fa-minus"></i>
               </button>
               <span class="ms_quantity-show px-2 fw-bold">{{
                 getCartQuantity(dish.id)
               }}</span>
-              <button class="ms_card-btn px-2 py-1" @click="addQuantity(index)">
+              <button class="ms_card-btn px-2 py-1" @click="addQuantity(dish.id)">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>

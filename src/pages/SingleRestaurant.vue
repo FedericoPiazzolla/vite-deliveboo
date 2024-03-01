@@ -55,9 +55,6 @@ export default {
 
       let cartContainer = document.getElementById("cart_col");
 
-      console.log(elementTotalHeight);
-      console.log(viewHeight);
-
       if (!this.isBestSellerInViewport(bestSeller)) {
         cart.classList.add("fixed-top-cart");
         // console.log("non c'è");

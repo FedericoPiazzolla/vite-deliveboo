@@ -138,6 +138,9 @@ export default {
   created() {
     this.importCart();
   },
+  mounted() {
+    window.scrollTo(top);
+  },
 };
 </script>
 
