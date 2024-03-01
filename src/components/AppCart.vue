@@ -60,6 +60,10 @@ export default {
 </script>
 
 <template>
+  <button @click="hideCartModal" class="ms_back-btn">
+    torna al ristorante
+  </button>
+
   <!-- carrello con lista ordinata dei prodotti, totale da pagare e bottoni -->
   <div class="pt-4 cart_title text-center">
     <h3 class="m-0">
@@ -132,6 +136,15 @@ export default {
 
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
+
+.ms_back-btn {
+  border: 0;
+  background-color: $primary;
+  color: white;
+  padding: .3rem .6rem;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+}
 
 .buttons_order {
   .order_button {
