@@ -33,8 +33,9 @@ export default {
     },
 
     emptyCart() {
-      localStorage.clear('updatedCart');
+      localStorage.removeItem('updatedCart');
       store.updatedCart = [];
+      console.log(localStorage);
     },
 
     // calcolo il totale
@@ -117,8 +118,9 @@ export default {
 
       <router-link
       to="/checkout"
+      v-if="store.updatedCart.length > 0"
       >
-        <button v-show="store.updatedCart > 0" class="order_button btn">Checkout</button>
+        <button class="order_button btn">Checkout</button>
       </router-link>
 
       <button class="empty_cart_btn btn" @click="emptyCart">
