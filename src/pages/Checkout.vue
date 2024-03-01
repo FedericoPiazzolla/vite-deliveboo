@@ -41,6 +41,9 @@ export default {
     checkEmail,
     checkPhoneNumber,
     formControl,
+    redirectPostCheckout() {
+      setTimeout(window.location.replace('http://localhost:5173/postcheckout'), 10000)
+    },
     brainTreeInit() {
       let dataToSend = this.dataToSend;
       const button = document.querySelector("#submit-button");
@@ -63,14 +66,17 @@ export default {
                 console.log("Oggetto dei dati da passare", dataToSend);
 
                 // Una volta ottenuto il token, faccio la chiamata post per verificare il pagamento ed eventualmente salvare l'ordine
-                axios
-                  .post("http://127.0.0.1:8000/api/order", dataToSend)
-                  .then((resp) => console.log(resp))
-                  .finally(
-                    localStorage.clear("updatedCart"),
-                    (store.updatedCart = []),
-                    console.log("Log del carrello una volta svuotato", loadCart)
-                  );
+                async function processOrder() {
+                  let resp = await axios
+                    .post("http://127.0.0.1:8000/api/order", dataToSend)
+                  console.log(resp.data.order_id);
+                  localStorage.setItem('orderId', JSON.stringify(resp.data.order_id));
+                  window.location.replace('http://localhost:5173/postcheckout')
+                }
+                localStorage.clear("updatedCart")
+                store.updatedCart = []
+                console.log("Log del carrello una volta svuotato", loadCart)
+                processOrder()
               }
             );
             console.log("Pagamento avvenuto!");
@@ -141,13 +147,8 @@ export default {
       <!-- NOME -->
       <div class="mb-3">
         <label for="interested_user_name" class="form-label">Nome</label>
-        <input
-          class="w-100 form-control"
-          required
-          v-model="dataToSend.interested_user_name"
-          id="interested_user_name"
-          type="text"
-          @input="checkName" />
+        <input class="w-100 form-control" required v-model="dataToSend.interested_user_name" id="interested_user_name"
+          type="text" @input="checkName" />
         <!-- {{-- Gestione errore name --}} -->
         <span>
           <strong id="nameError" class="errorFormMsg ms-1"></strong><br />
@@ -157,13 +158,8 @@ export default {
       <!-- COGNOME -->
       <div class="mb-3">
         <label for="interested_user_surname" class="form-label">Cognome</label>
-        <input
-          class="w-100 form-control"
-          required
-          v-model="dataToSend.interested_user_surname"
-          id="interested_user_surname"
-          type="text"
-          @input="checkSurname" />
+        <input class="w-100 form-control" required v-model="dataToSend.interested_user_surname"
+          id="interested_user_surname" type="text" @input="checkSurname" />
         <!-- {{-- Gestione errore cognome --}} -->
         <span>
           <strong id="surnameError" class="errorFormMsg ms-1"></strong><br />
@@ -172,16 +168,9 @@ export default {
 
       <!-- INDIRIZZO -->
       <div class="mb-3">
-        <label for="interested_user_address" class="form-label"
-          >Indirizzo</label
-        >
-        <input
-          class="w-100 form-control"
-          required
-          v-model="dataToSend.interested_user_address"
-          id="interested_user_address"
-          type="text"
-          @input="checkAddress" />
+        <label for="interested_user_address" class="form-label">Indirizzo</label>
+        <input class="w-100 form-control" required v-model="dataToSend.interested_user_address"
+          id="interested_user_address" type="text" @input="checkAddress" />
         <!-- {{-- Gestione errore indirizzo --}} -->
         <span>
           <strong id="addressError" class="errorFormMsg ms-1"></strong><br />
@@ -191,12 +180,8 @@ export default {
       <!-- EMAIL -->
       <div class="mb-3">
         <label for="interested_user_email" class="form-label">Email</label>
-        <input
-          class="w-100 form-control"
-          v-model="dataToSend.interested_user_email"
-          id="interested_user_email"
-          type="email"
-          @input="checkEmail" />
+        <input class="w-100 form-control" v-model="dataToSend.interested_user_email" id="interested_user_email"
+          type="email" @input="checkEmail" />
         <!-- {{-- Gestione errore email --}} -->
         <span>
           <strong id="emailError" class="errorFormMsg ms-1"></strong><br />
@@ -206,13 +191,8 @@ export default {
       <!-- NUMERO DI TELEFONO -->
       <div class="mb-3">
         <label for="interested_user_phone" class="form-label">Telefono</label>
-        <input
-          class="w-100 form-control"
-          required
-          v-model="dataToSend.interested_user_phone"
-          id="interested_user_phone"
-          type="text"
-          @input="checkPhoneNumber" />
+        <input class="w-100 form-control" required v-model="dataToSend.interested_user_phone" id="interested_user_phone"
+          type="text" @input="checkPhoneNumber" />
         <!-- {{-- Gestione errore numero --}} -->
         <span>
           <strong id="numberError" class="errorFormMsg ms-1"></strong><br />
@@ -248,6 +228,7 @@ export default {
 
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
+
 .container {
   .mb-3 {
     strong {
@@ -263,6 +244,7 @@ export default {
     background-color: $bg-btn;
     color: $main-text;
   }
+
   .ms_checkout-section {
     min-height: 480px;
     padding: 3rem;

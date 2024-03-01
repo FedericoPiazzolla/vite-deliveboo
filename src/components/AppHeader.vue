@@ -57,7 +57,7 @@ export default {
       <ul
         class="right_header list-unstyled d-flex justify-content-end align-items-center h-100 m-0">
         <li>
-          <a class="" href=""><i class="fa-solid fa-user"></i></a>
+          <a class="" href="http://127.0.0.1:8000/"><i class="fa-solid fa-user"></i></a>
         </li>
         <li class="">
           <a class="cart-badge" id="myInput" href="#" @click="showModalCart">
