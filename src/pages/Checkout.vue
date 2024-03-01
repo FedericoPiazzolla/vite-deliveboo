@@ -110,6 +110,7 @@ export default {
         dishesId.push(dish.id);
         dishesQuantities.push(dish.quantity);
 
+
         // Li rendo stringhe
         dishesId.toString();
         dishesQuantities.toString();
@@ -133,6 +134,17 @@ export default {
         this.dataToSend.dishes_quantities
       );
       console.log("totale da pagare", this.dataToSend.total);
+
+    },
+    calcTotal() {
+      let total = 0;
+
+      for (const index in store.updatedCart) {
+        total +=
+          store.updatedCart[index].price * store.updatedCart[index].quantity;
+      }
+
+      return total.toFixed(2);
     },
   },
   created() {
@@ -146,7 +158,32 @@ export default {
 
 <template>
   <div class="container py-5">
+
+    <!-- RIEPILOGO ORDINE -->
+    <div class="card w-75 mx-auto mt-3">
+      <div class="card-header fw-bold" style="background-color: #173736; color: #FFFDD0;">
+        Dettagli dell'ordine:
+      </div>
+      <div class="card-body">
+        <h5 class="text-center mb-3">
+          Ecco i tuoi prodotti presi da <strong style="color:#FF9000;">{{ store.updatedCart[0].restaurant.restaurant_name }}</strong>
+        </h5>
+        <div v-for="(product, index) in store.updatedCart" :key="index" class="ms-md-2 me-auto">
+          <p class="ms_dish-name mb-1 d-flex justify-content-between align-items-center">
+            <span class="fw-bold">{{ product.quantity }} x {{ product.name }} </span> 
+            <span class="d-inline-block mx-5"> &euro; {{ product.price }} </span>
+          </p>
+        </div>
+        <p class="ms_price d-inline-block m-2"><strong>Totale da pagare: &euro; {{ calcTotal() }}</strong></p>
+      </div>
+
+
+    </div>
+
+   
+    <!-- FORM DATI CLIENTE -->
     <div id="checkout-form" class="w-75 mx-auto">
+      <h4 class="my-5">Dettagli di consegna</h4>
       <!-- NOME -->
       <div class="mb-3">
         <label for="interested_user_name" class="form-label">Nome</label>
@@ -218,6 +255,7 @@ export default {
     <!-- FORM PAGAMENTO BRAINTREE-->
     <section class="ms_checkout-section">
       <div id="dropin-wrapper">
+        <h5 v-show="paymentLoaded">Inserisci i dati della tua carta:</h5>
         <div id="checkout-message"></div>
         <div id="dropin-container"></div>
 
