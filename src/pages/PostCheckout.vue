@@ -36,7 +36,7 @@ export default {
 <template>
     <div id="order-container">
 
-        <div>
+        <div v-if="orderId">
             <h2 class="mb-4 text-capitalize text-center">
                 Ordine effettuato
                 <i class="text-success fa-regular fa-circle-check"></i>
@@ -70,22 +70,21 @@ export default {
             <p class="total text-decoration-underline text-end mb-3">Totale: &euro;{{ order.total }}</p>
         </div>
 
-        <!-- <div v-else class="p-5">
-  <h2 class="mb-4 text-capitalize text-center">
-    Ordine annullato
-    <i class="text-danger fa-regular fa-circle-check"></i>
-  </h2>
-  <p>C'è stato un problema nella conferma del pagamento.</p>
-  <p>Aprendo il carrello può ricominciare la procedura per l'acquisto dei prodotti selezionati.</p>
-</div> -->
+        <div v-else class="p-5">
+            <h2 class="mb-4 text-capitalize text-center">
+                Ordine annullato
+                <i class="text-danger fa-regular fa-circle-check"></i>
+            </h2>
+            <p>C'è stato un problema nella conferma del pagamento.</p>
+            <p>Aprendo il carrello può ricominciare la procedura per l'acquisto dei prodotti selezionati.</p>
+        </div>
 
     </div>
 </template>
 
 
 <style lang="scss" scoped>
-
 #order-container {
-  padding: 5rem;
+    padding: 5rem;
 }
 </style>

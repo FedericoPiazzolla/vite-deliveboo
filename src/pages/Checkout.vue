@@ -66,19 +66,17 @@ export default {
                 console.log("Oggetto dei dati da passare", dataToSend);
 
                 // Una volta ottenuto il token, faccio la chiamata post per verificare il pagamento ed eventualmente salvare l'ordine
-                axios
-                  .post("http://127.0.0.1:8000/api/order", dataToSend)
-                  .then((resp) => {
-                    console.log(resp);
-                    const orderId = resp.data.order_id
-                    localStorage.clear('orderId')
-                    localStorage.setItem('orderId', JSON.stringify(orderId));
-                  })
-                  .finally(
-                    localStorage.clear("updatedCart"),
-                    store.updatedCart = [],
-                    console.log("Log del carrello una volta svuotato", loadCart),
-                  );
+                async function processOrder() {
+                  let resp = await axios
+                    .post("http://127.0.0.1:8000/api/order", dataToSend)
+                  console.log(resp.data.order_id);
+                  localStorage.setItem('orderId', JSON.stringify(resp.data.order_id));
+                  window.location.replace('http://localhost:5173/postcheckout')
+                }
+                localStorage.clear("updatedCart")
+                store.updatedCart = []
+                console.log("Log del carrello una volta svuotato", loadCart)
+                processOrder()
               }
             );
             console.log("Pagamento avvenuto!");
