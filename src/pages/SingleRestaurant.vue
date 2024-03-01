@@ -14,29 +14,68 @@ export default {
   },
   name: "SingleRestaurant",
   methods: {
-    // isFooterInViewport(footer) {
-    //   let footerSizes = footer.getBoundingClientRect();
-    //   let windowHeight =
-    //     window.innerHeight || document.documentElement.clientHeight;
-    //   let windowWidth =
-    //     window.innerWidth || document.documentElement.clientWidth;
-    //   // Controlla se almeno 1px dell'elemento è visibile nel viewport
-    //   let vertInView =
-    //     footerSizes.bottom >= 0 && footerSizes.top <= windowHeight;
-    //   let horInView = footerSizes.right >= 0 && footerSizes.left <= windowWidth;
-    //   return vertInView && horInView;
-    // },
-    // isCartInViewport(cart) {
-    //   let cartSizes = cart.getBoundingClientRect();
-    //   let windowHeight =
-    //     window.innerHeight || document.documentElement.clientHeight;
-    //   let windowWidth =
-    //     window.innerWidth || document.documentElement.clientWidth;
-    //   //  Controlla se il bottom del carrello è visibile in pagina
-    //   let cartBottomInView =
-    //     cartSizes.bottom <= windowHeight && cartSizes.bottom >= 0;
-    //   return cartBottomInView;
-    // },
+    isBestSellerInViewport(element) {
+      let bestSeller = element.getBoundingClientRect();
+
+      let windowHeight =
+        window.innerHeight || document.documentElement.clientHeight;
+      let windowWidth =
+        window.innerWidth || document.documentElement.clientWidth;
+      let headerHeight = 120;
+      // Controlla se il div bestSellers è presente nel viewport
+      const vertInView =
+        bestSeller.top < windowHeight - headerHeight &&
+        bestSeller.top + bestSeller.height > headerHeight;
+      let horInView = bestSeller.right >= 0 && bestSeller.left <= windowWidth;
+      return vertInView && horInView;
+    },
+
+    footerVisibleHeight(element) {
+      let footer = element.getBoundingClientRect();
+      let viewPortHeight = window.innerHeight;
+      if (footer.bottom < 0 || footer.top > viewPortHeight) {
+        return 0;
+      }
+      let visibleFooterHeight =
+        Math.min(footer.bottom, viewPortHeight) - Math.max(footer.top, 0);
+
+      return Math.max(0, visibleFooterHeight);
+    },
+
+    checkVisibility() {
+      let bestSeller = document.getElementById("best_sellers");
+      let footer = document.getElementById("ms_footer");
+      let cart = document.getElementById("ms_cart");
+      let cartHeight = cart.offsetHeight;
+      let headerHeight = document.getElementById("ms_header").offsetHeight;
+      let viewHeight = window.innerHeight;
+      let footerVisibleHeight = this.footerVisibleHeight(footer);
+      let elementTotalHeight =
+        cartHeight + headerHeight + footerVisibleHeight + 20;
+
+      let cartContainer = document.getElementById("cart_col");
+
+      console.log(elementTotalHeight);
+      console.log(viewHeight);
+
+      if (!this.isBestSellerInViewport(bestSeller)) {
+        cart.classList.add("fixed-top-cart");
+        // console.log("non c'è");
+      } else {
+        cart.classList.remove("fixed-top-cart");
+        // console.log("è presente");
+      }
+
+      if (elementTotalHeight >= viewHeight) {
+        console.log("ciao");
+        cart.classList.remove("fixed-top-cart");
+        cart.classList.add("fixed-bottom-cart");
+        cartContainer.classList.add("position-relative");
+      } else {
+        cart.classList.remove("fixed-bottom-cart");
+        cartContainer.classList.remove("position-relative");
+      }
+    },
   },
   created() {
     const restaurantToShow = localStorage.getItem("restaurant_id");
@@ -48,25 +87,7 @@ export default {
         this.restaurant = resp.data.results;
       });
 
-    // document.addEventListener("scroll", () => {
-    //   // posso aggiungere il fixed con top uguale alla misura del view meno l'header
-    //   //implementare la condizione: SE il carello si vede tutto allora procedere
-    //   let footer = document.getElementById("ms_footer");
-    //   let cart = document.getElementById("ms_cart");
-    //   if (this.isCartInViewport(cart)) {
-    //     console.log("si vede");
-    //     if (this.isFooterInViewport(footer)) {
-    //       console.log("ciao");
-    //       cart.classList.remove("position-absolute");
-    //       cart.classList.add("position-fixed");
-    //       cart.classList.remove("w-100");
-    //     }
-    //   } else {
-    //     cart.classList.add("w-100");
-    //     cart.classList.remove("position-fixed");
-    //     cart.classList.add("position-absolute");
-    //   }
-    // });
+    window.addEventListener("scroll", this.checkVisibility);
   },
 };
 </script>
@@ -83,8 +104,9 @@ export default {
     <AppSingleRestaurantDishes />
 
     <div
-      class="d-none d-md-inline cart_container w-25 d-flex justify-content-center mx-auto p-0">
-      <div class="w-100" id="ms_cart">
+      class="col-3 d-none d-md-inline cart_container w-25 d-flex justify-content-center mx-auto p-0"
+      id="cart_col">
+      <div class="cart" id="ms_cart">
         <AppCart />
       </div>
     </div>
@@ -103,12 +125,21 @@ export default {
   width: 100vw;
 }
 
-// .cart_container {
-//   position: relative;
+.fixed-top-cart {
+  position: fixed;
+  width: 25%;
+  top: 120px;
+  right: 10;
+}
+
+// .cart {
+//   max-height: 500px;
 //   overflow-y: scroll;
-//   .absolute {
-//     position: absolute;
-//     bottom: 0;
-//   }
 // }
+.fixed-bottom-cart {
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+  right: 10;
+}
 </style>

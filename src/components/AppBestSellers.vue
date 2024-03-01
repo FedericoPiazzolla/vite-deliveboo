@@ -20,7 +20,7 @@ export default {
 
 <template>
   <section class="">
-    <div class="title d-flex align-items-center px-4">
+    <div class="title d-flex align-items-center ms-2">
       <i class="fa-solid fa-star"></i>
       <span class="ms-2 fs-5 fw-bold">Best Sellers</span>
     </div>
