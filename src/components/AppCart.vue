@@ -118,7 +118,7 @@ export default {
       <router-link
       to="/checkout"
       >
-        <button class="order_button btn">Checkout</button>
+        <button v-show="store.updatedCart > 0" class="order_button btn">Checkout</button>
       </router-link>
 
       <button class="empty_cart_btn btn" @click="emptyCart">
