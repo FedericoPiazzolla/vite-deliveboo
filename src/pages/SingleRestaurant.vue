@@ -57,14 +57,11 @@ export default {
 
       if (!this.isBestSellerInViewport(bestSeller)) {
         cart.classList.add("fixed-top-cart");
-        // console.log("non c'è");
       } else {
         cart.classList.remove("fixed-top-cart");
-        // console.log("è presente");
       }
 
       if (elementTotalHeight >= viewHeight) {
-        console.log("ciao");
         cart.classList.remove("fixed-top-cart");
         cart.classList.add("fixed-bottom-cart");
         cartContainer.classList.add("position-relative");
@@ -94,7 +91,7 @@ export default {
     :style="`background-image: url(${this.restaurant.restaurant_image})`"
     class="bg-image w-100"></div>
   <div class="row">
-    <div class="col-12">
+    <div class="col-12 p-0">
       <AppSingleRestaurantHeader :singleRestaurant="restaurant" />
     </div>
 

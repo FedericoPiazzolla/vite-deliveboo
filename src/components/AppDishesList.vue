@@ -40,7 +40,6 @@ export default {
     },
 
     removeQuantity(dishId) {
-
       const existentDishIndex = store.updatedCart.findIndex(
         (dishToFind) => dishToFind.id === dishId
       );
@@ -71,7 +70,7 @@ export default {
     },
     resetModal() {
       this.showConfirmationModal = false;
-    },  
+    },
   },
   computed: {
     sortedRestaurantDishes() {
@@ -88,7 +87,10 @@ export default {
     <div v-if="showConfirmationModal" class="modal-container">
       <div class="modal-content">
         <h2>Attenzione!</h2>
-        <p>Sei sicuro di voler cambiare ristorante? Il tuo carrello verrà svuotato.</p>
+        <p>
+          Sei sicuro di voler cambiare ristorante? Il tuo carrello verrà
+          svuotato.
+        </p>
         <button @click="emptyCart">Ok</button>
         <button @click="resetModal">Annulla</button>
       </div>
@@ -99,8 +101,8 @@ export default {
       <i class="fa-solid fa-utensils"></i>
       <span class="ms-2 fs-5 fw-bold">Tutti i piatti</span>
     </div>
-    <div class="d-flex px-5 pt-4 justify-content-center align-items-stretch">
-      <div class="row d-flex flex-column">
+    <div class="d-flex pt-4 justify-content-center align-items-stretch">
+      <div class="row d-flex flex-column justify-content-center">
         <div
           class="col d-flex justify-content-between align-items-center ps-0 mb-3 pe-0"
           v-for="(dish, index) in sortedRestaurantDishes"
@@ -131,13 +133,14 @@ export default {
               <span class="ms_quantity-show px-2 fw-bold">{{
                 getCartQuantity(dish.id)
               }}</span>
-              <button class="ms_card-btn px-2 py-1" @click="addQuantity(dish.id)">
+              <button
+                class="ms_card-btn px-2 py-1"
+                @click="addQuantity(dish.id)">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
           </div>
           <!-- /quantità card -->
-
         </div>
       </div>
     </div>
@@ -159,31 +162,31 @@ export default {
   align-items: center;
   z-index: 1000;
 }
+  .modal-content {
+    background: $bg-color;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 70px $bg-btn;
+    max-width: 400px;
+    width: 100%;
 
-.modal-content {
-  background: $bg-color;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 70px $bg-btn;
-  max-width: 400px;
-  width: 100%;
-}
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: $main-text;
+      color: #fff;
+      font-size: 16px;
 
-.modal-content button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: $main-text;
-  color: #fff;
-  font-size: 16px;
-}
+      &:hover {
+        background-color: lighten($color: $main-text, $amount: 10%);
+      }
+    }
+  }
 
-.modal-content button:hover {
-  background-color: lighten($color: $main-text, $amount: 10%);
-}
 
 .title {
   color: $primary;
@@ -212,14 +215,16 @@ export default {
   .dish_details {
     .dish-name {
       width: 30%;
-      color: $primary;
+      color: $main-text;
+      font-size: 0.7rem;
 
       @media (min-width: 576px) {
         width: 50%;
+        font-size: 25px;
       }
 
       @media (min-width: 992px) {
-        width: 20%;
+        width: 40%;
       }
     }
 

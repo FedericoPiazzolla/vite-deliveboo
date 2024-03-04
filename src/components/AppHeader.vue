@@ -18,8 +18,9 @@ export default {
 
     showModalCart() {
       let cartModal = document.getElementById("myModal");
-
+      let cartCloseBtn = document.getElementById("hide_cart_btn");
       cartModal.classList.toggle("d-none");
+      cartCloseBtn.classList.remove("d-none");
     },
   },
   computed: {
@@ -57,9 +58,11 @@ export default {
       <ul
         class="right_header list-unstyled d-flex justify-content-end align-items-center h-100 m-0">
         <li>
-          <a class="" href="http://127.0.0.1:8000/"><i class="fa-solid fa-user"></i></a>
+          <a class="" href="http://127.0.0.1:8000/"
+            ><i class="fa-solid fa-user"></i
+          ></a>
         </li>
-        <li class="">
+        <li class="m-0 p-0">
           <a class="cart-badge" id="myInput" href="#" @click="showModalCart">
             <i class="fa-solid fa-cart-shopping"></i>
             <div class="position-relative">
@@ -101,9 +104,18 @@ header {
     color: $main-text;
   }
   .bg-image {
-    background-image: url(../assets/img/jumbotron.jpeg);
-    background-size: contain;
+    background: rgb(197, 22, 5);
+    background: linear-gradient(
+      90deg,
+      rgba(197, 22, 5, 1) 10%,
+      rgba(255, 253, 208, 1) 25%,
+      rgba(255, 144, 0, 1) 50%,
+      rgba(255, 253, 208, 1) 75%,
+      rgba(197, 22, 5, 1) 100%
+    );
 
+    // text-shadow: 1px 5px 15px $bg-btn;
+    position: relative;
     background-clip: text;
     color: transparent;
   }

@@ -13,22 +13,22 @@ export default {
   components: {
     AppBestSellersCard,
   },
-
-  methods: {},
 };
 </script>
 
 <template>
-  <section class="">
+  <section>
+    <!-- Card -->
     <div class="title d-flex align-items-center ms-2">
       <i class="fa-solid fa-star"></i>
       <span class="ms-2 fs-5 fw-bold">Best Sellers</span>
     </div>
-    <div class="best-sellers row-cols-4 d-flex py-4 align-items-stretch">
+    <div class="best-sellers row-cols-4 d-flex py-4">
       <AppBestSellersCard
         v-for="(dish, index) in bestSellers"
         :key="index"
-        :singleDish="dish" />
+        :singleDish="dish"
+        :singleDishIndex="index" />
     </div>
   </section>
 </template>
@@ -41,6 +41,8 @@ export default {
 }
 
 .best-sellers {
+  height: 100%;
+  align-items: stretch;
   overflow-x: scroll;
 }
 </style>
