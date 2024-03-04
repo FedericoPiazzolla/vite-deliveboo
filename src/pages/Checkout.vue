@@ -69,10 +69,10 @@ export default {
 
                 console.log("Oggetto dei dati da passare", dataToSend);
 
-                const holdUp = document.getElementById('hold-up')
+                const holdUp = document.getElementById('hold-up');
                 const waitPlease = document.getElementById('wait');
-                holdUp.classList.remove('d-none')
-                waitPlease.classList.remove('d-none')
+                holdUp.classList.remove('d-none');
+                waitPlease.classList.remove('d-none');
 
                 // Una volta ottenuto il token, faccio la chiamata post per verificare il pagamento ed eventualmente salvare l'ordine
                 async function processOrder() {
@@ -109,6 +109,11 @@ export default {
           console.log("Token ottenuto dalla chiamata a Braintree", this.token);
         })
         .finally(this.brainTreeInit);
+        window.scrollBy(0, 500);
+    },
+
+    scrollDown() {
+      window.scrollBy(0, 300);
     },
 
     importCart() {
@@ -273,7 +278,7 @@ export default {
         <div id="checkout-message"></div>
         <div id="dropin-container"></div>
 
-        <button v-show="paymentLoaded" class="btn" id="submit-button">
+        <button v-show="paymentLoaded" @click="scrollDown" class="btn" id="submit-button">
           Completa pagamento
         </button>
       </div>
@@ -281,7 +286,8 @@ export default {
 
     <div id="hold-up" class="d-none mx-auto rounded">
       <p id="wait" class="d-none text-center fs-4">Attendi...</p>
-      <p id="payment-successful" class="d-none text-success text-center fs-4">Pagamento riuscito! Ti stiamo reindirizzando...
+      <p id="payment-successful" class="d-none text-success text-center fs-4">Pagamento riuscito! Ti stiamo
+        reindirizzando...
       </p>
     </div>
   </div>
