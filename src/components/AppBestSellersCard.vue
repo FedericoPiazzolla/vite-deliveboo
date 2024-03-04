@@ -63,6 +63,16 @@ export default {
       const cartItem = store.updatedCart.find((item) => item.id === dishId);
       return cartItem ? cartItem.quantity : 0;
     },
+      
+    emptyCart() {
+      console.log("ciao");
+      localStorage.clear();
+      store.updatedCart = [];
+      this.showConfirmationModal = false;
+    },
+    resetModal() {
+      this.showConfirmationModal = false;
+    },
   },
   created() {
     let bestSellersString = localStorage.getItem("bestSellers");
@@ -70,15 +80,7 @@ export default {
     console.log(this.bestSellers);
   },
 
-  emptyCart() {
-    console.log("ciao");
-    localStorage.clear();
-    store.updatedCart = [];
-    this.showConfirmationModal = false;
-  },
-  resetModal() {
-    this.showConfirmationModal = false;
-  },
+
 };
 </script>
 
@@ -168,7 +170,7 @@ export default {
     border: 0;
     border-radius: 50%;
 
-    :hover {
+    &:hover {
       background-color: none;
     }
   }
@@ -205,7 +207,7 @@ export default {
       color: #fff;
       font-size: 16px;
 
-      :hover {
+      &:hover {
         background-color: lighten($color: $main-text, $amount: 10%);
       }
     }

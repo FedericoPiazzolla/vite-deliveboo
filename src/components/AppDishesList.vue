@@ -161,7 +161,7 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-
+}
   .modal-content {
     background: $bg-color;
     padding: 20px;
@@ -181,12 +181,12 @@ export default {
       color: #fff;
       font-size: 16px;
 
-      :hover {
+      &:hover {
         background-color: lighten($color: $main-text, $amount: 10%);
       }
     }
   }
-}
+
 
 .title {
   color: $primary;
