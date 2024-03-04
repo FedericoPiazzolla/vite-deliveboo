@@ -218,12 +218,12 @@ export default {
               >{{ product.quantity }} x {{ product.name }}
             </span>
             <span class="d-inline-block">
-              &euro; {{ product.price }}
+              &euro;{{ product.price }}
             </span>
           </p>
         </div>
         <p class="ms_price d-block m-2 text-end">
-          <strong>Totale da pagare: &euro; {{ calcTotal() }}</strong>
+          <strong>Totale da pagare: &euro;{{ calcTotal() }}</strong>
         </p>
       </div>
     </div>
