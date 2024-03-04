@@ -16,7 +16,7 @@ export default {
         <div class="col-6 col-md-4 col-lg-3 mb-5">
           <h5 class="mb-3">Uniamo le forze</h5>
           <ul class="d-flex flex-column gap-3 list-unstyled">
-            <li><a href="#">Lavora con noi</a></li>
+            <li><a href="http://127.0.0.1:8000/">Lavora con noi</a></li>
             <li><a href="#">Deliveboo per i Partner</a></li>
             <li><a href="#">Corrieri</a></li>
             <li><a href="#">Deliveboo Business</a></li>

@@ -17,6 +17,7 @@ export default {
     getRandomBestSeller() {
       let shuffledDishes = this.dishes.sort(() => 0.5 - Math.random());
       this.bestSellers = shuffledDishes.slice(0, 5);
+      localStorage.setItem("bestSellers", JSON.stringify(this.bestSellers));
     },
 
     // Carico il restaurant_id dal local store
@@ -40,14 +41,18 @@ export default {
 </script>
 
 <template>
-  <div class="col-12 ms-2 pe-0" id="best_sellers">
+  <div class="d-none d-sm-block col-12 ms-2 pe-0" id="best_sellers">
     <AppBestSellers :bestSellers="bestSellers" />
   </div>
-  <div class="col-12 col-md-9">
+  <div class="col-12 col-md-9 ps-5 pe-4">
     <AppDishesList :restaurantDishes="dishes" />
   </div>
 </template>
 
 <style scoped lang="scss">
 @use "../scss/partials/variables" as *;
+
+// #best_sellers {
+
+// }
 </style>

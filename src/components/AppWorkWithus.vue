@@ -36,6 +36,9 @@ export default {
             crescita e soddisfazione personale
           </p>
         </div>
+        <div class="col-12 text-center mb-5">
+          <a href="http://127.0.0.1:8000/" class="ms_btn">Lavora con noi</a>
+        </div>
         <!-- /Text Col -->
       </div>
     </div>
@@ -45,6 +48,13 @@ export default {
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
 
+.ms_btn {
+  background-color: $main-text;
+  color: $bg-color;
+  padding: 0.7rem;
+  border-radius: 2rem;
+  text-decoration: none;
+}
 .ms_work-section {
   background-color: $bg-btn;
 }
