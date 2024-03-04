@@ -18,8 +18,9 @@ export default {
 
     showModalCart() {
       let cartModal = document.getElementById("myModal");
-
+      let cartCloseBtn = document.getElementById("hide_cart_btn");
       cartModal.classList.toggle("d-none");
+      cartCloseBtn.classList.remove("d-none");
     },
   },
   computed: {

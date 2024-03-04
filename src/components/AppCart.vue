@@ -33,7 +33,7 @@ export default {
     },
 
     emptyCart() {
-      localStorage.removeItem('updatedCart');
+      localStorage.removeItem("updatedCart");
       store.updatedCart = [];
       console.log(localStorage);
     },
@@ -50,6 +50,10 @@ export default {
       return total.toFixed(2);
     },
 
+    showBtnOnCart() {
+      let cartModal = document.getElementById("myModal");
+    },
+
     hideCartModal() {
       let cartModal = document.getElementById("myModal");
 
@@ -60,9 +64,11 @@ export default {
 </script>
 
 <template>
-  <button @click="hideCartModal" class="ms_back-btn">
-    torna al ristorante
-  </button>
+  <div class="d-none" id="hide_cart_btn">
+    <button @click="hideCartModal" class="ms_back-btn">
+      <span class="fs-6">&leftarrow; Chiudi carrello</span>
+    </button>
+  </div>
 
   <!-- carrello con lista ordinata dei prodotti, totale da pagare e bottoni -->
   <div class="pt-4 cart_title text-center">
@@ -118,20 +124,17 @@ export default {
     <span class="ms_price d-inline-block">&euro; {{ calcTotal() }}</span>
   </div>
 
-    <div class="buttons_order d-flex justify-content-between">
+  <div
+    class="buttons_order d-flex justify-content-between"
+    @click="hideCartModal">
+    <router-link to="/checkout" v-if="store.updatedCart.length > 0">
+      <button class="order_button btn">Checkout</button>
+    </router-link>
 
-      <router-link
-      to="/checkout"
-      v-if="store.updatedCart.length > 0"
-      >
-        <button class="order_button btn">Checkout</button>
-      </router-link>
-
-      <button class="empty_cart_btn btn" @click="emptyCart">
-        <i class="fa-solid fa-trash"></i>
-      </button>
-    </div>
-
+    <button class="empty_cart_btn btn" @click="emptyCart">
+      <i class="fa-solid fa-trash"></i>
+    </button>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -141,9 +144,8 @@ export default {
   border: 0;
   background-color: $primary;
   color: white;
-  padding: .3rem .6rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 2rem;
-  font-size: 1.5rem;
 }
 
 .buttons_order {

@@ -19,6 +19,7 @@ export default {
       instance: null,
       paymentNonce: null,
       paymentLoaded: false,
+      paymentSuccessful: null,
 
       dataToSend: {
         interested_user_name: "",
@@ -44,6 +45,9 @@ export default {
     redirectPostCheckout() {
       setTimeout(window.location.replace('http://localhost:5173/postcheckout'), 10000)
     },
+    isPaymentSuccessful(result) {
+      result ? this.paymentSuccessful = true : this.paymentSuccessful = false
+    },
     brainTreeInit() {
       let dataToSend = this.dataToSend;
       const button = document.querySelector("#submit-button");
@@ -65,13 +69,22 @@ export default {
 
                 console.log("Oggetto dei dati da passare", dataToSend);
 
+                const holdUp = document.getElementById('hold-up')
+                const waitPlease = document.getElementById('wait');
+                holdUp.classList.remove('d-none')
+                waitPlease.classList.remove('d-none')
+
                 // Una volta ottenuto il token, faccio la chiamata post per verificare il pagamento ed eventualmente salvare l'ordine
                 async function processOrder() {
                   let resp = await axios
                     .post("http://127.0.0.1:8000/api/order", dataToSend)
                   console.log(resp.data.order_id);
                   localStorage.setItem('orderId', JSON.stringify(resp.data.order_id));
-                  window.location.replace('http://localhost:5173/postcheckout')
+                  if (resp.data.result) {
+                    const message = document.getElementById('payment-successful');
+                    message.classList.remove('d-none');
+                    window.location.replace('http://localhost:5173/postcheckout')
+                  }
                 }
                 localStorage.clear("updatedCart")
                 store.updatedCart = []
@@ -166,11 +179,12 @@ export default {
       </div>
       <div class="card-body">
         <h5 class="text-center mb-3">
-          Ecco i tuoi prodotti presi da <strong style="color:#FF9000;">{{ store.updatedCart[0].restaurant.restaurant_name }}</strong>
+          Ecco i tuoi prodotti presi da <strong style="color:#FF9000;">{{
+            store.updatedCart[0].restaurant.restaurant_name }}</strong>
         </h5>
         <div v-for="(product, index) in store.updatedCart" :key="index" class="ms-md-2 me-auto">
           <p class="ms_dish-name mb-1 d-flex justify-content-between align-items-center">
-            <span class="fw-bold">{{ product.quantity }} x {{ product.name }} </span> 
+            <span class="fw-bold">{{ product.quantity }} x {{ product.name }} </span>
             <span class="d-inline-block mx-5"> &euro; {{ product.price }} </span>
           </p>
         </div>
@@ -180,7 +194,7 @@ export default {
 
     </div>
 
-   
+
     <!-- FORM DATI CLIENTE -->
     <div id="checkout-form" class="w-75 mx-auto">
       <h4 class="my-5">Dettagli di consegna</h4>
@@ -264,6 +278,12 @@ export default {
         </button>
       </div>
     </section>
+
+    <div id="hold-up" class="d-none mx-auto rounded">
+      <p id="wait" class="d-none text-center fs-4">Attendi...</p>
+      <p id="payment-successful" class="d-none text-success text-center fs-4">Pagamento riuscito! Ti stiamo reindirizzando...
+      </p>
+    </div>
   </div>
 </template>
 
