@@ -55,7 +55,7 @@ export default {
     },
     brainTreeInit() {
       let dataToSend = this.dataToSend;
-      const button = document.querySelector("#submit-button");
+      const button = document.getElementById("submit-button");
 
       braintree.dropin.create(
         {
@@ -66,6 +66,8 @@ export default {
           button.addEventListener("click", function () {
             instance.requestPaymentMethod(
               (requestPaymentMethodErr, payload) => {
+                button.setAttribute("disabled", "true");
+
                 this.paymentNonce = payload.nonce;
 
                 dataToSend.payment_method_nonce = this.paymentNonce;
@@ -222,6 +224,23 @@ export default {
         </div>
         <p class="ms_price d-inline-block m-2">
           <strong>Totale da pagare: &euro; {{ calcTotal() }}</strong>
+        </p>
+        <div
+          v-for="(product, index) in store.updatedCart"
+          :key="index"
+          class="ms-md-2 me-auto">
+          <p
+            class="ms_dish-name mb-1 d-flex justify-content-between align-items-center">
+            <span class="fw-bold"
+              >{{ product.quantity }} x {{ product.name }}
+            </span>
+            <span class="ms_font-price d-inline-block"
+              >€{{ product.price }}</span
+            >
+          </p>
+        </div>
+        <p class="ms_price d-inline-block m-2">
+          <strong>Totale da pagare: &euro;{{ calcTotal() }}</strong>
         </p>
       </div>
     </div>
