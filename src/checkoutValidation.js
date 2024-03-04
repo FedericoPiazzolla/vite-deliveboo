@@ -85,6 +85,24 @@ export function formControl(event) {
   let emailError = document.getElementById("emailError").textContent;
   let phoneError = document.getElementById("numberError").textContent;
 
+  let nameInput = document.getElementById("interested_user_name").textContent;
+  let surnameInput = document.getElementById(
+    "interested_user_surname"
+  ).textContent;
+  let addressInput = document.getElementById(
+    "interested_user_address"
+  ).textContent;
+  let emailInput = document.getElementById("interested_user_email").textContent;
+  let phoneInput = document.getElementById("interested_user_phone").textContent;
+
+  let inputsList = [
+    nameInput,
+    surnameInput,
+    addressInput,
+    emailInput,
+    phoneInput,
+  ];
+
   let errorsList = [
     nameError,
     surnameError,
@@ -93,12 +111,27 @@ export function formControl(event) {
     phoneError,
   ];
 
+  // for (let x = 0; x < inputsList.length; x++) {
+  //   let formErrorMsg = document.getElementById("formError");
+  //   if (inputsList[x] !== "") {
+  //     formErrorMsg.textContent = "Devi compilare tutti i campi";
+  //     event.preventDefault();
+  //     window.scrollTo(0, 0);
+  //   }
+  // }
+
   for (let x = 0; x < errorsList.length; x++) {
     let formErrorMsg = document.getElementById("formError");
     if (errorsList[x] !== "") {
       formErrorMsg.textContent = "Ricontrolla i tuoi dati!!";
       event.preventDefault();
       window.scrollTo(0, 0);
+    } else {
+      if (inputsList[x] == "") {
+        formErrorMsg.textContent = "Ricontrolla i tuoi dati!!";
+        event.preventDefault();
+        window.scrollTo(0, 0);
+      }
     }
   }
 }
