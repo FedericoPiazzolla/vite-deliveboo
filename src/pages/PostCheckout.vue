@@ -35,8 +35,8 @@ export default {
 
 <template>
     <div class="background-style">
-        <div id="order-container">
-            <div class="post-card w-75 text-center mb-3 mx-auto" style="background-color:#ffc338;">
+        <div id="order-container" class="d-flex h-100 justify-content-center align-items-center">
+            <div class="post-card w-75 text-center">
                 <div v-if="orderId">
                     <h2 class="mb-4 text-capitalize text-center">
                         Ordine effettuato
@@ -52,13 +52,13 @@ export default {
                         <p>Qui sotto puoi trovare il riepilogo dell'ordine:</p>
                     </div>
 
-                    <ol class="py-2  mb-4 list-group-numbered" style="background-color:#ffea81; border-radius:1rem;">
+                    <ol class="py-2  mb-4 list-group-numbered ms_list-class">
                         <li v-for="product in order.dishes" :key="product.id"
-                            class="list-group-item d-flex justify-content-between align-items-start mb-3">
+                            class="list-group-item d-flex flex-column flex-sm-row justify-sm-content-between align-sm-items-start align-items-start p-3">
                             <div class="ms-2 me-auto">
-                                <p class="fw-semibold mb-0">
+                                <p class="fw-semibold mb-0 text-start text-sm-center">
                                     {{ product.name }}
-                                    <span class="ps-3">&euro;{{ product.price }}</span>
+                                    <span class="ms-3 d-block d-sm-inline ms_price">&euro;{{ product.price }}</span>
                                 </p>
                                 {{ product.ingredients }}
                             </div>
@@ -87,6 +87,7 @@ export default {
 
 
 <style lang="scss" scoped>
+@use "../scss/partials/variables" as *;
 
 .background-style {
   
@@ -102,9 +103,15 @@ export default {
     filter: drop-shadow(16px 16px 10px rgb(28, 28, 28));
      //opacity: 0.9;
      .post-card {
-    border-radius: 25px;
-    padding: 2rem;
-}
+        border-radius: 25px;
+        padding: 2rem;
+        background-color: $bg-btn;
+    }
+
+    .ms_list-class {
+        background-color: darken($color: $bg-btn, $amount: 5);
+        border-radius:1rem;
+    }
 
 }
 
