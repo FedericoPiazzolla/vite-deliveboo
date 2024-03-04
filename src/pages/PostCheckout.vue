@@ -62,7 +62,7 @@ export default {
                                 </p>
                                 {{ product.ingredients }}
                             </div>
-                            <div class="d-inline-block mt-2"> Qtà:
+                            <div class="d-inline-block"> Qtà:
                                 <span class="px-2 fw-bold">{{ product.pivot.dish_quantity }}</span>
                             </div>
                         </li>
