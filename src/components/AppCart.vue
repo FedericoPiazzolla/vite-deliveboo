@@ -124,7 +124,9 @@ export default {
     <span class="ms_price d-inline-block">&euro; {{ calcTotal() }}</span>
   </div>
 
-  <div class="buttons_order d-flex justify-content-between">
+  <div
+    class="buttons_order d-flex justify-content-between"
+    @click="hideCartModal">
     <router-link to="/checkout" v-if="store.updatedCart.length > 0">
       <button class="order_button btn">Checkout</button>
     </router-link>
