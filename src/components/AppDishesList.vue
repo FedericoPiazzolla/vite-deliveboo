@@ -113,8 +113,8 @@ export default {
 
           <!-- card content -->
           <div
-            class="dish_details w-75 details_dish d-flex justify-content-between align-items-center">
-            <h6 class="dish-name fw-bold m-0">{{ dish.name }}</h6>
+            class="dish_details w-100 details_dish d-flex justify-content-between align-items-center">
+            <h6 class="dish-name fw-bold w-100 m-0">{{ dish.name }}</h6>
             <!-- <p class="dish_description text-start d-none fs-6 m-0">
               {{ dish.description }}
             </p> -->
@@ -162,31 +162,30 @@ export default {
   align-items: center;
   z-index: 1000;
 }
-  .modal-content {
-    background: $bg-color;
-    padding: 20px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 0 70px $bg-btn;
-    max-width: 400px;
-    width: 100%;
+.modal-content {
+  background: $bg-color;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 70px $bg-btn;
+  max-width: 400px;
+  width: 100%;
 
-    button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      background-color: $main-text;
-      color: #fff;
-      font-size: 16px;
+  button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: $main-text;
+    color: #fff;
+    font-size: 16px;
 
-      &:hover {
-        background-color: lighten($color: $main-text, $amount: 10%);
-      }
+    &:hover {
+      background-color: lighten($color: $main-text, $amount: 10%);
     }
   }
-
+}
 
 .title {
   color: $primary;

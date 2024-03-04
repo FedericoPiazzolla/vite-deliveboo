@@ -95,7 +95,7 @@ export default {
 <template>
   <div class="ms_jumbotron h-100 d-flex align-items-end justify-content-center">
     <div class="container mt-auto my-sm-auto mx-auto">
-      <!-- imaggine di sfondo -->
+      <!-- img di sfondo -->
       <div class="ms_background-overlay"></div>
       <h2 v-if="isMobile" class="text-center">Tipologie</h2>
       <!-- MENÙ -->
