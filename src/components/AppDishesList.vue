@@ -72,7 +72,7 @@ export default {
     },
     resetModal() {
       this.showConfirmationModal = false;
-    },  
+    },
   },
 };
 </script>
@@ -83,7 +83,10 @@ export default {
     <div v-if="showConfirmationModal" class="modal-container">
       <div class="modal-content">
         <h2>Attenzione!</h2>
-        <p>Sei sicuro di voler cambiare ristorante? Il tuo carrello verrà svuotato.</p>
+        <p>
+          Sei sicuro di voler cambiare ristorante? Il tuo carrello verrà
+          svuotato.
+        </p>
         <button @click="emptyCart">Ok</button>
         <button @click="resetModal">Annulla</button>
       </div>
@@ -94,8 +97,8 @@ export default {
       <i class="fa-solid fa-utensils"></i>
       <span class="ms-2 fs-5 fw-bold">Tutti i piatti</span>
     </div>
-    <div class="d-flex px-5 pt-4 justify-content-center align-items-stretch">
-      <div class="row d-flex flex-column">
+    <div class="d-flex pt-4 justify-content-center align-items-stretch">
+      <div class="row d-flex flex-column justify-content-center">
         <div
           class="col d-flex justify-content-between align-items-center ps-0 mb-3 pe-0"
           v-for="(dish, index) in restaurantDishes"
@@ -132,7 +135,6 @@ export default {
             </div>
           </div>
           <!-- /quantità card -->
-
         </div>
       </div>
     </div>
@@ -207,14 +209,16 @@ export default {
   .dish_details {
     .dish-name {
       width: 30%;
-      color: $primary;
+      color: $main-text;
+      font-size: 0.7rem;
 
       @media (min-width: 576px) {
         width: 50%;
+        font-size: 25px;
       }
 
       @media (min-width: 992px) {
-        width: 20%;
+        width: 40%;
       }
     }
 

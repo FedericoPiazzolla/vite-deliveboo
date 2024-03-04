@@ -34,13 +34,13 @@ export default {
 </script>
 
 <template>
-  <div class="restaurant-header">
+  <div class="restaurant-header ms-4">
     <div class="main-info p-4 d-flex justify-content-center align-items-center">
       <div class="restaurant-logo">
         <img :src="singleRestaurant.restaurant_logo" alt="" />
       </div>
       <div class="name ms-3">
-        <h3 class="text-center m-0">
+        <h3 class="m-0">
           {{ this.singleRestaurant.restaurant_name }}
         </h3>
         <h6>{{ singleRestaurant.restaurant_address }}</h6>
@@ -64,6 +64,8 @@ export default {
 </template>
 
 <style scoped lang="scss">
+@use "../scss/partials/variables" as *;
+
 .restaurant-header {
   .bg-image {
     height: 300px;
@@ -75,6 +77,10 @@ export default {
     .restaurant-logo {
       img {
         width: 150px;
+        aspect-ratio: 1;
+        background-color: #17373641;
+        border-radius: 50%;
+        padding: 1rem;
       }
     }
   }
