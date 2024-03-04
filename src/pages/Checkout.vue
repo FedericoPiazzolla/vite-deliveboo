@@ -50,7 +50,7 @@ export default {
     },
     brainTreeInit() {
       let dataToSend = this.dataToSend;
-      const button = document.querySelector("#submit-button");
+      const button = document.getElementById('submit-button');
 
       braintree.dropin.create(
         {
@@ -61,6 +61,8 @@ export default {
           button.addEventListener("click", function () {
             instance.requestPaymentMethod(
               (requestPaymentMethodErr, payload) => {
+                button.setAttribute('disabled', 'true');
+
                 this.paymentNonce = payload.nonce;
 
                 dataToSend.payment_method_nonce = this.paymentNonce;
