@@ -217,7 +217,7 @@ export default {
             <span class="fw-bold"
               >{{ product.quantity }} x {{ product.name }}
             </span>
-            <span class="d-inline-block mx-5">
+            <span class="d-inline-block">
               &euro; {{ product.price }}
             </span>
           </p>
