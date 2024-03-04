@@ -21,7 +21,6 @@ export function checkName() {
 }
 
 export function checkSurname() {
-  console.log("crivo");
   let surname = document.getElementById("interested_user_surname").value;
   let errorSpan = document.getElementById("surnameError");
 
@@ -64,7 +63,6 @@ export function checkEmail() {
 }
 
 export function checkPhoneNumber(event) {
-  console.log("scrivo");
   let phoneNumber = document.getElementById("interested_user_phone").value;
   let errorSpan = document.getElementById("numberError");
 

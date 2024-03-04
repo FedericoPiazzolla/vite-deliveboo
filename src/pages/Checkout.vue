@@ -138,7 +138,7 @@ export default {
 
     importCart() {
       this.importedCart = this.store.updatedCart;
-      console.log("Carrello importato", this.importedCart);
+
       let dishesId = [];
       let dishesQuantities = [];
       let total = 0;
@@ -164,13 +164,6 @@ export default {
       this.dataToSend.dishes_id = dishesId;
       this.dataToSend.dishes_quantities = dishesQuantities;
       this.dataToSend.total = total;
-
-      console.log("id dei piatti dal carrello", this.dataToSend.dishes_id);
-      console.log(
-        "quantità dei piatti del carrello",
-        this.dataToSend.dishes_quantities
-      );
-      console.log("totale da pagare", this.dataToSend.total);
     },
     calcTotal() {
       let total = 0;
@@ -217,9 +210,7 @@ export default {
             <span class="fw-bold"
               >{{ product.quantity }} x {{ product.name }}
             </span>
-            <span class="d-inline-block">
-              &euro;{{ product.price }}
-            </span>
+            <span class="d-inline-block"> &euro;{{ product.price }} </span>
           </p>
         </div>
         <p class="ms_price d-block m-2 text-end">
