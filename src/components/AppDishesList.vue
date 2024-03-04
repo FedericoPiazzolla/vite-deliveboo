@@ -40,7 +40,6 @@ export default {
     },
 
     removeQuantity(dishId) {
-
       const existentDishIndex = store.updatedCart.findIndex(
         (dishToFind) => dishToFind.id === dishId
       );
@@ -134,7 +133,9 @@ export default {
               <span class="ms_quantity-show px-2 fw-bold">{{
                 getCartQuantity(dish.id)
               }}</span>
-              <button class="ms_card-btn px-2 py-1" @click="addQuantity(dish.id)">
+              <button
+                class="ms_card-btn px-2 py-1"
+                @click="addQuantity(dish.id)">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
@@ -160,31 +161,31 @@ export default {
   justify-content: center;
   align-items: center;
   z-index: 1000;
-}
 
-.modal-content {
-  background: $bg-color;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  box-shadow: 0 0 70px $bg-btn;
-  max-width: 400px;
-  width: 100%;
-}
+  .modal-content {
+    background: $bg-color;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 70px $bg-btn;
+    max-width: 400px;
+    width: 100%;
 
-.modal-content button {
-  margin-top: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  background-color: $main-text;
-  color: #fff;
-  font-size: 16px;
-}
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: $main-text;
+      color: #fff;
+      font-size: 16px;
 
-.modal-content button:hover {
-  background-color: lighten($color: $main-text, $amount: 10%);
+      :hover {
+        background-color: lighten($color: $main-text, $amount: 10%);
+      }
+    }
+  }
 }
 
 .title {

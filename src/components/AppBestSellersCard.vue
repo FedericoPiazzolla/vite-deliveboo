@@ -6,6 +6,7 @@ export default {
     return {
       bestSellers: [],
       store,
+      showConfirmationModal: false,
     };
   },
   props: {
@@ -68,10 +69,33 @@ export default {
     this.bestSellers = JSON.parse(bestSellersString);
     console.log(this.bestSellers);
   },
+
+  emptyCart() {
+    console.log("ciao");
+    localStorage.clear();
+    store.updatedCart = [];
+    this.showConfirmationModal = false;
+  },
+  resetModal() {
+    this.showConfirmationModal = false;
+  },
 };
 </script>
 
 <template>
+  <!-- Modale per la conferma svuota carrello -->
+  <div v-if="showConfirmationModal" class="modal-container">
+    <div class="modal-content">
+      <h2>Attenzione!</h2>
+      <p>
+        Sei sicuro di voler cambiare ristorante? Il tuo carrello verrà svuotato.
+      </p>
+      <button @click="emptyCart">Ok</button>
+      <button @click="resetModal">Annulla</button>
+    </div>
+  </div>
+
+  <!-- Card -->
   <div class="col ms_card me-4 shadow rounded-4 pb-sm-3">
     <img :src="`${singleDish.image}`" alt="" class="rounded-4" />
 
@@ -146,6 +170,44 @@ export default {
 
     :hover {
       background-color: none;
+    }
+  }
+}
+
+.modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .modal-content {
+    background: $bg-color;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 0 70px $bg-btn;
+    max-width: 400px;
+    width: 100%;
+
+    button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      background-color: $main-text;
+      color: #fff;
+      font-size: 16px;
+
+      :hover {
+        background-color: lighten($color: $main-text, $amount: 10%);
+      }
     }
   }
 }
