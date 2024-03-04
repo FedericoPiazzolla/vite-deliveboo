@@ -63,7 +63,7 @@ export default {
       const cartItem = store.updatedCart.find((item) => item.id === dishId);
       return cartItem ? cartItem.quantity : 0;
     },
-      
+
     emptyCart() {
       console.log("ciao");
       localStorage.clear();
@@ -77,10 +77,7 @@ export default {
   created() {
     let bestSellersString = localStorage.getItem("bestSellers");
     this.bestSellers = JSON.parse(bestSellersString);
-    console.log(this.bestSellers);
   },
-
-
 };
 </script>
 
