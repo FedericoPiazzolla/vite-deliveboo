@@ -190,7 +190,7 @@ export default {
         <div v-for="(product, index) in store.updatedCart" :key="index" class="ms-md-2 me-auto">
           <p class="ms_dish-name mb-1 d-flex justify-content-between align-items-center">
             <span class="fw-bold">{{ product.quantity }} x {{ product.name }} </span>
-            <span class="d-inline-block mx-5"> &euro; {{ product.price }} </span>
+            <span class="d-inline-block">{{ product.price }}&euro;</span>
           </p>
         </div>
         <p class="ms_price d-inline-block m-2"><strong>Totale da pagare: &euro; {{ calcTotal() }}</strong></p>
