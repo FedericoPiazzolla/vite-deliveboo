@@ -2,8 +2,6 @@
 import { saveCart, store } from "../data/store";
 
 export default {
-  name: "Cart",
-
   data() {
     return {
       store,

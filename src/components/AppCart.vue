@@ -31,14 +31,11 @@ export default {
         saveCart(store.updatedCart);
       }
     },
-    removeDishes() {
-      localStorage.clear();
-      store.updatedCart = [];
-    },
 
     emptyCart() {
-      localStorage.clear();
-      store.updatedCart.length = 0;
+      localStorage.removeItem('updatedCart');
+      store.updatedCart = [];
+      console.log(localStorage);
     },
 
     // calcolo il totale
@@ -63,6 +60,10 @@ export default {
 </script>
 
 <template>
+  <button @click="hideCartModal" class="ms_back-btn">
+    torna al ristorante
+  </button>
+
   <!-- carrello con lista ordinata dei prodotti, totale da pagare e bottoni -->
   <div class="pt-4 cart_title text-center">
     <h3 class="m-0">
@@ -117,21 +118,33 @@ export default {
     <span class="ms_price d-inline-block">&euro; {{ calcTotal() }}</span>
   </div>
 
-  <router-link
-    to="/checkout"
-    class="text-decoration-none"
-    @click="hideCartModal">
     <div class="buttons_order d-flex justify-content-between">
-      <button class="order_button btn">Checkout</button>
+
+      <router-link
+      to="/checkout"
+      v-if="store.updatedCart.length > 0"
+      >
+        <button class="order_button btn">Checkout</button>
+      </router-link>
+
       <button class="empty_cart_btn btn" @click="emptyCart">
         <i class="fa-solid fa-trash"></i>
       </button>
     </div>
-  </router-link>
+
 </template>
 
 <style lang="scss" scoped>
 @use "../scss/partials/variables" as *;
+
+.ms_back-btn {
+  border: 0;
+  background-color: $primary;
+  color: white;
+  padding: .3rem .6rem;
+  border-radius: 2rem;
+  font-size: 1.5rem;
+}
 
 .buttons_order {
   .order_button {
