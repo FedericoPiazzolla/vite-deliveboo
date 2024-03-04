@@ -203,7 +203,7 @@ export default {
       </div>
       <div class="card-body">
         <h5 class="text-center mb-3">
-          Ecco i tuoi prodotti presi da
+          Ecco i tuoi prodotti selezionati da
           <strong style="color: #ff9000">{{
             store.updatedCart[0].restaurant.restaurant_name
           }}</strong>
