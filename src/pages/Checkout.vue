@@ -8,6 +8,7 @@ import {
   checkEmail,
   checkPhoneNumber,
   formControl,
+  scrollToDivWithOffset,
 } from "../checkoutValidation";
 
 export default {
@@ -42,12 +43,14 @@ export default {
     checkEmail,
     checkPhoneNumber,
     formControl,
+    scrollToDivWithOffset,
     redirectPostCheckout() {
       setTimeout(
         window.location.replace("http://localhost:5173/postcheckout"),
         10000
       );
     },
+
     isPaymentSuccessful(result) {
       result
         ? (this.paymentSuccessful = true)
@@ -125,15 +128,12 @@ export default {
           console.log("Token ottenuto dalla chiamata a Braintree", this.token);
         })
         .finally(this.brainTreeInit);
-      document
-        .getElementById("dropin-wrapper")
-        .scrollIntoView({ behavior: "smooth", block: "start" });
+
+      this.scrollToDivWithOffset("dropin-wrapper");
     },
 
     scrollDown() {
-      document
-        .getElementById("hold-up")
-        .scrollIntoView({ behavior: "smooth", block: "start" });
+      this.scrollToDivWithOffset("hold-up");
     },
 
     importCart() {

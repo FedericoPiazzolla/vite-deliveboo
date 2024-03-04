@@ -78,6 +78,20 @@ export function checkPhoneNumber(event) {
   }
 }
 
+// Funzione per scrollare la pagina
+export function scrollToDivWithOffset(div) {
+  const offset = 140;
+  const element = document.getElementById(div);
+  const elementPosition =
+    element.getBoundingClientRect().top + window.pageYOffset;
+  const offsetPosition = elementPosition - offset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth",
+  });
+}
+
 export function formControl(event) {
   let nameError = document.getElementById("nameError").textContent;
   let surnameError = document.getElementById("surnameError").textContent;
@@ -117,9 +131,7 @@ export function formControl(event) {
       console.log("ciao");
       formErrorMsg.textContent = "Ricontrolla i tuoi dati!!";
       hasErrors = true;
-      document
-        .getElementById("checkout-form")
-        .scrollIntoView({ behavior: "smooth", block: "start" });
+      scrollToDivWithOffset("checkout-form");
 
       break;
     }
