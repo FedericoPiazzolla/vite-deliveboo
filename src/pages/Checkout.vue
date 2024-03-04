@@ -43,10 +43,15 @@ export default {
     checkPhoneNumber,
     formControl,
     redirectPostCheckout() {
-      setTimeout(window.location.replace('http://localhost:5173/postcheckout'), 10000)
+      setTimeout(
+        window.location.replace("http://localhost:5173/postcheckout"),
+        10000
+      );
     },
     isPaymentSuccessful(result) {
-      result ? this.paymentSuccessful = true : this.paymentSuccessful = false
+      result
+        ? (this.paymentSuccessful = true)
+        : (this.paymentSuccessful = false);
     },
     brainTreeInit() {
       let dataToSend = this.dataToSend;
@@ -69,27 +74,35 @@ export default {
 
                 console.log("Oggetto dei dati da passare", dataToSend);
 
-                const holdUp = document.getElementById('hold-up');
-                const waitPlease = document.getElementById('wait');
-                holdUp.classList.remove('d-none');
-                waitPlease.classList.remove('d-none');
+                const holdUp = document.getElementById("hold-up");
+                const waitPlease = document.getElementById("wait");
+                holdUp.classList.remove("d-none");
+                waitPlease.classList.remove("d-none");
 
                 // Una volta ottenuto il token, faccio la chiamata post per verificare il pagamento ed eventualmente salvare l'ordine
                 async function processOrder() {
-                  let resp = await axios
-                    .post("http://127.0.0.1:8000/api/order", dataToSend)
+                  let resp = await axios.post(
+                    "http://127.0.0.1:8000/api/order",
+                    dataToSend
+                  );
                   console.log(resp.data.order_id);
-                  localStorage.setItem('orderId', JSON.stringify(resp.data.order_id));
+                  localStorage.setItem(
+                    "orderId",
+                    JSON.stringify(resp.data.order_id)
+                  );
                   if (resp.data.result) {
-                    const message = document.getElementById('payment-successful');
-                    message.classList.remove('d-none');
-                    window.location.replace('http://localhost:5173/postcheckout')
+                    const message =
+                      document.getElementById("payment-successful");
+                    message.classList.remove("d-none");
+                    window.location.replace(
+                      "http://localhost:5173/postcheckout"
+                    );
                   }
                 }
-                localStorage.clear("updatedCart")
-                store.updatedCart = []
-                console.log("Log del carrello una volta svuotato", loadCart)
-                processOrder()
+                localStorage.clear("updatedCart");
+                store.updatedCart = [];
+                console.log("Log del carrello una volta svuotato", loadCart);
+                processOrder();
               }
             );
             console.log("Pagamento avvenuto!");
@@ -101,6 +114,7 @@ export default {
 
     generatePaymentForm() {
       formControl(this.event);
+
       document.getElementById("formError").textContent = "";
       axios
         .get(`${this.store.apiUrl}api/braintree/token`)
@@ -109,11 +123,15 @@ export default {
           console.log("Token ottenuto dalla chiamata a Braintree", this.token);
         })
         .finally(this.brainTreeInit);
-        window.scrollBy(0, 500);
+      document
+        .getElementById("dropin-wrapper")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
     },
 
     scrollDown() {
-      window.scrollBy(0, 300);
+      document
+        .getElementById("hold-up")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
     },
 
     importCart() {
@@ -127,7 +145,6 @@ export default {
         // Pusho nei corrispettivi array gli id dei piatti e le loro quantità
         dishesId.push(dish.id);
         dishesQuantities.push(dish.quantity);
-
 
         // Li rendo stringhe
         dishesId.toString();
@@ -152,7 +169,6 @@ export default {
         this.dataToSend.dishes_quantities
       );
       console.log("totale da pagare", this.dataToSend.total);
-
     },
     calcTotal() {
       let total = 0;
@@ -176,29 +192,39 @@ export default {
 
 <template>
   <div class="container py-5">
-
     <!-- RIEPILOGO ORDINE -->
     <div class="card w-75 mx-auto mt-3">
-      <div class="card-header fw-bold" style="background-color: #173736; color: #FFFDD0;">
+      <div
+        class="card-header fw-bold"
+        style="background-color: #173736; color: #fffdd0">
         Dettagli dell'ordine:
       </div>
       <div class="card-body">
         <h5 class="text-center mb-3">
-          Ecco i tuoi prodotti presi da <strong style="color:#FF9000;">{{
-            store.updatedCart[0].restaurant.restaurant_name }}</strong>
+          Ecco i tuoi prodotti presi da
+          <strong style="color: #ff9000">{{
+            store.updatedCart[0].restaurant.restaurant_name
+          }}</strong>
         </h5>
-        <div v-for="(product, index) in store.updatedCart" :key="index" class="ms-md-2 me-auto">
-          <p class="ms_dish-name mb-1 d-flex justify-content-between align-items-center">
-            <span class="fw-bold">{{ product.quantity }} x {{ product.name }} </span>
-            <span class="d-inline-block mx-5"> &euro; {{ product.price }} </span>
+        <div
+          v-for="(product, index) in store.updatedCart"
+          :key="index"
+          class="ms-md-2 me-auto">
+          <p
+            class="ms_dish-name mb-1 d-flex justify-content-between align-items-center">
+            <span class="fw-bold"
+              >{{ product.quantity }} x {{ product.name }}
+            </span>
+            <span class="d-inline-block mx-5">
+              &euro; {{ product.price }}
+            </span>
           </p>
         </div>
-        <p class="ms_price d-inline-block m-2"><strong>Totale da pagare: &euro; {{ calcTotal() }}</strong></p>
+        <p class="ms_price d-inline-block m-2">
+          <strong>Totale da pagare: &euro; {{ calcTotal() }}</strong>
+        </p>
       </div>
-
-
     </div>
-
 
     <!-- FORM DATI CLIENTE -->
     <div id="checkout-form" class="w-75 mx-auto">
@@ -206,8 +232,13 @@ export default {
       <!-- NOME -->
       <div class="mb-3">
         <label for="interested_user_name" class="form-label">Nome</label>
-        <input class="w-100 form-control" required v-model="dataToSend.interested_user_name" id="interested_user_name"
-          type="text" @input="checkName" />
+        <input
+          class="w-100 form-control"
+          required
+          v-model="dataToSend.interested_user_name"
+          id="interested_user_name"
+          type="text"
+          @input="checkName" />
         <!-- {{-- Gestione errore name --}} -->
         <span>
           <strong id="nameError" class="errorFormMsg ms-1"></strong><br />
@@ -217,8 +248,13 @@ export default {
       <!-- COGNOME -->
       <div class="mb-3">
         <label for="interested_user_surname" class="form-label">Cognome</label>
-        <input class="w-100 form-control" required v-model="dataToSend.interested_user_surname"
-          id="interested_user_surname" type="text" @input="checkSurname" />
+        <input
+          class="w-100 form-control"
+          required
+          v-model="dataToSend.interested_user_surname"
+          id="interested_user_surname"
+          type="text"
+          @input="checkSurname" />
         <!-- {{-- Gestione errore cognome --}} -->
         <span>
           <strong id="surnameError" class="errorFormMsg ms-1"></strong><br />
@@ -227,9 +263,16 @@ export default {
 
       <!-- INDIRIZZO -->
       <div class="mb-3">
-        <label for="interested_user_address" class="form-label">Indirizzo</label>
-        <input class="w-100 form-control" required v-model="dataToSend.interested_user_address"
-          id="interested_user_address" type="text" @input="checkAddress" />
+        <label for="interested_user_address" class="form-label"
+          >Indirizzo</label
+        >
+        <input
+          class="w-100 form-control"
+          required
+          v-model="dataToSend.interested_user_address"
+          id="interested_user_address"
+          type="text"
+          @input="checkAddress" />
         <!-- {{-- Gestione errore indirizzo --}} -->
         <span>
           <strong id="addressError" class="errorFormMsg ms-1"></strong><br />
@@ -239,8 +282,12 @@ export default {
       <!-- EMAIL -->
       <div class="mb-3">
         <label for="interested_user_email" class="form-label">Email</label>
-        <input class="w-100 form-control" v-model="dataToSend.interested_user_email" id="interested_user_email"
-          type="email" @input="checkEmail" />
+        <input
+          class="w-100 form-control"
+          v-model="dataToSend.interested_user_email"
+          id="interested_user_email"
+          type="email"
+          @input="checkEmail" />
         <!-- {{-- Gestione errore email --}} -->
         <span>
           <strong id="emailError" class="errorFormMsg ms-1"></strong><br />
@@ -250,8 +297,13 @@ export default {
       <!-- NUMERO DI TELEFONO -->
       <div class="mb-3">
         <label for="interested_user_phone" class="form-label">Telefono</label>
-        <input class="w-100 form-control" required v-model="dataToSend.interested_user_phone" id="interested_user_phone"
-          type="text" @input="checkPhoneNumber" />
+        <input
+          class="w-100 form-control"
+          required
+          v-model="dataToSend.interested_user_phone"
+          id="interested_user_phone"
+          type="text"
+          @input="checkPhoneNumber" />
         <!-- {{-- Gestione errore numero --}} -->
         <span>
           <strong id="numberError" class="errorFormMsg ms-1"></strong><br />
@@ -278,7 +330,11 @@ export default {
         <div id="checkout-message"></div>
         <div id="dropin-container"></div>
 
-        <button v-show="paymentLoaded" @click="scrollDown" class="btn" id="submit-button">
+        <button
+          v-show="paymentLoaded"
+          @click="scrollDown"
+          class="btn"
+          id="submit-button">
           Completa pagamento
         </button>
       </div>
@@ -286,8 +342,8 @@ export default {
 
     <div id="hold-up" class="d-none mx-auto rounded">
       <p id="wait" class="d-none text-center fs-4">Attendi...</p>
-      <p id="payment-successful" class="d-none text-success text-center fs-4">Pagamento riuscito! Ti stiamo
-        reindirizzando...
+      <p id="payment-successful" class="d-none text-success text-center fs-4">
+        Pagamento riuscito! Ti stiamo reindirizzando...
       </p>
     </div>
   </div>

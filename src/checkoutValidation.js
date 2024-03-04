@@ -85,15 +85,11 @@ export function formControl(event) {
   let emailError = document.getElementById("emailError").textContent;
   let phoneError = document.getElementById("numberError").textContent;
 
-  let nameInput = document.getElementById("interested_user_name").textContent;
-  let surnameInput = document.getElementById(
-    "interested_user_surname"
-  ).textContent;
-  let addressInput = document.getElementById(
-    "interested_user_address"
-  ).textContent;
-  let emailInput = document.getElementById("interested_user_email").textContent;
-  let phoneInput = document.getElementById("interested_user_phone").textContent;
+  let nameInput = document.getElementById("interested_user_name").value;
+  let surnameInput = document.getElementById("interested_user_surname").value;
+  let addressInput = document.getElementById("interested_user_address").value;
+  let emailInput = document.getElementById("interested_user_email").value;
+  let phoneInput = document.getElementById("interested_user_phone").value;
 
   let inputsList = [
     nameInput,
@@ -103,6 +99,8 @@ export function formControl(event) {
     phoneInput,
   ];
 
+  console.log(inputsList);
+
   let errorsList = [
     nameError,
     surnameError,
@@ -111,27 +109,22 @@ export function formControl(event) {
     phoneError,
   ];
 
-  // for (let x = 0; x < inputsList.length; x++) {
-  //   let formErrorMsg = document.getElementById("formError");
-  //   if (inputsList[x] !== "") {
-  //     formErrorMsg.textContent = "Devi compilare tutti i campi";
-  //     event.preventDefault();
-  //     window.scrollTo(0, 0);
-  //   }
-  // }
-
+  let hasErrors = false;
   for (let x = 0; x < errorsList.length; x++) {
     let formErrorMsg = document.getElementById("formError");
-    if (errorsList[x] !== "") {
+    formErrorMsg.textContent = "";
+    if (errorsList[x] !== "" || inputsList[x] == "") {
+      console.log("ciao");
       formErrorMsg.textContent = "Ricontrolla i tuoi dati!!";
-      event.preventDefault();
-      window.scrollTo(0, 0);
-    } else {
-      if (inputsList[x] == "") {
-        formErrorMsg.textContent = "Ricontrolla i tuoi dati!!";
-        event.preventDefault();
-        window.scrollTo(0, 0);
-      }
+      hasErrors = true;
+      document
+        .getElementById("checkout-form")
+        .scrollIntoView({ behavior: "smooth", block: "start" });
+
+      break;
     }
+  }
+  if (hasErrors === true) {
+    event.preventDefault();
   }
 }
