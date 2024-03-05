@@ -1,0 +1,27 @@
+@import "bootstrap/scss/bootstrap";
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+body {
+  background-color: #FFFDD0;
+
+  img {
+    max-width: 100%;
+  }
+
+    &::-webkit-scrollbar {
+      width: 2px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      background-color: #C51605; 
+      border-radius: 6px; 
+    }
+  
+    &::-webkit-scrollbar-track {
+      background-color: #FFFDD0;
+    }
+  
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #C51605;
+    }
+}
