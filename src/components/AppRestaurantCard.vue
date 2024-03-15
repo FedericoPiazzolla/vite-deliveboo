@@ -23,7 +23,7 @@ export default {
   <div class="ms_col col-md-6 col-sm-12">
     <router-link
       class="text-decoration-none"
-      :to="{ name: 'singleRestaurant' }">
+      :to="{ name: 'singleRestaurant', params: { slug: singleRestaurant.slug} }">
       <div class="ms_cards" @click="getRestaurantId(singleRestaurant.id)">
         <div class="ms_title">
           <h5 class="p-2 text-center m-0">
