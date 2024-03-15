@@ -106,7 +106,8 @@ export default {
         <div
           class="col d-flex justify-content-between align-items-center ps-0 mb-3 pe-0"
           v-for="(dish, index) in sortedRestaurantDishes"
-          :key="dish.id">
+          :key="dish.id"
+          :class="!dish.available ? 'not-available' : ''">
           <!-- card image -->
           <img class="me-2" :src="`${dish.image}`" alt="" />
           <!-- /card image -->
@@ -115,9 +116,7 @@ export default {
           <div
             class="dish_details w-100 details_dish d-flex justify-content-between align-items-center">
             <h6 class="dish-name fw-bold w-100 m-0">{{ dish.name }}</h6>
-            <!-- <p class="dish_description text-start d-none fs-6 m-0">
-              {{ dish.description }}
-            </p> -->
+
             <p class="dish_price d-none d-sm-block">€{{ dish.price }}</p>
           </div>
           <!-- /card content -->
@@ -191,10 +190,30 @@ export default {
   color: $primary;
 }
 
+.not-available:before {
+  position: absolute;
+  content: "NON DISPONIBILE";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.61);
+  border-radius: 2rem;
+
+  z-index: 2;
+}
+
 .col {
   color: $main-text;
   background-color: $bg-btn;
   border-radius: 2rem;
+  position: relative;
 
   img {
     width: 20%;

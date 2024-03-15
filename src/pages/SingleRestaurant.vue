@@ -7,11 +7,13 @@ import { store } from "../data/store";
 
 export default {
   components: { AppSingleRestaurantHeader, AppSingleRestaurantDishes, AppCart },
+
   data() {
     return {
       restaurant: {},
     };
   },
+
   name: "SingleRestaurant",
   methods: {
     isBestSellerInViewport(element) {
@@ -98,7 +100,7 @@ export default {
     <AppSingleRestaurantDishes />
 
     <div
-      class="col-3 d-none d-md-inline cart_container w-25 d-flex justify-content-center mx-auto p-0"
+      class="col-3 d-none d-lg-inline cart_container w-25 d-flex justify-content-center ms-auto me-2 p-0"
       id="cart_col">
       <div class="cart" id="ms_cart">
         <AppCart />
@@ -126,10 +128,6 @@ export default {
   right: 10;
 }
 
-// .cart {
-//   max-height: 500px;
-//   overflow-y: scroll;
-// }
 .fixed-bottom-cart {
   position: absolute;
   width: 100%;

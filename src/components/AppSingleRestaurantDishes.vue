@@ -44,7 +44,7 @@ export default {
   <div class="d-none d-sm-block col-12 ms-2 pe-0" id="best_sellers">
     <AppBestSellers :bestSellers="bestSellers" />
   </div>
-  <div class="col-12 col-md-9 ps-5 pe-4">
+  <div class="col-12 col-lg-6 ps-5 pe-4">
     <AppDishesList :restaurantDishes="dishes" />
   </div>
 </template>
