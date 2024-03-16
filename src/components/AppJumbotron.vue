@@ -198,9 +198,7 @@ export default {
 
   h2 {
     color: $bg-btn;
-    // background-color: rgba(255, 255, 255, 0.331);
   }
-  // align-items: bottom;
 
   @media screen and (min-width: 576px) {
     align-items: center;
@@ -208,11 +206,9 @@ export default {
 
   .tipology {
     display: flex;
-    // background-color: rgba(255, 255, 255, 0.331);
     align-items: center;
     overflow-y: scroll;
-    overflow-x: visible;
-    // gap: 20px;
+    // overflow-x: visible;
 
     @media screen and (min-width: 576px) {
       background-color: none;
@@ -227,8 +223,6 @@ export default {
       margin-right: 25px;
       list-style: none;
       transform-origin: 30px;
-
-      // transform: rotate(calc(360deg / 12 * var(--i)));
 
       @media screen and (min-width: 576px) {
         position: absolute;
@@ -260,7 +254,7 @@ export default {
 
           width: 50px;
           height: 50px;
-          // aspect-ratio: 1;
+
           @media screen and (min-width: 576px) {
             display: none;
             width: 60px;
@@ -327,7 +321,6 @@ export default {
 }
 
 @media screen and (max-width: 576px) {
-  /* Regole CSS specifiche per schermi con larghezza massima di 500px (dispositivi mobili) */
   .ms_jumbotron {
     align-items: center !important;
   }
