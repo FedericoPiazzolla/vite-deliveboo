@@ -105,37 +105,20 @@ export default {
           <p id="titleMenu" class="fs-6">Tipologie</p>
         </div>
 
-        <li
-          v-for="(type, index) in types"
-          :key="type.id"
-          :style="`--i:${type.id}`"
-          :id="type.id"
+        <li v-for="(type, index) in types" :key="type.id" :style="`--i:${type.id}`" :id="type.id"
           @click="getTypeId(type.id)">
-          <a
-            class="text-decoration-none d-flex justify-content-center"
-            href="#"
-            @mouseleave="hideTypeText(type.id)">
-            <img
-              :id="`image-${type.id}`"
-              class="type_image"
-              @mouseover="showTypeText(type.id)"
-              :src="getImageUrl(type.icon)"
-              :style="
-                isMobile
-                  ? {}
-                  : { transform: 'rotate(' + (-360 / 12) * type.id + 'deg)' }
-              "
-              alt="" />
+          <a class="text-decoration-none d-flex justify-content-center" href="#" @mouseleave="hideTypeText(type.id)">
+            <img :id="`image-${type.id}`" class="type_image" @mouseover="showTypeText(type.id)"
+              :src="getImageUrl(type.icon)" :style="isMobile
+          ? {}
+          : { transform: 'rotate(' + (-360 / 12) * type.id + 'deg)' }
+        " alt="" />
 
             <!-- :style="`transform: rotate(calc(-360deg / 12 * ${type.id}))`" -->
-            <p
-              :id="`typeText-${type.id}`"
-              class="m-0 ms-sm-3 mb-0 text-center"
-              :style="
-                isMobile
-                  ? {}
-                  : { transform: 'rotate(' + (-360 / 12) * type.id + 'deg)' }
-              ">
+            <p :id="`typeText-${type.id}`" class="m-0 ms-sm-3 mb-0 text-center" :style="isMobile
+          ? {}
+          : { transform: 'rotate(' + (-360 / 12) * type.id + 'deg)' }
+        ">
               {{ type.name }}
             </p>
           </a>
@@ -164,6 +147,7 @@ export default {
     filter: brightness(0.5);
     z-index: -1;
   }
+
   .ms_btn {
     background-color: $main-text;
     color: $bg-btn;
@@ -207,7 +191,9 @@ export default {
   .tipology {
     display: flex;
     align-items: center;
-    overflow-y: scroll;
+    overflow-x: scroll;
+    scrollbar-color: red transparent;
+    scrollbar-width: thin;
     // overflow-x: visible;
 
     @media screen and (min-width: 576px) {
@@ -269,6 +255,7 @@ export default {
           display: block;
           font-size: 15px;
           margin-left: 0.2rem;
+
           @media screen and (min-width: 576px) {
             display: none;
           }
@@ -297,6 +284,7 @@ export default {
       }
     }
   }
+
   .tipology.active li {
     @media screen and (min-width: 576px) {
       transform: rotate(calc(360deg / 12 * var(--i)));
@@ -322,6 +310,7 @@ export default {
 
 @media screen and (max-width: 576px) {
   .ms_jumbotron {
+    min-height: 450px;
     align-items: center !important;
   }
 }
